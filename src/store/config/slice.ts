@@ -9,15 +9,8 @@ const initialState = {
 const configSlice = createSlice({
   name: CONFIG,
   initialState,
-  reducers: {
-    addToken: (state, {payload}: {payload: {token: string}}) => {
-      return {
-        ...state,
-        ...payload,
-      };
-    },
-  },
+  reducers: {},
 });
 
-export const {addToken} = configSlice.actions;
+export const {} = configSlice.actions;
 export const configReducer = configSlice.reducer;

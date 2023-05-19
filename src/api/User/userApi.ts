@@ -1,6 +1,5 @@
 import axios from 'axios';
 import type {RequestResult} from '../types';
-import {errorMessageHandler} from '../ErrorHandler';
 
 interface UpdateUserParams {
   name?: string;
@@ -19,36 +18,21 @@ interface UserRequestResult extends UpdateUserParams {
   password: string;
 }
 
-export const getUserProfile = async (
+export const getUserProfileByGet = async (
   id: string,
 ): RequestResult<UserRequestResult> => {
-  try {
-    const response = await axios.get(`https://evrima.herokuapp.com/user/${id}`);
+  const response = await axios.get(`https://evrima.herokuapp.com/user/${id}`);
 
-    return response.data;
-  } catch (error: any) {
-    return {
-      isError: true,
-      message: errorMessageHandler(error),
-    };
-  }
+  return response.data;
 };
 
-export const putUpdateUserProfile = async (
+export const updateUserProfileByPut = async (
   id: string,
   params: UpdateUserParams,
 ): RequestResult<UserRequestResult> => {
-  try {
-    const response = await axios.put(
-      `https://evrima.herokuapp.com/user/${id}`,
-      {...params},
-    );
+  const response = await axios.put(`https://evrima.herokuapp.com/user/${id}`, {
+    ...params,
+  });
 
-    return response.data;
-  } catch (error: any) {
-    return {
-      isError: true,
-      message: errorMessageHandler(error),
-    };
-  }
+  return response.data;
 };

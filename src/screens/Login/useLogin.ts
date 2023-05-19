@@ -1,40 +1,29 @@
 import {useNavigation} from '@react-navigation/native';
 import {NavigationProp} from '../../navigation/types';
-import {useState} from 'react';
-
-import {getLogin} from '../../api/Auth';
-import {useAddToken} from '../../store/config';
-import {useAddUserId} from '../../store/user';
+import {useState, useEffect} from 'react';
+import {useFetchLoginUser, useUserStore} from '../../store/user';
 
 export const useLogin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [errorText, setErrorText] = useState('');
+  const {error, loading, data} = useUserStore();
 
-  const addToken = useAddToken();
-  const addUserId = useAddUserId();
+  const fetchLoginUser = useFetchLoginUser();
 
   const navigation = useNavigation<NavigationProp<'Login'>>();
 
   const handleLoginPress = () => {
-    getLogin({
+    fetchLoginUser({
       email,
       password,
-    }).then(response => {
-      console.log(response);
-
-      if ('isError' in response) {
-        setErrorText(response.message);
-
-        return;
-      }
-
-      addToken({token: response.token});
-      addUserId({id: response.id});
-
-      navigation.navigate('Home');
     });
   };
+
+  useEffect(() => {
+    if (data.id) {
+      navigation.navigate('Home');
+    }
+  }, [data, navigation]);
 
   const changeEmail = (text: string) => {
     setEmail(text);
@@ -50,6 +39,7 @@ export const useLogin = () => {
     onChangePassword: changePassword,
     email,
     password,
-    errorText,
+    errorText: error,
+    loading,
   };
 };

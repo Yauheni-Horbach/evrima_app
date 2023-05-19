@@ -1,3 +1,7 @@
 export type InitialState = {
-  id: string;
+  data: {
+    id: string;
+  };
+  loading: boolean;
+  error: null | string;
 };

@@ -1,40 +1,31 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {NavigationProp} from '../../navigation/types';
-
-import {postSignUp} from '../../api/Auth';
-import {useAddToken} from '../../store/config';
-import {useAddUserId} from '../../store/user';
+import {useSignUpUser, useUserStore} from '../../store/user';
 
 export const useRegistration = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [errorText, setErrorText] = useState('');
 
-  const addToken = useAddToken();
-  const addUserId = useAddUserId();
+  const signUpUser = useSignUpUser();
+  const {error, loading, data} = useUserStore();
 
   const navigation = useNavigation<NavigationProp<'Registration'>>();
 
   const handleRegisterPress = () => {
-    postSignUp({
+    signUpUser({
       name,
       email,
       password,
-    }).then(response => {
-      if ('isError' in response) {
-        setErrorText(response.message);
-
-        return;
-      }
-
-      addToken({token: response.token});
-      addUserId({id: response.id});
-
-      navigation.navigate('Personalization');
     });
   };
+
+  useEffect(() => {
+    if (data.id) {
+      navigation.navigate('Personalization');
+    }
+  }, [data, navigation]);
 
   const changeName = (text: string) => {
     setName(text);
@@ -56,6 +47,7 @@ export const useRegistration = () => {
     name,
     email,
     password,
-    errorText,
+    errorText: error,
+    loading,
   };
 };

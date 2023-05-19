@@ -1,112 +1,87 @@
 import axios from 'axios';
 import type {RequestResult} from '../types';
-import {errorMessageHandler} from '../ErrorHandler';
 
-type AuthResult = {token: string; id: string};
+export type AuthResult = {token: string; id: string};
 
-export const getLogin = async ({
-  email,
-  password,
-}: {
+export type LoginUserByPostParams = {
   email: string;
   password: string;
-}): RequestResult<AuthResult> => {
-  try {
-    const response = await axios.post(
-      'https://evrima.herokuapp.com/auth/login',
-      {
-        email,
-        password,
-      },
-    );
-
-    return response.data;
-  } catch (error: any) {
-    console.log(error.response.data);
-    return {
-      isError: true,
-      message: errorMessageHandler(error),
-    };
-  }
 };
 
-export const postSignUp = async ({
-  email,
-  password,
-  name,
-}: {
+export type SignUpUserByPostParams = {
   email: string;
   password: string;
   name: string;
-}): RequestResult<AuthResult> => {
-  try {
-    const response = await axios.post(
-      'https://evrima.herokuapp.com/auth/signup',
-      {
-        email,
-        password,
-        name,
-      },
-    );
-
-    return response.data;
-  } catch (error: any) {
-    return {
-      isError: true,
-      message: errorMessageHandler(error),
-    };
-  }
 };
 
-export const postUpdatePassword = async ({
-  email,
-  password,
-  newPassword,
-}: {
+export type UpdatePasswordByPostParams = {
   email: string;
   password: string;
   newPassword: string;
-}): RequestResult<AuthResult> => {
-  try {
-    const response = await axios.post(
-      'https://evrima.herokuapp.com/auth/update-password',
-      {
-        email,
-        password,
-        newPassword,
-      },
-    );
-
-    return response.data;
-  } catch (error: any) {
-    return {
-      isError: true,
-      message: errorMessageHandler(error),
-    };
-  }
 };
 
-export const postUpdateEmail = async ({
-  email,
-  newEmail,
-}: {
+export type UpdateEmailByPostParams = {
   email: string;
   newEmail: string;
-}): RequestResult<AuthResult> => {
-  try {
-    const response = await axios.post(
-      'https://evrima.herokuapp.com/auth/update-email',
-      {
-        email,
-        newEmail,
-      },
-    );
+};
 
-    return response.data;
-  } catch (error: any) {
-    return {
-      isError: true,
-      message: errorMessageHandler(error),
-    };
-  }
+export const loginUserByPost = async ({
+  email,
+  password,
+}: LoginUserByPostParams): RequestResult<AuthResult> => {
+  const response = await axios.post('https://evrima.herokuapp.com/auth/login', {
+    email,
+    password,
+  });
+
+  return response.data;
+};
+
+export const signUpUserByPost = async ({
+  email,
+  password,
+  name,
+}: SignUpUserByPostParams): RequestResult<AuthResult> => {
+  const response = await axios.post(
+    'https://evrima.herokuapp.com/auth/signup',
+    {
+      email,
+      password,
+      name,
+    },
+  );
+
+  return response.data;
+};
+
+export const updatePasswordByPost = async ({
+  email,
+  password,
+  newPassword,
+}: UpdatePasswordByPostParams): RequestResult<AuthResult> => {
+  const response = await axios.post(
+    'https://evrima.herokuapp.com/auth/update-password',
+    {
+      email,
+      password,
+      newPassword,
+    },
+  );
+
+  return response.data;
+};
+
+export const updateEmailByPost = async ({
+  email,
+  newEmail,
+}: UpdateEmailByPostParams): RequestResult<AuthResult> => {
+  const response = await axios.post(
+    'https://evrima.herokuapp.com/auth/update-email',
+    {
+      email,
+      newEmail,
+    },
+  );
+
+  return response.data;
 };

@@ -13,6 +13,7 @@ export const Registration = () => {
     email,
     password,
     errorText,
+    loading,
   } = useRegistration();
 
   return (
@@ -38,6 +39,7 @@ export const Registration = () => {
       />
       <Button title="Register" onPress={onRegisterPress} />
       <Text>{errorText}</Text>
+      {loading && <Text>Loading...</Text>}
     </View>
   );
 };
