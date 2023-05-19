@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, TextInput, Button} from 'react-native';
+import {View, TextInput, Button, Text} from 'react-native';
 import {styles} from './styles';
 import {useRegistration} from './useRegistration';
 
@@ -12,6 +12,7 @@ export const Registration = () => {
     name,
     email,
     password,
+    errorText,
   } = useRegistration();
 
   return (
@@ -36,6 +37,7 @@ export const Registration = () => {
         onChangeText={onChangePassword}
       />
       <Button title="Register" onPress={onRegisterPress} />
+      <Text>{errorText}</Text>
     </View>
   );
 };

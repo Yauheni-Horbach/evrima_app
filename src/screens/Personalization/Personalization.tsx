@@ -1,45 +1,54 @@
 import React from 'react';
-import {View, Text, Button} from 'react-native';
-import BouncyCheckbox from 'react-native-bouncy-checkbox';
+import {View, Text, TextInput, Button, StyleSheet} from 'react-native';
 import {styles} from './styles';
 import {usePersonalization} from './usePersonalization';
 
 export const Personalization = () => {
-  const {
-    onSavePress,
-    onChangeEnableNotifications,
-    onChangeEnableLocation,
-    onChangeEnableRecommendations,
-    enableNotifications,
-    enableLocation,
-    enableRecommendations,
-  } = usePersonalization();
+  const {onSavePress, onInputChange, profileData} = usePersonalization();
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Personalization Settings</Text>
-      <View style={styles.checkboxContainer}>
-        <BouncyCheckbox
-          isChecked={enableNotifications}
-          onPress={onChangeEnableNotifications}
+      <View style={styles.row}>
+        <Text style={styles.label}>Surname:</Text>
+        <TextInput
+          style={styles.input}
+          value={profileData.surName}
+          onChangeText={value => onInputChange('surName', value)}
         />
-        <Text style={styles.label}>Enable Notifications</Text>
       </View>
-      <View style={styles.checkboxContainer}>
-        <BouncyCheckbox
-          isChecked={enableLocation}
-          onPress={onChangeEnableLocation}
+      <View style={styles.row}>
+        <Text style={styles.label}>Sex:</Text>
+        <TextInput
+          style={styles.input}
+          value={profileData.sex}
+          onChangeText={value => onInputChange('sex', value)}
         />
-        <Text style={styles.label}>Enable Location</Text>
       </View>
-      <View style={styles.checkboxContainer}>
-        <BouncyCheckbox
-          isChecked={enableRecommendations}
-          onPress={onChangeEnableRecommendations}
+      <View style={styles.row}>
+        <Text style={styles.label}>Birth Date:</Text>
+        <TextInput
+          style={styles.input}
+          value={profileData.birthDate}
+          onChangeText={value => onInputChange('birthDate', value)}
         />
-        <Text style={styles.label}>Enable Recommendations</Text>
       </View>
-      <Button title="Save" onPress={onSavePress} />
+      <View style={styles.row}>
+        <Text style={styles.label}>Location:</Text>
+        <TextInput
+          style={styles.input}
+          value={profileData.location}
+          onChangeText={value => onInputChange('location', value)}
+        />
+      </View>
+      <View style={styles.row}>
+        <Text style={styles.label}>Avatar:</Text>
+        <TextInput
+          style={styles.input}
+          value={profileData.avatar}
+          onChangeText={value => onInputChange('avatar', value)}
+        />
+      </View>
+      <Button title="Save Changes" onPress={onSavePress} />
     </View>
   );
 };

@@ -5,9 +5,7 @@ export const useOnboarding = () => {
   const navigation = useNavigation<NavigationProp<'Onboarding'>>();
 
   const handleGetStartedPress = () => {
-    // Handle "Get Started" button press
-    console.log('Get Started pressed');
-    navigation.navigate('Personalization');
+    navigation.navigate('Home');
   };
 
   return {

@@ -3,20 +3,24 @@ import {StyleSheet} from 'react-native';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    padding: 16,
   },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 20,
-  },
-  checkboxContainer: {
+  row: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 10,
+    marginBottom: 16,
   },
   label: {
-    marginLeft: 8,
+    flex: 1,
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  input: {
+    flex: 2,
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    borderRadius: 4,
+    paddingHorizontal: 8,
   },
 });

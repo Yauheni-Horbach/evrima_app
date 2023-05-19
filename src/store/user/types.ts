@@ -1,3 +1,3 @@
 export type InitialState = {
-  token: string;
+  id: string;
 };

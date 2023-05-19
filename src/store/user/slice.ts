@@ -3,14 +3,14 @@ import {CONFIG} from '../storeNames';
 import {InitialState} from './types';
 
 const initialState = {
-  token: '',
+  id: '',
 } as InitialState;
 
-const configSlice = createSlice({
+const userSlice = createSlice({
   name: CONFIG,
   initialState,
   reducers: {
-    addToken: (state, {payload}: {payload: {token: string}}) => {
+    addUserId: (state, {payload}: {payload: {id: string}}) => {
       return {
         ...state,
         ...payload,
@@ -19,5 +19,5 @@ const configSlice = createSlice({
   },
 });
 
-export const {addToken} = configSlice.actions;
-export const configReducer = configSlice.reducer;
+export const {addUserId} = userSlice.actions;
+export const userReducer = userSlice.reducer;

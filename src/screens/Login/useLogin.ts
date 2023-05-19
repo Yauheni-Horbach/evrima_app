@@ -2,18 +2,38 @@ import {useNavigation} from '@react-navigation/native';
 import {NavigationProp} from '../../navigation/types';
 import {useState} from 'react';
 
+import {getLogin} from '../../api/Auth';
+import {useAddToken} from '../../store/config';
+import {useAddUserId} from '../../store/user';
+
 export const useLogin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errorText, setErrorText] = useState('');
+
+  const addToken = useAddToken();
+  const addUserId = useAddUserId();
 
   const navigation = useNavigation<NavigationProp<'Login'>>();
 
   const handleLoginPress = () => {
-    // Handle the login logic
-    console.log('Login pressed');
-    console.log('Email:', email);
-    console.log('Password:', password);
-    navigation.navigate('Home');
+    getLogin({
+      email,
+      password,
+    }).then(response => {
+      console.log(response);
+
+      if ('isError' in response) {
+        setErrorText(response.message);
+
+        return;
+      }
+
+      addToken({token: response.token});
+      addUserId({id: response.id});
+
+      navigation.navigate('Home');
+    });
   };
 
   const changeEmail = (text: string) => {
@@ -30,5 +50,6 @@ export const useLogin = () => {
     onChangePassword: changePassword,
     email,
     password,
+    errorText,
   };
 };
