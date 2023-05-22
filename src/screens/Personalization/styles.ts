@@ -8,12 +8,18 @@ export const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
     marginBottom: 16,
   },
   label: {
     flex: 1,
     fontSize: 16,
     fontWeight: 'bold',
+  },
+  textValue: {
+    flex: 2,
+    height: 40,
+    fontSize: 26,
   },
   input: {
     flex: 2,

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import type {RequestResult} from '../types';
 
-interface UpdateUserParams {
+export interface UpdateUserParams {
   name?: string;
   surName?: string;
   sex?: string;
@@ -12,10 +12,12 @@ interface UpdateUserParams {
   avatar?: string;
 }
 
-interface UserRequestResult extends UpdateUserParams {
+export interface UserRequestResult extends UpdateUserParams {
   name: string;
   email: string;
-  password: string;
+  id: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export const getUserProfileByGet = async (

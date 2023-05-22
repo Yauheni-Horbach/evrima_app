@@ -1,12 +1,18 @@
 import {useNavigation} from '@react-navigation/native';
 import {NavigationProp} from '../../navigation/types';
 import {useState, useEffect} from 'react';
-import {useFetchLoginUser, useUserStore} from '../../store/user';
+import {
+  useFetchLoginUser,
+  useUserStore,
+  Events,
+  useClearEventName,
+} from '../../store/user';
 
 export const useLogin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const {error, loading, data} = useUserStore();
+  const {error, loading, data, eventName} = useUserStore();
+  const clearEventName = useClearEventName();
 
   const fetchLoginUser = useFetchLoginUser();
 
@@ -20,10 +26,13 @@ export const useLogin = () => {
   };
 
   useEffect(() => {
-    if (data.id) {
-      navigation.navigate('Home');
+    if (eventName === Events.LOGIN_USER) {
+      navigation.reset({
+        routes: [{name: 'Home'}],
+      });
+      clearEventName();
     }
-  }, [data, navigation]);
+  }, [eventName]);
 
   const changeEmail = (text: string) => {
     setEmail(text);
@@ -40,6 +49,6 @@ export const useLogin = () => {
     email,
     password,
     errorText: error,
-    loading,
+    isLoading: loading,
   };
 };

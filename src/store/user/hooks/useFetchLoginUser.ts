@@ -1,13 +1,13 @@
-import * as React from 'react';
+import {useCallback} from 'react';
 import * as Redux from 'react-redux';
-import {fetchLoginUser} from '../slice';
+import {fetchLoginUser} from '../extraReducers';
 import {LoginUserByPostParams} from '../../../api/Auth';
 import {AppDispatch} from '../../index';
 
 export const useFetchLoginUser = () => {
   const dispatch = Redux.useDispatch<AppDispatch>();
 
-  return React.useCallback(
+  return useCallback(
     (params: LoginUserByPostParams) => {
       dispatch(fetchLoginUser(params));
     },

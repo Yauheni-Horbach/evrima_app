@@ -11,7 +11,7 @@ export const Login = () => {
     email,
     password,
     errorText,
-    loading,
+    isLoading,
   } = useLogin();
 
   return (
@@ -31,7 +31,7 @@ export const Login = () => {
       />
       <Button title="Login" onPress={onLoginPress} />
       <Text>{errorText}</Text>
-      {loading && <Text>Loading...</Text>}
+      {isLoading && <Text>Loading...</Text>}
     </View>
   );
 };

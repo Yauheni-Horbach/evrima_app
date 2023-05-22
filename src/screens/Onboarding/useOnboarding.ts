@@ -5,7 +5,9 @@ export const useOnboarding = () => {
   const navigation = useNavigation<NavigationProp<'Onboarding'>>();
 
   const handleGetStartedPress = () => {
-    navigation.navigate('Home');
+    navigation.reset({
+      routes: [{name: 'Home'}],
+    });
   };
 
   return {

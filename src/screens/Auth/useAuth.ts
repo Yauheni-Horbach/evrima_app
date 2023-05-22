@@ -13,7 +13,7 @@ export const useAuth = () => {
   };
 
   const handleContinueAsGuestPress = () => {
-    navigation.navigate('Personalization');
+    navigation.navigate('Home');
   };
 
   return {
