@@ -30,7 +30,6 @@ export const NewTravel = () => {
               placeholder="Search"
               fetchDetails
               onPress={(_, details = null) => {
-                console.log(JSON.stringify(details?.geometry?.location));
                 onInputChange('location', details?.place_id || '');
                 onInputChange('coordinates', {
                   lat: details?.geometry?.location?.lat || 0,

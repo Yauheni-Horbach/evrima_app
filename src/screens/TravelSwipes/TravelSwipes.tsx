@@ -4,10 +4,10 @@ import {styles} from './styles';
 import {useTravelSwipes} from './useTravelSwipes';
 import Swiper from 'react-native-deck-swiper';
 
-import {SwipeItem} from './components';
+import {SwipeItem, Footer} from './components';
 
 export const TravelSwipes = () => {
-  const {isLoading} = useTravelSwipes();
+  const {isLoading, listItems, currentCardIndex, onSwiped} = useTravelSwipes();
 
   return (
     <View style={styles.container}>
@@ -16,30 +16,43 @@ export const TravelSwipes = () => {
         <>
           <View style={styles.container}>
             <Swiper
-              cards={[]}
-              renderCard={card => {
-                return <SwipeItem />;
+              cards={listItems}
+              renderCard={(card, index) => {
+                return (
+                  <SwipeItem
+                    key={index}
+                    isCurrent={
+                      index >= currentCardIndex && index <= currentCardIndex + 2
+                    }
+                    location={card.geometry.location}
+                    address={card.formatted_address}
+                    name={card.name}
+                    photo={card.photos[0].photo_reference}
+                    rating={card.user_ratings_total}
+                    types={card.types}
+                  />
+                );
               }}
-              onSwiped={cardIndex => {
-                console.log(cardIndex);
-              }}
-              onSwipedAll={() => {
-                console.log('onSwipedAll');
-              }}
+              onSwipedAll={() => {}}
               onSwipedLeft={() => {
-                console.log('left');
+                onSwiped();
               }}
               onSwipedRight={() => {
-                console.log('right');
+                onSwiped();
               }}
-              onSwiping={(cardIndex, gestureDirection) => {
-                console.log(cardIndex, gestureDirection);
+              containerStyle={{
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+              cardStyle={{
+                borderRadius: 10,
+                height: '80%',
               }}
               cardIndex={0}
-              backgroundColor={'#4FD0E9'}
               stackSize={3}
             />
           </View>
+          <Footer />
         </>
       )}
     </View>

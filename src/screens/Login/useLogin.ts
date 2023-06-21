@@ -11,7 +11,7 @@ import {
 export const useLogin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const {error, loading, data, eventName} = useUserStore();
+  const {error, loading, eventName} = useUserStore();
   const clearEventName = useClearEventName();
 
   const fetchLoginUser = useFetchLoginUser();
