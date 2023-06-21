@@ -8,6 +8,9 @@ export type RootStackParamList = {
   Registration: undefined;
   Onboarding: undefined;
   Personalization: undefined;
+  NewTravel: undefined;
+  CurrentTravel: undefined;
+  TravelSwipes: undefined;
 };
 
 export type NavigationProp<Screen extends keyof RootStackParamList> =

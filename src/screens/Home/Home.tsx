@@ -1,5 +1,6 @@
 import React from 'react';
-import {View, TouchableOpacity, Text, StyleSheet} from 'react-native';
+import {View, TouchableOpacity, Text} from 'react-native';
+import {useHome} from './useHome';
 import {styles} from './styles';
 
 const SquareButton = ({
@@ -17,23 +18,7 @@ const SquareButton = ({
 };
 
 export const Home = () => {
-  const buttons = [
-    {
-      title: 'Creating Journey',
-      onPress: () => console.log('Creating Journey pressed'),
-    },
-    {
-      title: 'Journey history',
-      onPress: () => console.log('Journey history pressed'),
-    },
-    {title: 'Bookmarks', onPress: () => console.log('Bookmarks pressed')},
-    {
-      title: 'Location rating',
-      onPress: () => console.log('Location rating pressed'),
-    },
-    {title: 'Settings', onPress: () => console.log('Settings pressed')},
-    {title: 'Search', onPress: () => console.log('Search pressed')},
-  ];
+  const {buttons} = useHome();
 
   return (
     <View style={styles.container}>

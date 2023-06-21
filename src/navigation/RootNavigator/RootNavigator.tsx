@@ -8,6 +8,9 @@ import {Home} from '../../screens/Home';
 import {Registration} from '../../screens/Registration';
 import {Onboarding} from '../../screens/Onboarding';
 import {Personalization} from '../../screens/Personalization';
+import {NewTravel} from '../../screens/NewTravel';
+import {CurrentTravel} from '../../screens/CurrentTravel';
+import {TravelSwipes} from '../../screens/TravelSwipes';
 
 const linking = {
   prefixes: ['evrima://'],
@@ -20,6 +23,9 @@ const linking = {
       Registration: 'registration',
       Onboarding: 'onboarding',
       Personalization: 'personalization',
+      NewTravel: 'newTravel',
+      CurrentTravel: 'currentTravel',
+      TravelSwipes: 'travelSwipes',
     },
   },
 };
@@ -37,6 +43,9 @@ export const RootNavigator = () => {
         <Stack.Screen name="Registration" component={Registration} />
         <Stack.Screen name="Onboarding" component={Onboarding} />
         <Stack.Screen name="Personalization" component={Personalization} />
+        <Stack.Screen name="NewTravel" component={NewTravel} />
+        <Stack.Screen name="CurrentTravel" component={CurrentTravel} />
+        <Stack.Screen name="TravelSwipes" component={TravelSwipes} />
       </Stack.Navigator>
     </NavigationContainer>
   );
