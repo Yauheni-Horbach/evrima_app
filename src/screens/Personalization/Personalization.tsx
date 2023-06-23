@@ -1,10 +1,10 @@
-import React from 'react';
-import {View, Text, TextInput, Button} from 'react-native';
-import DateTimePicker from '@react-native-community/datetimepicker';
-import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
-import {SelectList} from 'react-native-dropdown-select-list';
-import {styles} from './styles';
 import {GOOGLE_MAPS_KEY} from '@env';
+import DateTimePicker from '@react-native-community/datetimepicker';
+import React from 'react';
+import {Button, Text, TextInput, View} from 'react-native';
+import {SelectList} from 'react-native-dropdown-select-list';
+import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
+import {styles} from './styles';
 import {usePersonalization} from './usePersonalization';
 
 const sexData = [

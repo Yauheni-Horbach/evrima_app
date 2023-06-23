@@ -1,5 +1,5 @@
+import {NavigationProp} from '@navigation/types';
 import {useNavigation} from '@react-navigation/native';
-import {NavigationProp} from '../../navigation/types';
 
 export const useHome = () => {
   const navigation = useNavigation<NavigationProp<'Home'>>();
@@ -16,14 +16,14 @@ export const useHome = () => {
       },
       {
         title: 'Journey history',
-        onPress: () => console.log('Journey history pressed'),
+        onPress: () => {},
       },
       {
         title: 'Location rating',
-        onPress: () => console.log('Location rating pressed'),
+        onPress: () => {},
       },
-      {title: 'Settings', onPress: () => console.log('Settings pressed')},
-      {title: 'Search', onPress: () => console.log('Search pressed')},
+      {title: 'Settings', onPress: () => {}},
+      {title: 'Search', onPress: () => {}},
     ],
   };
 };

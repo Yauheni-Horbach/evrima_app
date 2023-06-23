@@ -1,11 +1,11 @@
+import {GOOGLE_MAPS_KEY} from '@env';
 import React from 'react';
-import {View, Text, TextInput, Button} from 'react-native';
+import {Button, Text, TextInput, View} from 'react-native';
 import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
 import MapView from 'react-native-maps';
-import {styles} from './styles';
-import {GOOGLE_MAPS_KEY} from '@env';
-import {useNewTravel} from './useNewTravel';
 import Animated from 'react-native-reanimated';
+import {styles} from './styles';
+import {useNewTravel} from './useNewTravel';
 
 export const NewTravel = () => {
   const {onStartPress, onInputChange, profileData, isLoading} = useNewTravel();

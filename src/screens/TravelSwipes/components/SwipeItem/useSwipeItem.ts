@@ -10,12 +10,9 @@ export const useSwipeItem = (photo: string, isCurrent: boolean) => {
 
     fetch(URL)
       .then(data => {
-        console.log(data, '-------------');
         setUrlPhoto(data.url);
       })
-      .catch(error => {
-        console.log(error);
-      });
+      .catch(error => {});
   };
 
   useEffect(() => {

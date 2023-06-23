@@ -1,9 +1,9 @@
 import React from 'react';
-import {View, Text, Button} from 'react-native';
+import {Button, Text, View} from 'react-native';
 import MapView from 'react-native-maps';
+import Animated from 'react-native-reanimated';
 import {styles} from './styles';
 import {useCurrentTravel} from './useCurrentTravel';
-import Animated from 'react-native-reanimated';
 
 export const CurrentTravel = () => {
   const {isLoading, onOpenSwipes} = useCurrentTravel();

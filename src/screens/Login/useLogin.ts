@@ -1,12 +1,12 @@
+import {NavigationProp} from '@navigation/types';
 import {useNavigation} from '@react-navigation/native';
-import {NavigationProp} from '../../navigation/types';
-import {useState, useEffect} from 'react';
 import {
-  useFetchLoginUser,
-  useUserStore,
   Events,
   useClearEventName,
-} from '../../store/user';
+  useFetchLoginUser,
+  useUserStore,
+} from '@store/user';
+import {useEffect, useState} from 'react';
 
 export const useLogin = () => {
   const [email, setEmail] = useState('');

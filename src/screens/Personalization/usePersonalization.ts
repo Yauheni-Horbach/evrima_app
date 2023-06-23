@@ -1,13 +1,13 @@
-import {useState, useEffect, useRef} from 'react';
+import {useState, useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
-import {NavigationProp} from '../../navigation/types';
+import {NavigationProp} from '@navigation/types';
 import {
   useGetUserProfile,
   useUserStore,
   useUpdateUserProfile,
   useClearEventName,
   Events,
-} from '../../store/user';
+} from '@store/user';
 
 const filterEmptyValues = (obj: Record<string, any>) => {
   const filteredEntries = Object.entries(obj).filter(

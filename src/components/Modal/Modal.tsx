@@ -10,7 +10,11 @@ interface CustomModalProps {
 
 export const Modal = ({visible, onClose, children}: CustomModalProps) => {
   return (
-    <NativeModal visible={visible} animationType="fade" transparent>
+    <NativeModal
+      visible={visible}
+      animationType="fade"
+      transparent
+      style={styles.modalContainer}>
       <View style={styles.modalContainer}>
         <View style={styles.modalContent}>
           {children}

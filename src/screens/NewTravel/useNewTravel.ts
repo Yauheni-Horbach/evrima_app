@@ -1,6 +1,6 @@
 import {useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
-import {NavigationProp} from '../../navigation/types';
+import {NavigationProp} from '@navigation/types';
 
 export const useNewTravel = () => {
   const navigation = useNavigation<NavigationProp<'NewTravel'>>();

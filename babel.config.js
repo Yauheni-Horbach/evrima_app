@@ -13,5 +13,32 @@ module.exports = {
         allowUndefined: true,
       },
     ],
+    [
+      'module-resolver',
+      {
+        root: ['./src'],
+        extensions: [
+          '.ios.ts',
+          '.android.ts',
+          '.ts',
+          '.ios.tsx',
+          '.android.tsx',
+          '.tsx',
+          '.jsx',
+          '.js',
+          '.json',
+        ],
+        alias: {
+          '@managers': './src/managers',
+          '@screens': './src/screens',
+          '@ui': './src/ui',
+          '@store': './src/store',
+          '@components': './src/components',
+          '@api': './src/api',
+          '@navigation': './src/navigation',
+          '@mocks': './src/mocks',
+        },
+      },
+    ],
   ],
 };

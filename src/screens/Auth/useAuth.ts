@@ -1,5 +1,5 @@
+import {NavigationProp} from '@navigation/types';
 import {useNavigation} from '@react-navigation/native';
-import {NavigationProp} from '../../navigation/types';
 
 export const useAuth = () => {
   const navigation = useNavigation<NavigationProp<'Auth'>>();

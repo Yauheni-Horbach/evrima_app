@@ -1,12 +1,12 @@
 import {useState, useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
-import {NavigationProp} from '../../navigation/types';
+import {NavigationProp} from '@navigation/types';
 import {
   useSignUpUser,
   useUserStore,
   Events,
   useClearEventName,
-} from '../../store/user';
+} from '@store/user';
 
 export const useRegistration = () => {
   const [name, setName] = useState('');
