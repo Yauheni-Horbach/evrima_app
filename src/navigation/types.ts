@@ -19,6 +19,8 @@ export type RootStackParamList = {
   CurrentTravel: undefined;
   TravelSwipes: undefined;
   SwipeItemDetails: SwipeItemDetailsProps;
+  SearchCurrentTravel: undefined;
+  SettingsCurrentTravel: undefined;
 };
 
 type AllNavigators = RootStackParamList;

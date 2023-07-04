@@ -4,7 +4,7 @@ import {styles} from './styles';
 import {useTravelSwipes} from './useTravelSwipes';
 import Swiper from 'react-native-deck-swiper';
 
-import {SwipeItem, Footer} from './components';
+import {SwipeItem} from './components';
 
 export const TravelSwipes = () => {
   const {
@@ -60,7 +60,6 @@ export const TravelSwipes = () => {
               stackSize={3}
             />
           </View>
-          <Footer />
         </>
       )}
     </View>

@@ -19,9 +19,18 @@ export const styles = StyleSheet.create({
     borderColor: 'red',
     borderWidth: 1,
   },
-  icon: {
-    width: 24,
-    height: 24,
-    resizeMode: 'contain',
+  buttonText: {
+    fontSize: 12,
+  },
+  mainButtonText: {
+    fontSize: 24,
+  },
+  mainButton: {
+    width: 80,
+    height: 80,
+    borderRadius: 80,
+  },
+  activeTabButton: {
+    backgroundColor: 'red',
   },
 });

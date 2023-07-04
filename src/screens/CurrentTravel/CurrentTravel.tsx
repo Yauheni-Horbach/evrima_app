@@ -1,12 +1,12 @@
 import React from 'react';
-import {Button, Text, View} from 'react-native';
+import {Text, View} from 'react-native';
 import MapView from 'react-native-maps';
 import Animated from 'react-native-reanimated';
 import {styles} from './styles';
 import {useCurrentTravel} from './useCurrentTravel';
 
 export const CurrentTravel = () => {
-  const {isLoading, onOpenSwipes} = useCurrentTravel();
+  const {isLoading} = useCurrentTravel();
 
   return (
     <View style={styles.container}>
@@ -27,7 +27,6 @@ export const CurrentTravel = () => {
               mapType="mutedStandard"
               minZoomLevel={7}></MapView>
           </Animated.View>
-          <Button title="Swipes" onPress={onOpenSwipes} />
         </>
       )}
     </View>
