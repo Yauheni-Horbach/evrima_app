@@ -1,24 +1,22 @@
 import React from 'react';
-import {View, TouchableOpacity, Image, Text} from 'react-native';
+import {View, TouchableOpacity, Image} from 'react-native';
 import {styles} from './styles';
+import {icons} from '@ui/index';
 
 export const Footer = () => {
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.button}>
-        <Text style={{fontSize: 10}}>Back</Text>
+        <Image source={icons.like} style={styles.icon} />
       </TouchableOpacity>
       <TouchableOpacity style={styles.button}>
-        <Text style={{fontSize: 10}}>Search</Text>
+        <Image source={icons.like} style={styles.icon} />
       </TouchableOpacity>
       <TouchableOpacity style={styles.button}>
-        <Text style={{fontSize: 10}}>Map</Text>
+        <Image source={icons.like} style={styles.icon} />
       </TouchableOpacity>
       <TouchableOpacity style={styles.button}>
-        <Text style={{fontSize: 10}}>Swipe</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.button}>
-        <Text style={{fontSize: 10}}>Settings</Text>
+        <Image source={icons.like} style={styles.icon} />
       </TouchableOpacity>
     </View>
   );
