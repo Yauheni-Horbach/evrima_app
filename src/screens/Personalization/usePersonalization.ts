@@ -36,7 +36,7 @@ export const usePersonalization = () => {
     getUserProfile(data.id);
   }, []);
 
-  const handleSavePress = () => {
+  const onSavePress = () => {
     updateUserProfile(data.id, filterEmptyValues(profileData));
   };
 
@@ -49,13 +49,13 @@ export const usePersonalization = () => {
     }
   }, [eventName]);
 
-  const handleInputChange = (field: string, value: string) => {
+  const onInputChange = (field: string, value: string) => {
     setProfileData({...profileData, [field]: value});
   };
 
   return {
-    onSavePress: handleSavePress,
-    onInputChange: handleInputChange,
+    onSavePress,
+    onInputChange,
     profileData,
     isLoading: loading,
     errorText: error,

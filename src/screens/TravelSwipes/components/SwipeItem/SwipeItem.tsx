@@ -1,6 +1,5 @@
 import React from 'react';
-import {View, Modal, Button, Text, Image} from 'react-native';
-import MapView, {Marker} from 'react-native-maps';
+import {View, Button, Text, Image} from 'react-native';
 import {styles} from './styles';
 import {useSwipeItem} from './useSwipeItem';
 
@@ -11,10 +10,7 @@ interface SwipeItemProps {
   rating: number;
   types: string[];
   isCurrent: boolean;
-  location: {
-    lat: number;
-    lng: number;
-  };
+  onOpenSwipeItemDetails: () => void;
 }
 
 export const SwipeItem = ({
@@ -24,34 +20,12 @@ export const SwipeItem = ({
   rating,
   types,
   isCurrent,
-  location,
+  onOpenSwipeItemDetails,
 }: SwipeItemProps) => {
-  const {onChangeStateMap, isMapVisible, urlPhoto} = useSwipeItem(
-    photo,
-    isCurrent,
-  );
+  const {urlPhoto} = useSwipeItem(photo, isCurrent);
 
   return (
     <View style={styles.card}>
-      {isMapVisible && (
-        <Modal visible={isMapVisible} animationType="slide">
-          <MapView
-            style={styles.map}
-            region={{
-              latitude: location.lat,
-              longitude: location.lng,
-              latitudeDelta: 0,
-              longitudeDelta: 0,
-            }}
-            mapType="mutedStandard"
-            minZoomLevel={12}>
-            <Marker
-              coordinate={{latitude: location.lat, longitude: location.lng}}
-            />
-          </MapView>
-          <Button title="Close map" onPress={onChangeStateMap} />
-        </Modal>
-      )}
       <Text>name-{name}</Text>
       <Text>address-{address}</Text>
       <Text>rating-{rating}</Text>
@@ -64,7 +38,7 @@ export const SwipeItem = ({
           />
         )}
       </View>
-      <Button title="Open map" onPress={onChangeStateMap} />
+      <Button title="Open Details" onPress={onOpenSwipeItemDetails} />
     </View>
   );
 };

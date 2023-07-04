@@ -19,7 +19,7 @@ export const useRegistration = () => {
 
   const navigation = useNavigation<NavigationProp<'Registration'>>();
 
-  const handleRegisterPress = () => {
+  const onRegisterPress = () => {
     signUpUser({
       name,
       email,
@@ -34,23 +34,23 @@ export const useRegistration = () => {
     }
   }, [eventName]);
 
-  const changeName = (text: string) => {
+  const onChangeName = (text: string) => {
     setName(text);
   };
 
-  const changeEmail = (text: string) => {
+  const onChangeEmail = (text: string) => {
     setEmail(text);
   };
 
-  const changePassword = (text: string) => {
+  const onChangePassword = (text: string) => {
     setPassword(text);
   };
 
   return {
-    onRegisterPress: handleRegisterPress,
-    onChangeName: changeName,
-    onChangeEmail: changeEmail,
-    onChangePassword: changePassword,
+    onRegisterPress,
+    onChangeName,
+    onChangeEmail,
+    onChangePassword,
     name,
     email,
     password,

@@ -4,21 +4,21 @@ import {useNavigation} from '@react-navigation/native';
 export const useAuth = () => {
   const navigation = useNavigation<NavigationProp<'Auth'>>();
 
-  const handleAuthPress = () => {
+  const onAuthPress = () => {
     navigation.navigate('Login');
   };
 
-  const handleRegisterPress = () => {
+  const onRegisterPress = () => {
     navigation.navigate('Registration');
   };
 
-  const handleContinueAsGuestPress = () => {
+  const onContinueAsGuestPress = () => {
     navigation.navigate('Home');
   };
 
   return {
-    onAuthPress: handleAuthPress,
-    onRegisterPress: handleRegisterPress,
-    onContinueAsGuestPress: handleContinueAsGuestPress,
+    onAuthPress,
+    onRegisterPress,
+    onContinueAsGuestPress,
   };
 };

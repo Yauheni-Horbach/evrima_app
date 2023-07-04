@@ -11,6 +11,8 @@ import {Personalization} from '../../screens/Personalization';
 import {NewTravel} from '../../screens/NewTravel';
 import {CurrentTravel} from '../../screens/CurrentTravel';
 import {TravelSwipes} from '../../screens/TravelSwipes';
+import {SwipeItemDetails} from '../../screens/SwipeItemDetails';
+import {SwipeItemDetailsProps, RootStackParamList} from '../types';
 
 const linking = {
   prefixes: ['evrima://'],
@@ -26,11 +28,12 @@ const linking = {
       NewTravel: 'newTravel',
       CurrentTravel: 'currentTravel',
       TravelSwipes: 'travelSwipes',
+      SwipeItemDetails: 'swipeItemDetails',
     },
   },
 };
 
-const Stack = createStackNavigator();
+const Stack = createStackNavigator<RootStackParamList>();
 
 export const RootNavigator = () => {
   return (
@@ -46,6 +49,7 @@ export const RootNavigator = () => {
         <Stack.Screen name="NewTravel" component={NewTravel} />
         <Stack.Screen name="CurrentTravel" component={CurrentTravel} />
         <Stack.Screen name="TravelSwipes" component={TravelSwipes} />
+        <Stack.Screen name="SwipeItemDetails" component={SwipeItemDetails} />
       </Stack.Navigator>
     </NavigationContainer>
   );

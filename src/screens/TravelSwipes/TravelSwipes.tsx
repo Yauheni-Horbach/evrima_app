@@ -7,7 +7,13 @@ import Swiper from 'react-native-deck-swiper';
 import {SwipeItem, Footer} from './components';
 
 export const TravelSwipes = () => {
-  const {isLoading, listItems, currentCardIndex, onSwiped} = useTravelSwipes();
+  const {
+    isLoading,
+    listItems,
+    currentCardIndex,
+    onSwiped,
+    onOpenSwipeItemDetails,
+  } = useTravelSwipes();
 
   return (
     <View style={styles.container}>
@@ -24,12 +30,14 @@ export const TravelSwipes = () => {
                     isCurrent={
                       index >= currentCardIndex && index <= currentCardIndex + 2
                     }
-                    location={card.geometry.location}
                     address={card.formatted_address}
                     name={card.name}
                     photo={card.photos[0].photo_reference}
                     rating={card.user_ratings_total}
                     types={card.types}
+                    onOpenSwipeItemDetails={onOpenSwipeItemDetails(
+                      card.geometry.location,
+                    )}
                   />
                 );
               }}

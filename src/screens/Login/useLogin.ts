@@ -18,7 +18,7 @@ export const useLogin = () => {
 
   const navigation = useNavigation<NavigationProp<'Login'>>();
 
-  const handleLoginPress = () => {
+  const onLoginPress = () => {
     fetchLoginUser({
       email,
       password,
@@ -34,18 +34,18 @@ export const useLogin = () => {
     }
   }, [eventName]);
 
-  const changeEmail = (text: string) => {
+  const onChangeEmail = (text: string) => {
     setEmail(text);
   };
 
-  const changePassword = (text: string) => {
+  const onChangePassword = (text: string) => {
     setPassword(text);
   };
 
   return {
-    onLoginPress: handleLoginPress,
-    onChangeEmail: changeEmail,
-    onChangePassword: changePassword,
+    onLoginPress,
+    onChangeEmail,
+    onChangePassword,
     email,
     password,
     errorText: error,

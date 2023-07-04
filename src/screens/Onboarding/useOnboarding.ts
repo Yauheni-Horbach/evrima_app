@@ -4,13 +4,13 @@ import {NavigationProp} from '@navigation/types';
 export const useOnboarding = () => {
   const navigation = useNavigation<NavigationProp<'Onboarding'>>();
 
-  const handleGetStartedPress = () => {
+  const onGetStartedPress = () => {
     navigation.reset({
       routes: [{name: 'Home'}],
     });
   };
 
   return {
-    onGetStartedPress: handleGetStartedPress,
+    onGetStartedPress,
   };
 };

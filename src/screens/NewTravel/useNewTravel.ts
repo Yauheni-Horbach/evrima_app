@@ -14,11 +14,11 @@ export const useNewTravel = () => {
     },
   });
 
-  const handleStartPress = () => {
+  const onStartPress = () => {
     navigation.navigate('CurrentTravel');
   };
 
-  const handleInputChange = (
+  const onInputChange = (
     field: string,
     value: string | {lat: number; lng: number},
   ) => {
@@ -26,8 +26,8 @@ export const useNewTravel = () => {
   };
 
   return {
-    onStartPress: handleStartPress,
-    onInputChange: handleInputChange,
+    onStartPress,
+    onInputChange,
     profileData,
     isLoading: false,
     errorText: '',

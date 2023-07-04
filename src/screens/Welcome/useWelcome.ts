@@ -4,11 +4,11 @@ import {NavigationProp} from '@navigation/types';
 export const useWelcome = () => {
   const navigation = useNavigation<NavigationProp<'Welcome'>>();
 
-  const handleBackgroundPress = () => {
+  const onBackgroundPress = () => {
     navigation.navigate('Auth');
   };
 
   return {
-    onBackgroundPress: handleBackgroundPress,
+    onBackgroundPress,
   };
 };
