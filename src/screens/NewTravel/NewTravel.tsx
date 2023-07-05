@@ -43,9 +43,7 @@ export const NewTravel = () => {
               }}
             />
           </View>
-          <Animated.View
-            style={styles.containerMap}
-            sharedTransitionTag="mapTag">
+          <Animated.View style={styles.containerMap}>
             <MapView
               style={styles.map}
               region={{

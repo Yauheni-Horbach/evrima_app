@@ -14,9 +14,7 @@ export const CurrentTravel = () => {
       {isLoading && <Text>Loading...</Text>}
       {!isLoading && (
         <>
-          <Animated.View
-            style={styles.containerMap}
-            sharedTransitionTag="mapTag">
+          <Animated.View style={styles.containerMap}>
             <MapView
               style={styles.map}
               region={{
