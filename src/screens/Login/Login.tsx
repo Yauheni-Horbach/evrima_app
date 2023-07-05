@@ -1,7 +1,8 @@
 import React from 'react';
-import {View, TextInput, Button, Text} from 'react-native';
+import {TextInput, Button, Text} from 'react-native';
 import {styles} from './styles';
 import {useLogin} from './useLogin';
+import {ScreenWrapper} from '@components/ScreenWrapper';
 
 export const Login = () => {
   const {
@@ -15,7 +16,7 @@ export const Login = () => {
   } = useLogin();
 
   return (
-    <View style={styles.container}>
+    <ScreenWrapper style={styles.container}>
       <TextInput
         style={styles.input}
         placeholder="Email"
@@ -32,6 +33,6 @@ export const Login = () => {
       <Button title="Login" onPress={onLoginPress} />
       <Text>{errorText}</Text>
       {isLoading && <Text>Loading...</Text>}
-    </View>
+    </ScreenWrapper>
   );
 };

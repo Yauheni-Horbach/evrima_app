@@ -1,6 +1,12 @@
 import {StyleSheet} from 'react-native';
 
 export const styles = StyleSheet.create({
+  name: {
+    fontSize: 35,
+    fontWeight: 'bold',
+    fontStyle: 'italic',
+    textAlign: 'center',
+  },
   card: {
     flex: 1,
     borderRadius: 4,
@@ -11,7 +17,12 @@ export const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   map: {
-    height: 350,
-    width: 350,
+    height: 300,
+    width: 300,
+  },
+  mapContainer: {
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });

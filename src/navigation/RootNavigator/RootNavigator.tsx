@@ -97,7 +97,10 @@ export const RootNavigator = () => {
         <Stack.Screen name="Onboarding" component={Onboarding} />
         <Stack.Screen name="Personalization" component={Personalization} />
         <Stack.Screen name="NewTravel" component={NewTravel} />
-        <Stack.Screen name="CurrentTravel" component={CurrentTravelNavigator} />
+        <Stack.Screen
+          name="CurrentTravelNavigator"
+          component={CurrentTravelNavigator}
+        />
         <ModalStack.Group>
           <Stack.Screen
             name="SwipeItemDetails"

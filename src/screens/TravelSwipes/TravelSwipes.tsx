@@ -3,7 +3,7 @@ import {View, Text} from 'react-native';
 import {styles} from './styles';
 import {useTravelSwipes} from './useTravelSwipes';
 import Swiper from 'react-native-deck-swiper';
-
+import {ScreenWrapper} from '@components/ScreenWrapper';
 import {SwipeItem} from './components';
 
 export const TravelSwipes = () => {
@@ -16,7 +16,7 @@ export const TravelSwipes = () => {
   } = useTravelSwipes();
 
   return (
-    <View style={styles.container}>
+    <ScreenWrapper style={styles.container}>
       {isLoading && <Text>Loading...</Text>}
       {!isLoading && (
         <>
@@ -37,6 +37,7 @@ export const TravelSwipes = () => {
                     types={card.types}
                     onOpenSwipeItemDetails={onOpenSwipeItemDetails(
                       card.geometry.location,
+                      card.place_id,
                     )}
                   />
                 );
@@ -53,8 +54,8 @@ export const TravelSwipes = () => {
                 justifyContent: 'center',
               }}
               cardStyle={{
-                borderRadius: 10,
-                height: '80%',
+                borderRadius: 30,
+                height: '90%',
               }}
               cardIndex={0}
               stackSize={3}
@@ -62,6 +63,6 @@ export const TravelSwipes = () => {
           </View>
         </>
       )}
-    </View>
+    </ScreenWrapper>
   );
 };

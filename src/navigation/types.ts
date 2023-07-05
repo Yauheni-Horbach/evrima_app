@@ -5,6 +5,7 @@ export interface SwipeItemDetailsProps {
     lat: number;
     lng: number;
   };
+  placeId: string;
 }
 
 export type RootStackParamList = {
@@ -21,6 +22,7 @@ export type RootStackParamList = {
   SwipeItemDetails: SwipeItemDetailsProps;
   SearchCurrentTravel: undefined;
   SettingsCurrentTravel: undefined;
+  CurrentTravelNavigator: undefined;
 };
 
 type AllNavigators = RootStackParamList;

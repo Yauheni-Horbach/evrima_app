@@ -12,7 +12,7 @@ export const useHome = () => {
       },
       {
         title: 'Current Journey',
-        onPress: () => navigation.navigate('CurrentTravel'),
+        onPress: () => navigation.navigate('CurrentTravelNavigator'),
       },
       {
         title: 'Journey history',

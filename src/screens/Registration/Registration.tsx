@@ -1,7 +1,8 @@
 import React from 'react';
-import {View, TextInput, Button, Text} from 'react-native';
+import {TextInput, Button, Text} from 'react-native';
 import {styles} from './styles';
 import {useRegistration} from './useRegistration';
+import {ScreenWrapper} from '@components/ScreenWrapper';
 
 export const Registration = () => {
   const {
@@ -17,7 +18,7 @@ export const Registration = () => {
   } = useRegistration();
 
   return (
-    <View style={styles.container}>
+    <ScreenWrapper style={styles.container}>
       <TextInput
         style={styles.input}
         placeholder="Name"
@@ -40,6 +41,6 @@ export const Registration = () => {
       <Button title="Register" onPress={onRegisterPress} />
       <Text>{errorText}</Text>
       {isLoading && <Text>Loading...</Text>}
-    </View>
+    </ScreenWrapper>
   );
 };

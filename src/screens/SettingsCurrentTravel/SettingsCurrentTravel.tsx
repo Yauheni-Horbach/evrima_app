@@ -1,10 +1,11 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import {Text} from 'react-native';
+import {ScreenWrapper} from '@components/ScreenWrapper';
 
 export const SettingsCurrentTravel = () => {
   return (
-    <View>
+    <ScreenWrapper>
       <Text>Settings</Text>
-    </View>
+    </ScreenWrapper>
   );
 };

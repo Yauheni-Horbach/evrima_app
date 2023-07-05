@@ -6,6 +6,7 @@ import {SelectList} from 'react-native-dropdown-select-list';
 import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
 import {styles} from './styles';
 import {usePersonalization} from './usePersonalization';
+import {ScreenWrapper} from '@components/ScreenWrapper';
 
 const sexData = [
   {key: '1', value: 'woman'},
@@ -17,7 +18,7 @@ export const Personalization = () => {
     usePersonalization();
 
   return (
-    <View style={styles.container}>
+    <ScreenWrapper>
       {isLoading && <Text>Loading...</Text>}
       {!isLoading && (
         <>
@@ -79,6 +80,6 @@ export const Personalization = () => {
           <Text>{errorText}</Text>
         </>
       )}
-    </View>
+    </ScreenWrapper>
   );
 };

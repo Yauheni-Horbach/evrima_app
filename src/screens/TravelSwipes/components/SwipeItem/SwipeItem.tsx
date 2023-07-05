@@ -32,7 +32,7 @@ export const SwipeItem = ({
         <Text>address-{address}</Text>
         <Text>rating-{rating}</Text>
         <Text>types-{types.join(', ')}</Text>
-        <View style={{height: 200, width: 200}}>
+        <View style={{height: 350, width: 350}}>
           {urlPhoto && (
             <Image
               source={{uri: urlPhoto}}

@@ -1,11 +1,13 @@
 import {configureStore} from '@reduxjs/toolkit';
 import {configReducer} from './config';
 import {userReducer} from './user';
+import {currentTravelReducer} from './currentTravel';
 
 const store = configureStore({
   reducer: {
     config: configReducer,
     user: userReducer,
+    currentTravel: currentTravelReducer,
   },
 });
 

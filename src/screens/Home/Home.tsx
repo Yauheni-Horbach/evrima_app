@@ -1,7 +1,8 @@
 import React from 'react';
-import {View, TouchableOpacity, Text} from 'react-native';
+import {TouchableOpacity, Text} from 'react-native';
 import {useHome} from './useHome';
 import {styles} from './styles';
+import {ScreenWrapper} from '@components/ScreenWrapper';
 
 const SquareButton = ({
   title,
@@ -21,7 +22,7 @@ export const Home = () => {
   const {buttons} = useHome();
 
   return (
-    <View style={styles.container}>
+    <ScreenWrapper style={styles.container}>
       {buttons.map((button, index) => (
         <SquareButton
           key={index}
@@ -29,6 +30,6 @@ export const Home = () => {
           onPress={button.onPress}
         />
       ))}
-    </View>
+    </ScreenWrapper>
   );
 };

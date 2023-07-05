@@ -15,7 +15,7 @@ export const useNewTravel = () => {
   });
 
   const onStartPress = () => {
-    navigation.navigate('CurrentTravel');
+    navigation.navigate('CurrentTravelNavigator');
   };
 
   const onInputChange = (

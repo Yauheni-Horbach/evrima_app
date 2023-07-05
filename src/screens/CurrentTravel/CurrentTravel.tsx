@@ -1,15 +1,16 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import {Text} from 'react-native';
 import MapView from 'react-native-maps';
 import Animated from 'react-native-reanimated';
 import {styles} from './styles';
 import {useCurrentTravel} from './useCurrentTravel';
+import {ScreenWrapper} from '@components/ScreenWrapper';
 
 export const CurrentTravel = () => {
   const {isLoading} = useCurrentTravel();
 
   return (
-    <View style={styles.container}>
+    <ScreenWrapper>
       {isLoading && <Text>Loading...</Text>}
       {!isLoading && (
         <>
@@ -29,6 +30,6 @@ export const CurrentTravel = () => {
           </Animated.View>
         </>
       )}
-    </View>
+    </ScreenWrapper>
   );
 };

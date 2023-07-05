@@ -3,7 +3,6 @@ import {TouchableOpacity, Text} from 'react-native';
 import {styles} from './styles';
 
 type TabProps = {
-  key: string;
   onPress: () => void;
   label: string;
   isMainTab?: boolean;
@@ -11,7 +10,6 @@ type TabProps = {
 };
 
 export const Tab: React.FC<TabProps> = ({
-  key,
   onPress,
   isMainTab,
   isFocused,
@@ -20,7 +18,6 @@ export const Tab: React.FC<TabProps> = ({
   return (
     <>
       <TouchableOpacity
-        key={key}
         onPress={onPress}
         style={[
           styles.button,

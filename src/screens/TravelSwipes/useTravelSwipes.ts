@@ -1,15 +1,14 @@
 import {useEffect, useState} from 'react';
-import {GOOGLE_MAPS_KEY} from '@env';
+import {URL_PLACE_TEXT_SEARCH} from '@api/URLList';
 import {googleMapsPlaceTextSearch} from '@mocks';
 import {useNavigation} from '@react-navigation/native';
 import {NavigationProp} from '@navigation/types';
 
 const types = ['art_gallery', 'bar', 'cafe'];
 
+//TODO - remove mocks and change query value
 const requests = types.map(type =>
-  fetch(
-    `https://maps.googleapis.com/maps/api/place/textsearch/json?key=${GOOGLE_MAPS_KEY}&query=OSLO&radius=2000&type=${type}`,
-  ),
+  fetch(URL_PLACE_TEXT_SEARCH({type, query: 'OSLO'})),
 );
 
 export const useTravelSwipes = () => {
@@ -39,10 +38,14 @@ export const useTravelSwipes = () => {
     setCurrentCardIndex(currentCardIndex + 1);
   };
 
-  const onOpenSwipeItemDetails = (location: {lat: number; lng: number}) => {
+  const onOpenSwipeItemDetails = (
+    location: {lat: number; lng: number},
+    place_id: string,
+  ) => {
     return () => {
       navigation.navigate('SwipeItemDetails', {
         location,
+        placeId: place_id,
       });
     };
   };

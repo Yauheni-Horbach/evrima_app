@@ -6,12 +6,13 @@ import MapView from 'react-native-maps';
 import Animated from 'react-native-reanimated';
 import {styles} from './styles';
 import {useNewTravel} from './useNewTravel';
+import {ScreenWrapper} from '@components/ScreenWrapper';
 
 export const NewTravel = () => {
   const {onStartPress, onInputChange, profileData, isLoading} = useNewTravel();
 
   return (
-    <View style={styles.container}>
+    <ScreenWrapper>
       {isLoading && <Text>Loading...</Text>}
       {!isLoading && (
         <>
@@ -59,6 +60,6 @@ export const NewTravel = () => {
           <Button title="Let's start" onPress={onStartPress} />
         </>
       )}
-    </View>
+    </ScreenWrapper>
   );
 };
