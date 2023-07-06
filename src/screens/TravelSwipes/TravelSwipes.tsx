@@ -10,8 +10,10 @@ export const TravelSwipes = () => {
   const {
     isLoading,
     listItems,
+    swiperRef,
     currentCardIndex,
     onSwiped,
+    onPressChangeState,
     onOpenSwipeItemDetails,
   } = useTravelSwipes();
 
@@ -22,6 +24,7 @@ export const TravelSwipes = () => {
         <>
           <View style={styles.container}>
             <Swiper
+              ref={swiperRef}
               cards={listItems}
               renderCard={(card, index) => {
                 return (
@@ -35,6 +38,7 @@ export const TravelSwipes = () => {
                     photo={card.photos[0].photo_reference}
                     rating={card.user_ratings_total}
                     types={card.types}
+                    onChangeState={state => onPressChangeState(index, state)}
                     onOpenSwipeItemDetails={onOpenSwipeItemDetails(
                       card.geometry.location,
                       card.place_id,
@@ -42,12 +46,11 @@ export const TravelSwipes = () => {
                   />
                 );
               }}
-              onSwipedAll={() => {}}
-              onSwipedLeft={() => {
-                onSwiped();
+              onSwipedLeft={index => {
+                onSwiped(index, 'dislike');
               }}
-              onSwipedRight={() => {
-                onSwiped();
+              onSwipedRight={index => {
+                onSwiped(index, 'like');
               }}
               containerStyle={{
                 alignItems: 'center',

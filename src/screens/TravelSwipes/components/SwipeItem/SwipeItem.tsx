@@ -12,6 +12,7 @@ interface SwipeItemProps {
   types: string[];
   isCurrent: boolean;
   onOpenSwipeItemDetails: () => void;
+  onChangeState: (state: 'dislike' | 'like') => void;
 }
 
 export const SwipeItem = ({
@@ -22,6 +23,7 @@ export const SwipeItem = ({
   types,
   isCurrent,
   onOpenSwipeItemDetails,
+  onChangeState,
 }: SwipeItemProps) => {
   const {urlPhoto} = useSwipeItem(photo, isCurrent);
 
@@ -42,7 +44,7 @@ export const SwipeItem = ({
         </View>
         <Button title="Open Details" onPress={onOpenSwipeItemDetails} />
       </View>
-      <Footer />
+      <Footer onChangeState={onChangeState} />
     </View>
   );
 };

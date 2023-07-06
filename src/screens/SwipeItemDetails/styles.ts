@@ -1,6 +1,10 @@
 import {StyleSheet} from 'react-native';
 
 export const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    height: '100%',
+  },
   name: {
     fontSize: 35,
     fontWeight: 'bold',
@@ -24,5 +28,10 @@ export const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  footer: {
+    position: 'absolute',
+    bottom: 20,
+    width: '100%',
   },
 });

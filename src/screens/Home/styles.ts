@@ -18,6 +18,9 @@ export const styles = StyleSheet.create({
     height: 150,
     justifyContent: 'center',
   },
+  disabledButton: {
+    backgroundColor: 'grey',
+  },
   buttonText: {
     color: 'white',
     fontSize: 16,

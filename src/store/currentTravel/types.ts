@@ -1,4 +1,4 @@
-interface DataUser {
+export interface DataUser {
   id: string;
   name: string;
   coordinates: {
@@ -6,6 +6,7 @@ interface DataUser {
     lng: number;
   };
   location: string;
+  placesList: any[];
 }
 
 export type InitialState = {

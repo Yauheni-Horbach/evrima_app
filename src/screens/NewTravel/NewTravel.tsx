@@ -29,9 +29,16 @@ export const NewTravel = () => {
             <GooglePlacesAutocomplete
               GooglePlacesDetailsQuery={{fields: 'geometry'}}
               placeholder="Search"
+              filterReverseGeocodingByTypes={[
+                'locality',
+                'administrative_area_level_3',
+              ]}
               fetchDetails
-              onPress={(_, details = null) => {
-                onInputChange('location', details?.place_id || '');
+              onPress={(data, details = null) => {
+                onInputChange(
+                  'location',
+                  data?.structured_formatting.main_text || '',
+                );
                 onInputChange('coordinates', {
                   lat: details?.geometry?.location?.lat || 0,
                   lng: details?.geometry?.location?.lng || 0,
@@ -55,7 +62,11 @@ export const NewTravel = () => {
               mapType="mutedStandard"
               minZoomLevel={7}></MapView>
           </Animated.View>
-          <Button title="Let's start" onPress={onStartPress} />
+          <Button
+            disabled={!(profileData.location || profileData.name)}
+            title="Let's start"
+            onPress={onStartPress}
+          />
         </>
       )}
     </ScreenWrapper>

@@ -22,6 +22,7 @@ export const useSwipeItemDetails = () => {
         Promise.all(
           data.photos
             .map(photo => photo.photo_reference)
+            .slice(0, 3)
             .map(type => fetch(URL_PLACE_PHOTO(type))),
         ).then(result => {
           setPhotosList(result.map(response => response.url));

@@ -11,6 +11,7 @@ const initialState = {
       lng: 0,
     },
     location: '',
+    placesList: [],
   },
   loading: false,
   error: null,
@@ -21,11 +22,33 @@ const currentTravelSlice = createSlice({
   name: User,
   initialState,
   reducers: {
-    clearEventName: state => {
-      state.eventName = null;
+    clearCurrentTravelStore: state => {
+      state = initialState;
+    },
+    updateCurrentTravel: (state, action) => {
+      state.data = {
+        ...state.data,
+        ...action.payload,
+      };
+    },
+    changePlaceState: (state, action) => {
+      state.data = {
+        ...state.data,
+        placesList: state.data.placesList.map(item => {
+          if (item.place_id === action.payload.place_id) {
+            return {
+              ...item,
+              ...action.payload,
+              placeState: action.payload.placeState,
+            };
+          }
+          return item;
+        }),
+      };
     },
   },
 });
 
-export const {clearEventName} = currentTravelSlice.actions;
+export const {clearCurrentTravelStore, updateCurrentTravel, changePlaceState} =
+  currentTravelSlice.actions;
 export const currentTravelReducer = currentTravelSlice.reducer;

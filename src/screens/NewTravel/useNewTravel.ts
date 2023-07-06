@@ -1,9 +1,17 @@
 import {useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {NavigationProp} from '@navigation/types';
+import {
+  useUpdateCurrentTravel,
+  useClearCurrentTravelStore,
+} from '@store/currentTravel';
+import uuid from 'react-native-uuid';
 
 export const useNewTravel = () => {
   const navigation = useNavigation<NavigationProp<'NewTravel'>>();
+
+  const updateCurrentTravel = useUpdateCurrentTravel();
+  const clearCurrentTravelStore = useClearCurrentTravelStore();
 
   const [profileData, setProfileData] = useState({
     name: '',
@@ -15,6 +23,11 @@ export const useNewTravel = () => {
   });
 
   const onStartPress = () => {
+    clearCurrentTravelStore();
+    updateCurrentTravel({
+      id: `${uuid.v4()}`,
+      ...profileData,
+    });
     navigation.navigate('CurrentTravelNavigator');
   };
 
@@ -22,7 +35,7 @@ export const useNewTravel = () => {
     field: string,
     value: string | {lat: number; lng: number},
   ) => {
-    setProfileData({...profileData, [field]: value});
+    setProfileData(prevTodos => ({...prevTodos, [field]: value}));
   };
 
   return {
