@@ -1,5 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit';
+
 import {User} from '../storeNames';
+
 import {InitialState} from './types';
 
 const initialState = {
@@ -22,8 +24,8 @@ const currentTravelSlice = createSlice({
   name: User,
   initialState,
   reducers: {
-    clearCurrentTravelStore: state => {
-      state = initialState;
+    clearCurrentTravelStore: () => {
+      return initialState;
     },
     updateCurrentTravel: (state, action) => {
       state.data = {

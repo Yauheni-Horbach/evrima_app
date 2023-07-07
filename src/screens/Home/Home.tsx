@@ -1,8 +1,9 @@
 import React from 'react';
-import {TouchableOpacity, Text} from 'react-native';
-import {useHome} from './useHome';
-import {styles} from './styles';
+import {Text, TouchableOpacity} from 'react-native';
 import {ScreenWrapper} from '@components/ScreenWrapper';
+
+import {styles} from './styles';
+import {useHome} from './useHome';
 
 const SquareButton = ({
   title,

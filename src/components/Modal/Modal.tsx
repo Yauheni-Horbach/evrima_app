@@ -1,11 +1,12 @@
-import {ReactNode} from 'react';
-import {View, Modal as NativeModal, TouchableOpacity, Text} from 'react-native';
+import React from 'react';
+import {Modal as NativeModal, Text, TouchableOpacity, View} from 'react-native';
+
 import {styles} from './styles';
 
 interface CustomModalProps {
   visible: boolean;
   onClose: () => void;
-  children: ReactNode;
+  children: React.ReactNode;
 }
 
 export const Modal = ({visible, onClose, children}: CustomModalProps) => {

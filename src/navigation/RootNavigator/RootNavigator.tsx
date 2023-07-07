@@ -1,22 +1,23 @@
 import React from 'react';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {Welcome} from '@screens/Welcome';
 import {Auth} from '@screens/Auth';
-import {Login} from '@screens/Login';
+import {CurrentTravel} from '@screens/CurrentTravel';
 import {Home} from '@screens/Home';
-import {Registration} from '@screens/Registration';
+import {Login} from '@screens/Login';
+import {NewTravel} from '@screens/NewTravel';
 import {Onboarding} from '@screens/Onboarding';
 import {Personalization} from '@screens/Personalization';
-import {NewTravel} from '@screens/NewTravel';
-import {CurrentTravel} from '@screens/CurrentTravel';
-import {TravelSwipes} from '@screens/TravelSwipes';
-import {SwipeItemDetails} from '@screens/SwipeItemDetails';
+import {Registration} from '@screens/Registration';
 import {SearchCurrentTravel} from '@screens/SearchCurrentTravel';
 import {SettingsCurrentTravel} from '@screens/SettingsCurrentTravel';
-import {RootStackParamList} from '../types';
+import {SwipeItemDetails} from '@screens/SwipeItemDetails';
+import {TravelSwipes} from '@screens/TravelSwipes';
+import {Welcome} from '@screens/Welcome';
+
 import {CurrentTravelTabs} from '../components';
+import {RootStackParamList} from '../types';
 
 const linking = {
   prefixes: ['evrima://'],
@@ -47,7 +48,7 @@ const CurrentTravelNavigator = () => {
   return (
     <Tab.Navigator
       initialRouteName="CurrentTravel"
-      tabBar={props => <CurrentTravelTabs {...props} />}
+      tabBar={CurrentTravelTabs}
       screenOptions={{
         headerShown: false,
       }}>

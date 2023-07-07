@@ -1,28 +1,31 @@
 import {StyleSheet} from 'react-native';
 
 export const styles = StyleSheet.create({
-  row: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 16,
+  input: {
+    borderColor: 'gray',
+    borderRadius: 4,
+    borderWidth: 1,
+    flex: 2,
+    height: 40,
+    paddingHorizontal: 8,
   },
   label: {
     flex: 1,
     fontSize: 16,
     fontWeight: 'bold',
   },
+  row: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginBottom: 16,
+  },
+  selectList: {
+    width: 200,
+  },
   textValue: {
     flex: 2,
-    height: 40,
     fontSize: 26,
-  },
-  input: {
-    flex: 2,
     height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    borderRadius: 4,
-    paddingHorizontal: 8,
   },
 });

@@ -1,7 +1,8 @@
 import {configureStore} from '@reduxjs/toolkit';
+
 import {configReducer} from './config';
-import {userReducer} from './user';
 import {currentTravelReducer} from './currentTravel';
+import {userReducer} from './user';
 
 const store = configureStore({
   reducer: {

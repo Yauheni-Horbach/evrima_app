@@ -1,7 +1,8 @@
 import React from 'react';
-import {View, TouchableOpacity, Image} from 'react-native';
-import {styles} from './styles';
+import {Image, TouchableOpacity, View} from 'react-native';
 import {icons} from '@ui/index';
+
+import {styles} from './styles';
 
 export const Footer = ({
   onChangeState,

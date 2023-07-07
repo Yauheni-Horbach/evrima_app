@@ -1,6 +1,8 @@
-import {Text, Pressable} from 'react-native';
-import {useWelcome} from './useWelcome';
+import React from 'react';
+import {Pressable, Text} from 'react-native';
+
 import {styles} from './styles';
+import {useWelcome} from './useWelcome';
 
 export const Welcome = () => {
   const {onBackgroundPress} = useWelcome();

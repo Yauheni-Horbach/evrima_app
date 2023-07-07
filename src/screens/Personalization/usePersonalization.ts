@@ -1,12 +1,12 @@
-import {useState, useEffect} from 'react';
-import {useNavigation} from '@react-navigation/native';
+import React from 'react';
 import {NavigationProp} from '@navigation/types';
+import {useNavigation} from '@react-navigation/native';
 import {
-  useGetUserProfile,
-  useUserStore,
-  useUpdateUserProfile,
-  useClearEventName,
   Events,
+  useClearEventName,
+  useGetUserProfile,
+  useUpdateUserProfile,
+  useUserStore,
 } from '@store/user';
 
 const filterEmptyValues = (obj: Record<string, any>) => {
@@ -25,14 +25,14 @@ export const usePersonalization = () => {
 
   const navigation = useNavigation<NavigationProp<'Personalization'>>();
 
-  const [profileData, setProfileData] = useState({
+  const [profileData, setProfileData] = React.useState({
     surName: '',
     sex: '',
     birthDate: '',
     location: '',
   });
 
-  useEffect(() => {
+  React.useEffect(() => {
     getUserProfile(data.id);
   }, []);
 
@@ -40,7 +40,7 @@ export const usePersonalization = () => {
     updateUserProfile(data.id, filterEmptyValues(profileData));
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (eventName === Events.UPDATE_USER_PROFILE) {
       navigation.reset({
         routes: [{name: 'Onboarding'}],

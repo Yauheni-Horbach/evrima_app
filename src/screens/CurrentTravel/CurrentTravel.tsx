@@ -2,9 +2,10 @@ import React from 'react';
 import {Text} from 'react-native';
 import MapView, {Marker} from 'react-native-maps';
 import Animated from 'react-native-reanimated';
+import {ScreenWrapper} from '@components/ScreenWrapper';
+
 import {styles} from './styles';
 import {useCurrentTravel} from './useCurrentTravel';
-import {ScreenWrapper} from '@components/ScreenWrapper';
 
 export const CurrentTravel = () => {
   const {isLoading, currentTravelData, likeList} = useCurrentTravel();

@@ -1,5 +1,5 @@
-import {StackNavigationProp} from '@react-navigation/stack';
 import {NavigatorScreenParams, RouteProp} from '@react-navigation/native';
+import {StackNavigationProp} from '@react-navigation/stack';
 export interface SwipeItemDetailsProps {
   location: {
     lat: number;

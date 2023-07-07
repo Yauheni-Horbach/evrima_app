@@ -1,8 +1,9 @@
 import React from 'react';
-import {TextInput, Button, Text} from 'react-native';
+import {Button, Text, TextInput} from 'react-native';
+import {ScreenWrapper} from '@components/ScreenWrapper';
+
 import {styles} from './styles';
 import {useRegistration} from './useRegistration';
-import {ScreenWrapper} from '@components/ScreenWrapper';
 
 export const Registration = () => {
   const {

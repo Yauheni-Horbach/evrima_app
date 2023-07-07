@@ -1,17 +1,17 @@
-import {useState, useEffect} from 'react';
-import {useNavigation} from '@react-navigation/native';
+import React from 'react';
 import {NavigationProp} from '@navigation/types';
+import {useNavigation} from '@react-navigation/native';
 import {
-  useSignUpUser,
-  useUserStore,
   Events,
   useClearEventName,
+  useSignUpUser,
+  useUserStore,
 } from '@store/user';
 
 export const useRegistration = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [name, setName] = React.useState('');
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
 
   const signUpUser = useSignUpUser();
   const {error, loading, eventName} = useUserStore();
@@ -27,7 +27,7 @@ export const useRegistration = () => {
     });
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (eventName === Events.SIGN_UP_USER) {
       navigation.navigate('Personalization');
       clearEventName();

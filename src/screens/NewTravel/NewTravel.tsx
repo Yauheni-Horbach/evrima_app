@@ -1,12 +1,13 @@
-import {GOOGLE_MAPS_KEY} from '@env';
 import React from 'react';
 import {Button, Text, TextInput, View} from 'react-native';
 import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
 import MapView from 'react-native-maps';
 import Animated from 'react-native-reanimated';
+import {ScreenWrapper} from '@components/ScreenWrapper';
+import {GOOGLE_MAPS_KEY} from '@env';
+
 import {styles} from './styles';
 import {useNewTravel} from './useNewTravel';
-import {ScreenWrapper} from '@components/ScreenWrapper';
 
 export const NewTravel = () => {
   const {onStartPress, onInputChange, profileData, isLoading} = useNewTravel();
@@ -60,7 +61,8 @@ export const NewTravel = () => {
                 longitudeDelta: 0,
               }}
               mapType="mutedStandard"
-              minZoomLevel={7}></MapView>
+              minZoomLevel={7}
+            />
           </Animated.View>
           <Button
             disabled={!(profileData.location || profileData.name)}

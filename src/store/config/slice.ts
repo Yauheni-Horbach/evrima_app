@@ -1,5 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit';
+
 import {CONFIG} from '../storeNames';
+
 import {InitialState} from './types';
 
 const initialState = {
@@ -12,5 +14,4 @@ const configSlice = createSlice({
   reducers: {},
 });
 
-export const {} = configSlice.actions;
 export const configReducer = configSlice.reducer;

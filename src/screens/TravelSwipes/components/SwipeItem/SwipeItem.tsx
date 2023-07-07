@@ -1,8 +1,9 @@
 import React from 'react';
-import {View, Button, Text, Image} from 'react-native';
+import {Button, Image, Text, View} from 'react-native';
+
+import {Footer} from './Footer';
 import {styles} from './styles';
 import {useSwipeItem} from './useSwipeItem';
-import {Footer} from './Footer';
 
 interface SwipeItemProps {
   address: string;
@@ -34,13 +35,8 @@ export const SwipeItem = ({
         <Text>address-{address}</Text>
         <Text>rating-{rating}</Text>
         <Text>types-{types.join(', ')}</Text>
-        <View style={{height: 350, width: 350}}>
-          {urlPhoto && (
-            <Image
-              source={{uri: urlPhoto}}
-              style={{height: '100%', width: '100%'}}
-            />
-          )}
+        <View style={styles.imageContainer}>
+          {urlPhoto && <Image source={{uri: urlPhoto}} style={styles.image} />}
         </View>
         <Button title="Open Details" onPress={onOpenSwipeItemDetails} />
       </View>

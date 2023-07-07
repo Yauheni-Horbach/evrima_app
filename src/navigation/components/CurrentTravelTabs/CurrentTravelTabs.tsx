@@ -1,8 +1,9 @@
-import * as React from 'react';
+import React from 'react';
 import {View} from 'react-native';
 import {CommonActions} from '@react-navigation/native';
-import {styles} from './styles';
+
 import {Tab} from './components';
+import {styles} from './styles';
 
 type TabMenuProps = {
   state: any;

@@ -1,20 +1,22 @@
-import {createAsyncThunk, ActionReducerMapBuilder} from '@reduxjs/toolkit';
+import {ActionReducerMapBuilder, createAsyncThunk} from '@reduxjs/toolkit';
+
 import {
+  AuthResult,
   loginUserByPost,
+  LoginUserByPostParams,
   signUpUserByPost,
   SignUpUserByPostParams,
-  LoginUserByPostParams,
-  AuthResult,
 } from '../../api/Auth';
 import {
   getUserProfileByGet,
-  UserRequestResult,
-  updateUserProfileByPut,
   UpdateUserParams,
+  updateUserProfileByPut,
+  UserRequestResult,
 } from '../../api/User';
-import {InitialState} from './types';
 import {errorMessageHandler} from '../../managers/ErrorHandler';
+
 import {Events} from './extraEvents';
+import {InitialState} from './types';
 
 export const fetchLoginUser = createAsyncThunk(
   Events.LOGIN_USER,

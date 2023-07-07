@@ -1,8 +1,9 @@
 import React from 'react';
-import {Text, Button} from 'react-native';
+import {Button, Text} from 'react-native';
+import {ScreenWrapper} from '@components/ScreenWrapper';
+
 import {styles} from './styles';
 import {useOnboarding} from './useOnboarding';
-import {ScreenWrapper} from '@components/ScreenWrapper';
 
 export const Onboarding = () => {
   const {onGetStartedPress} = useOnboarding();

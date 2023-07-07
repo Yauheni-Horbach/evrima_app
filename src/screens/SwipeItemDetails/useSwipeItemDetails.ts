@@ -1,6 +1,6 @@
-import {useState, useEffect} from 'react';
-import {useNavigation, useRoute} from '@react-navigation/native';
+import React from 'react';
 import {URL_PLACE_DETAILS, URL_PLACE_PHOTO} from '@api/URLList';
+import {useNavigation, useRoute} from '@react-navigation/native';
 
 export const useSwipeItemDetails = () => {
   const {
@@ -8,8 +8,8 @@ export const useSwipeItemDetails = () => {
   } = useRoute<ReactNavigation.RouteFor<'SwipeItemDetails'>>();
   const navigation = useNavigation();
 
-  const [itemDetails, setItemDetails] = useState({});
-  const [photoList, setPhotosList] = useState([]);
+  const [itemDetails, setItemDetails] = React.useState({});
+  const [photoList, setPhotosList] = React.useState([]);
 
   const fetchData = async () => {
     await fetch(URL_PLACE_DETAILS(placeId))
@@ -28,10 +28,10 @@ export const useSwipeItemDetails = () => {
           setPhotosList(result.map(response => response.url));
         });
       })
-      .catch(error => {});
+      .catch(() => {});
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     fetchData();
   }, []);
 

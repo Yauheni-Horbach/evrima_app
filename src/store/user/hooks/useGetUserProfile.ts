@@ -1,12 +1,13 @@
-import {useCallback} from 'react';
+import React from 'react';
 import * as Redux from 'react-redux';
-import {fetchGetUserProfile} from '../extraReducers';
+
 import {AppDispatch} from '../../index';
+import {fetchGetUserProfile} from '../extraReducers';
 
 export const useGetUserProfile = () => {
   const dispatch = Redux.useDispatch<AppDispatch>();
 
-  return useCallback(
+  return React.useCallback(
     (id: string) => {
       dispatch(fetchGetUserProfile(id));
     },

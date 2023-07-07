@@ -1,5 +1,5 @@
-import {useNavigation} from '@react-navigation/native';
 import {NavigationProp} from '@navigation/types';
+import {useNavigation} from '@react-navigation/native';
 
 export const useOnboarding = () => {
   const navigation = useNavigation<NavigationProp<'Onboarding'>>();

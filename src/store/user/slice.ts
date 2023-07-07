@@ -1,12 +1,14 @@
 import {createSlice} from '@reduxjs/toolkit';
+
 import {User} from '../storeNames';
-import {InitialState} from './types';
+
 import {
   fetchGetUserProfileExtraReducer,
   fetchLoginUserExtraReducer,
   fetchSignUpUserExtraReducer,
   fetchUpdateUserProfileExtraReducer,
 } from './extraReducers';
+import {InitialState} from './types';
 
 const initialState = {
   data: {

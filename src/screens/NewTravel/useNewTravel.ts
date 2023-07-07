@@ -1,11 +1,11 @@
-import {useState} from 'react';
-import {useNavigation} from '@react-navigation/native';
-import {NavigationProp} from '@navigation/types';
-import {
-  useUpdateCurrentTravel,
-  useClearCurrentTravelStore,
-} from '@store/currentTravel';
+import React from 'react';
 import uuid from 'react-native-uuid';
+import {NavigationProp} from '@navigation/types';
+import {useNavigation} from '@react-navigation/native';
+import {
+  useClearCurrentTravelStore,
+  useUpdateCurrentTravel,
+} from '@store/currentTravel';
 
 export const useNewTravel = () => {
   const navigation = useNavigation<NavigationProp<'NewTravel'>>();
@@ -13,7 +13,7 @@ export const useNewTravel = () => {
   const updateCurrentTravel = useUpdateCurrentTravel();
   const clearCurrentTravelStore = useClearCurrentTravelStore();
 
-  const [profileData, setProfileData] = useState({
+  const [profileData, setProfileData] = React.useState({
     name: '',
     location: '',
     coordinates: {

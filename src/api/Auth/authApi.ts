@@ -1,4 +1,5 @@
 import axios from 'axios';
+
 import type {RequestResult} from '../types';
 
 export type AuthResult = {token: string; id: string};

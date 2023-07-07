@@ -1,10 +1,17 @@
 import React from 'react';
-import {Image, Button, Dimensions, ScrollView, View, Text} from 'react-native';
-import Carousel from 'react-native-reanimated-carousel';
+import {Button, Dimensions, Image, ScrollView, Text, View} from 'react-native';
 import MapView, {Marker} from 'react-native-maps';
+import Carousel from 'react-native-reanimated-carousel';
+
+import {Footer} from './components';
 import {styles} from './styles';
 import {useSwipeItemDetails} from './useSwipeItemDetails';
-import {Footer} from './components';
+
+const CarouselItem = ({index, photoList}: {index: number; photoList: any}) => (
+  <View style={styles.carouselItemBody}>
+    <Image source={{uri: photoList[index]}} style={styles.carouselItemImage} />
+  </View>
+);
 
 export const SwipeItemDetails = () => {
   const {onGoBack, location, photoList, itemDetails} = useSwipeItemDetails();
@@ -22,16 +29,7 @@ export const SwipeItemDetails = () => {
           data={photoList}
           scrollAnimationDuration={500}
           renderItem={({index}) => (
-            <View
-              style={{
-                flex: 1,
-                justifyContent: 'center',
-              }}>
-              <Image
-                source={{uri: photoList[index]}}
-                style={{height: '100%', width: '100%'}}
-              />
-            </View>
+            <CarouselItem index={index} photoList={photoList} />
           )}
         />
         <View style={styles.mapContainer}>

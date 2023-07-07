@@ -1,12 +1,13 @@
-import {useCallback} from 'react';
+import React from 'react';
 import * as Redux from 'react-redux';
-import {clearCurrentTravelStore} from '../slice';
+
 import {AppDispatch} from '../../index';
+import {clearCurrentTravelStore} from '../slice';
 
 export const useClearCurrentTravelStore = () => {
   const dispatch = Redux.useDispatch<AppDispatch>();
 
-  return useCallback(() => {
+  return React.useCallback(() => {
     dispatch(clearCurrentTravelStore());
   }, [dispatch]);
 };

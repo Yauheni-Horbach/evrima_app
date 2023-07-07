@@ -1,13 +1,13 @@
-import {useEffect, useState, useRef} from 'react';
-import {URL_PLACE_TEXT_SEARCH} from '@api/URLList';
-import {useNavigation} from '@react-navigation/native';
+import React from 'react';
 import Swiper from 'react-native-deck-swiper';
+import {URL_PLACE_TEXT_SEARCH} from '@api/URLList';
+import {NavigationProp} from '@navigation/types';
+import {useNavigation} from '@react-navigation/native';
 import {
+  useChangePlaceState,
   useCurrentTravelStore,
   useUpdateCurrentTravel,
-  useChangePlaceState,
 } from '@store/currentTravel';
-import {NavigationProp} from '@navigation/types';
 
 const types = ['art_gallery', 'bar', 'cafe'];
 
@@ -15,9 +15,9 @@ const requests = (query: string) =>
   types.map(type => fetch(URL_PLACE_TEXT_SEARCH({type, query})));
 
 export const useTravelSwipes = () => {
-  const [currentCardIndex, setCurrentCardIndex] = useState(0);
+  const [currentCardIndex, setCurrentCardIndex] = React.useState(0);
 
-  const swiperRef = useRef<Swiper<null>>(null);
+  const swiperRef = React.useRef<Swiper<null>>(null);
 
   const {data} = useCurrentTravelStore();
   const updateCurrentTravel = useUpdateCurrentTravel();
@@ -37,7 +37,7 @@ export const useTravelSwipes = () => {
       });
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     fetch();
   }, []);
 

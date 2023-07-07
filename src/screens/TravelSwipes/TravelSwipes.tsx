@@ -1,10 +1,11 @@
 import React from 'react';
-import {View, Text} from 'react-native';
-import {styles} from './styles';
-import {useTravelSwipes} from './useTravelSwipes';
+import {Text, View} from 'react-native';
 import Swiper from 'react-native-deck-swiper';
 import {ScreenWrapper} from '@components/ScreenWrapper';
+
 import {SwipeItem} from './components';
+import {styles} from './styles';
+import {useTravelSwipes} from './useTravelSwipes';
 
 export const TravelSwipes = () => {
   const {
@@ -52,14 +53,8 @@ export const TravelSwipes = () => {
               onSwipedRight={index => {
                 onSwiped(index, 'like');
               }}
-              containerStyle={{
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-              cardStyle={{
-                borderRadius: 30,
-                height: '90%',
-              }}
+              containerStyle={styles.swiperContainer}
+              cardStyle={styles.swiperCard}
               cardIndex={0}
               stackSize={3}
             />

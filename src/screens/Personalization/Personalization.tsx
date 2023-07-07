@@ -1,12 +1,13 @@
-import {GOOGLE_MAPS_KEY} from '@env';
-import DateTimePicker from '@react-native-community/datetimepicker';
 import React from 'react';
 import {Button, Text, TextInput, View} from 'react-native';
 import {SelectList} from 'react-native-dropdown-select-list';
 import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
+import {ScreenWrapper} from '@components/ScreenWrapper';
+import {GOOGLE_MAPS_KEY} from '@env';
+import DateTimePicker from '@react-native-community/datetimepicker';
+
 import {styles} from './styles';
 import {usePersonalization} from './usePersonalization';
-import {ScreenWrapper} from '@components/ScreenWrapper';
 
 const sexData = [
   {key: '1', value: 'woman'},
@@ -44,7 +45,7 @@ export const Personalization = () => {
               setSelected={(value: string) => onInputChange('sex', value)}
               data={sexData}
               save="value"
-              boxStyles={{width: 200}}
+              boxStyles={styles.selectList}
               search={false}
             />
           </View>

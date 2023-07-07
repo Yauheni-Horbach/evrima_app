@@ -1,9 +1,10 @@
-import {ReactNode} from 'react';
-import {View, ViewStyle, StyleProp} from 'react-native';
+import React from 'react';
+import {StyleProp, View, ViewStyle} from 'react-native';
+
 import {styles} from './styles';
 
 interface ScreenWrapperProps {
-  children: ReactNode;
+  children: React.ReactNode;
   style?: StyleProp<ViewStyle>;
 }
 
