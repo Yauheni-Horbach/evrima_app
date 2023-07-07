@@ -5,12 +5,22 @@ import MapView from 'react-native-maps';
 import Animated from 'react-native-reanimated';
 import {ScreenWrapper} from '@components/ScreenWrapper';
 import {GOOGLE_MAPS_KEY} from '@env';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 import {styles} from './styles';
 import {useNewTravel} from './useNewTravel';
 
 export const NewTravel = () => {
-  const {onStartPress, onInputChange, profileData, isLoading} = useNewTravel();
+  const {
+    onStartPress,
+    onInputChange,
+    profileData,
+    isLoading,
+    startDate,
+    endDate,
+    changeStartDate,
+    changeEndDate,
+  } = useNewTravel();
 
   return (
     <ScreenWrapper>
@@ -30,10 +40,7 @@ export const NewTravel = () => {
             <GooglePlacesAutocomplete
               GooglePlacesDetailsQuery={{fields: 'geometry'}}
               placeholder="Search"
-              filterReverseGeocodingByTypes={[
-                'locality',
-                'administrative_area_level_3',
-              ]}
+              filterReverseGeocodingByTypes={['locality']}
               fetchDetails
               onPress={(data, details = null) => {
                 onInputChange(
@@ -51,6 +58,25 @@ export const NewTravel = () => {
               }}
             />
           </View>
+          <View style={styles.row}>
+            <Text style={styles.label}>Start Date:</Text>
+            <DateTimePicker
+              minimumDate={new Date()}
+              maximumDate={endDate ? new Date(endDate) : undefined}
+              value={startDate ? new Date(startDate) : new Date()}
+              mode={'date'}
+              onChange={(_, date) => changeStartDate(date?.toDateString())}
+            />
+          </View>
+          <View style={styles.row}>
+            <Text style={styles.label}>End Date:</Text>
+            <DateTimePicker
+              minimumDate={startDate ? new Date(startDate) : new Date()}
+              value={endDate ? new Date(endDate) : new Date()}
+              mode={'date'}
+              onChange={(_, date) => changeEndDate(date?.toDateString())}
+            />
+          </View>
           <Animated.View style={styles.containerMap}>
             <MapView
               style={styles.map}
@@ -61,7 +87,7 @@ export const NewTravel = () => {
                 longitudeDelta: 0,
               }}
               mapType="mutedStandard"
-              minZoomLevel={7}
+              minZoomLevel={12}
             />
           </Animated.View>
           <Button

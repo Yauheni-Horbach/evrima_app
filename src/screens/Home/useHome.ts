@@ -1,5 +1,5 @@
 import {NavigationProp} from '@navigation/types';
-import {useNavigation} from '@react-navigation/native';
+import {CommonActions, useNavigation} from '@react-navigation/native';
 import {useCurrentTravelStore} from '@store/currentTravel';
 
 export const useHome = () => {
@@ -15,7 +15,14 @@ export const useHome = () => {
       },
       {
         title: 'Current Journey',
-        onPress: () => navigation.navigate('CurrentTravelNavigator'),
+        onPress: () => {
+          navigation.dispatch(
+            CommonActions.reset({
+              index: 1,
+              routes: [{name: 'CurrentTravelNavigator'}],
+            }),
+          );
+        },
         disabled: !data.id,
       },
       {

@@ -9,7 +9,8 @@ import {
   useUpdateCurrentTravel,
 } from '@store/currentTravel';
 
-const types = ['art_gallery', 'bar', 'cafe'];
+//TODO-SRC - add new types
+const types = ['art_gallery'];
 
 const requests = (query: string) =>
   types.map(type => fetch(URL_PLACE_TEXT_SEARCH({type, query})));
@@ -40,6 +41,13 @@ export const useTravelSwipes = () => {
   React.useEffect(() => {
     fetch();
   }, []);
+
+  React.useEffect(() => {
+    if (data.placesList[currentCardIndex]?.placeState) {
+      setCurrentCardIndex(currentCardIndex + 1);
+      swiperRef.current?.swipeBottom();
+    }
+  }, [data.placesList]);
 
   const onSwiped = (index: number, event: 'like' | 'dislike') => {
     setCurrentCardIndex(index + 1);

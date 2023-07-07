@@ -8,7 +8,13 @@ import {styles} from './styles';
 import {useCurrentTravel} from './useCurrentTravel';
 
 export const CurrentTravel = () => {
-  const {isLoading, currentTravelData, likeList} = useCurrentTravel();
+  const {
+    isLoading,
+    currentTravelData,
+    likeList,
+    onLongPress,
+    startTravelLocation,
+  } = useCurrentTravel();
 
   return (
     <ScreenWrapper>
@@ -26,8 +32,23 @@ export const CurrentTravel = () => {
                 latitudeDelta: 0,
                 longitudeDelta: 0,
               }}
+              onLongPress={event => {
+                onLongPress(event.nativeEvent.coordinate);
+              }}
               mapType="mutedStandard"
               minZoomLevel={12}>
+              {startTravelLocation.location.lat &&
+              startTravelLocation.location.lng ? (
+                <Marker
+                  pinColor="black"
+                  key={startTravelLocation.id}
+                  coordinate={{
+                    latitude: startTravelLocation.location.lat,
+                    longitude: startTravelLocation.location.lng,
+                  }}
+                  title={startTravelLocation.title}
+                />
+              ) : null}
               {likeList.map((item, index) => (
                 <Marker
                   key={index}

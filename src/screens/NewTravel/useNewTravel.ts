@@ -1,7 +1,7 @@
 import React from 'react';
 import uuid from 'react-native-uuid';
 import {NavigationProp} from '@navigation/types';
-import {useNavigation} from '@react-navigation/native';
+import {CommonActions, useNavigation} from '@react-navigation/native';
 import {
   useClearCurrentTravelStore,
   useUpdateCurrentTravel,
@@ -22,13 +22,22 @@ export const useNewTravel = () => {
     },
   });
 
+  const [startDate, setStartDate] = React.useState('');
+  const [endDate, setEndDate] = React.useState('');
+
   const onStartPress = () => {
     clearCurrentTravelStore();
     updateCurrentTravel({
       id: `${uuid.v4()}`,
       ...profileData,
     });
-    navigation.navigate('CurrentTravelNavigator');
+
+    navigation.dispatch(
+      CommonActions.reset({
+        index: 1,
+        routes: [{name: 'CurrentTravelNavigator'}],
+      }),
+    );
   };
 
   const onInputChange = (
@@ -38,11 +47,23 @@ export const useNewTravel = () => {
     setProfileData(prevTodos => ({...prevTodos, [field]: value}));
   };
 
+  const changeStartDate = (date: string = '') => {
+    setStartDate(date);
+  };
+
+  const changeEndDate = (date: string = '') => {
+    setEndDate(date);
+  };
+
   return {
     onStartPress,
     onInputChange,
     profileData,
     isLoading: false,
     errorText: '',
+    startDate,
+    endDate,
+    changeStartDate,
+    changeEndDate,
   };
 };

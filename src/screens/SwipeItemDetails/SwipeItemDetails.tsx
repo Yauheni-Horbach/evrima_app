@@ -14,7 +14,8 @@ const CarouselItem = ({index, photoList}: {index: number; photoList: any}) => (
 );
 
 export const SwipeItemDetails = () => {
-  const {onGoBack, location, photoList, itemDetails} = useSwipeItemDetails();
+  const {onGoBack, location, photoList, itemDetails, onPressChangeState} =
+    useSwipeItemDetails();
 
   const width = Dimensions.get('window').width;
 
@@ -51,7 +52,7 @@ export const SwipeItemDetails = () => {
         <Button title="Close map" onPress={onGoBack} />
       </ScrollView>
       <View style={styles.footer}>
-        <Footer />
+        <Footer onPressChangeState={onPressChangeState} />
       </View>
     </View>
   );
