@@ -1,5 +1,6 @@
 import {configureStore} from '@reduxjs/toolkit';
 
+import {bookmarksReducer} from './bookmarks';
 import {configReducer} from './config';
 import {currentTravelReducer} from './currentTravel';
 import {userReducer} from './user';
@@ -9,6 +10,7 @@ const store = configureStore({
     config: configReducer,
     user: userReducer,
     currentTravel: currentTravelReducer,
+    bookmarks: bookmarksReducer,
   },
 });
 

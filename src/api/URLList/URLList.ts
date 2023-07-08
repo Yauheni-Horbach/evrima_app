@@ -14,3 +14,25 @@ export const URL_PLACE_TEXT_SEARCH = ({
   query: string;
 }) =>
   `https://maps.googleapis.com/maps/api/place/textsearch/json?key=${GOOGLE_MAPS_KEY}&query=${query}&radius=2000&type=${type}`;
+
+export const URL_PLACES_SEARCH_FOURSQUARE = ({
+  coordinates,
+  radius = 4000,
+  categories,
+  fields,
+  limit = 50,
+}: {
+  coordinates: {
+    lat: number;
+    lng: number;
+  };
+  radius?: number;
+  categories: number[];
+  fields: string[];
+  limit?: number;
+}) =>
+  `https://api.foursquare.com/v3/places/search?ll=${coordinates.lat},${
+    coordinates.lng
+  }&radius=${radius}&categories=${categories.join(',')}&fields=${fields.join(
+    ',',
+  )}&limit=${limit}`;

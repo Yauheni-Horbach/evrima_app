@@ -2,6 +2,7 @@ import React from 'react';
 import {Text, View} from 'react-native';
 import Swiper from 'react-native-deck-swiper';
 import {ScreenWrapper} from '@components/ScreenWrapper';
+import {photoURLGenerator} from '@managers/PhotoURLGenerator';
 
 import {SwipeItem} from './components';
 import {styles} from './styles';
@@ -12,7 +13,6 @@ export const TravelSwipes = () => {
     isLoading,
     listItems,
     swiperRef,
-    currentCardIndex,
     onSwiped,
     onPressChangeState,
     onOpenSwipeItemDetails,
@@ -31,19 +31,13 @@ export const TravelSwipes = () => {
                 return (
                   <SwipeItem
                     key={index}
-                    isCurrent={
-                      index >= currentCardIndex && index <= currentCardIndex + 2
-                    }
-                    address={card.formatted_address}
+                    address={card.location.formatted_address}
                     name={card.name}
-                    photo={card.photos[0].photo_reference}
-                    rating={card.user_ratings_total}
-                    types={card.types}
+                    id={card.fsq_id}
+                    urlPhoto={photoURLGenerator(card.photos[0])}
+                    rating={card.rating}
                     onChangeState={state => onPressChangeState(index, state)}
-                    onOpenSwipeItemDetails={onOpenSwipeItemDetails(
-                      card.geometry.location,
-                      card.place_id,
-                    )}
+                    onOpenSwipeItemDetails={onOpenSwipeItemDetails(card.fsq_id)}
                   />
                 );
               }}

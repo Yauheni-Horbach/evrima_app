@@ -1,42 +1,18 @@
-import React from 'react';
-import {URL_PLACE_DETAILS, URL_PLACE_PHOTO} from '@api/URLList';
+import {photoURLGenerator} from '@managers/PhotoURLGenerator';
 import {useNavigation, useRoute} from '@react-navigation/native';
-import {useChangePlaceState} from '@store/currentTravel';
+import {useChangePlaceState, useCurrentTravelStore} from '@store/currentTravel';
 
 export const useSwipeItemDetails = () => {
   const {
-    params: {location, placeId},
+    params: {fsq_id},
   } = useRoute<ReactNavigation.RouteFor<'SwipeItemDetails'>>();
   const navigation = useNavigation();
 
-  const [itemDetails, setItemDetails] = React.useState({});
-  const [photoList, setPhotosList] = React.useState([]);
-
   const changePlaceState = useChangePlaceState();
+  const {data} = useCurrentTravelStore();
 
-  const fetchData = async () => {
-    await fetch(URL_PLACE_DETAILS(placeId))
-      .then(response => response.json())
-      .then(data => {
-        setItemDetails(data.result);
-        return data.result;
-      })
-      .then(data => {
-        Promise.all(
-          data.photos
-            .map(photo => photo.photo_reference)
-            .slice(0, 3)
-            .map(type => fetch(URL_PLACE_PHOTO(type))),
-        ).then(result => {
-          setPhotosList(result.map(response => response.url));
-        });
-      })
-      .catch(() => {});
-  };
-
-  React.useEffect(() => {
-    fetchData();
-  }, []);
+  const currentPlace = data.placesList.find(item => item.fsq_id === fsq_id);
+  const photoList = currentPlace.photos.map(item => photoURLGenerator(item));
 
   const onGoBack = () => {
     navigation.goBack();
@@ -44,7 +20,7 @@ export const useSwipeItemDetails = () => {
 
   const onPressChangeState = (event: 'like' | 'dislike') => {
     changePlaceState({
-      place_id: placeId,
+      fsq_id,
       placeState: event,
     });
 
@@ -54,8 +30,7 @@ export const useSwipeItemDetails = () => {
   return {
     onGoBack,
     onPressChangeState,
-    location,
+    currentPlace,
     photoList,
-    itemDetails,
   };
 };

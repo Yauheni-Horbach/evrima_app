@@ -18,6 +18,9 @@ export const styles = StyleSheet.create({
     height: 60,
     justifyContent: 'space-around',
   },
+  disabledButton: {
+    backgroundColor: 'gray',
+  },
   icon: {
     height: 24,
     resizeMode: 'contain',

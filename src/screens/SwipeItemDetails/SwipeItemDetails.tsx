@@ -14,7 +14,7 @@ const CarouselItem = ({index, photoList}: {index: number; photoList: any}) => (
 );
 
 export const SwipeItemDetails = () => {
-  const {onGoBack, location, photoList, itemDetails, onPressChangeState} =
+  const {onGoBack, currentPlace, photoList, onPressChangeState} =
     useSwipeItemDetails();
 
   const width = Dimensions.get('window').width;
@@ -22,7 +22,7 @@ export const SwipeItemDetails = () => {
   return (
     <View style={styles.container}>
       <ScrollView>
-        <Text style={styles.name}>{itemDetails.name}</Text>
+        <Text style={styles.name}>{currentPlace.name}</Text>
         <Carousel
           loop
           width={width}
@@ -37,15 +37,18 @@ export const SwipeItemDetails = () => {
           <MapView
             style={styles.map}
             region={{
-              latitude: location.lat,
-              longitude: location.lng,
+              latitude: currentPlace.geocodes.main.latitude,
+              longitude: currentPlace.geocodes.main.longitude,
               latitudeDelta: 0,
               longitudeDelta: 0,
             }}
             mapType="mutedStandard"
             minZoomLevel={12}>
             <Marker
-              coordinate={{latitude: location.lat, longitude: location.lng}}
+              coordinate={{
+                latitude: currentPlace.geocodes.main.latitude,
+                longitude: currentPlace.geocodes.main.longitude,
+              }}
             />
           </MapView>
         </View>

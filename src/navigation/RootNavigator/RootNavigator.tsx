@@ -18,6 +18,7 @@ import {Welcome} from '@screens/Welcome';
 
 import {CurrentTravelTabs} from '../components';
 import {RootStackParamList} from '../types';
+import {Bookmarks} from '@screens/Bookmarks';
 
 const linking = {
   prefixes: ['evrima://'],
@@ -36,6 +37,7 @@ const linking = {
       SwipeItemDetails: 'swipeItemDetails',
       SearchCurrentTravel: 'searchCurrentTravel',
       SettingsCurrentTravel: 'settingsCurrentTravel',
+      Bookmarks: 'Bookmarks',
     },
   },
 };
@@ -98,6 +100,7 @@ export const RootNavigator = () => {
         <Stack.Screen name="Onboarding" component={Onboarding} />
         <Stack.Screen name="Personalization" component={Personalization} />
         <Stack.Screen name="NewTravel" component={NewTravel} />
+        <Stack.Screen name="Bookmarks" component={Bookmarks} />
         <Stack.Screen
           name="CurrentTravelNavigator"
           component={CurrentTravelNavigator}

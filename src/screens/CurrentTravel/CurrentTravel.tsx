@@ -53,8 +53,8 @@ export const CurrentTravel = () => {
                 <Marker
                   key={index}
                   coordinate={{
-                    latitude: item.geometry.location.lat,
-                    longitude: item.geometry.location.lng,
+                    latitude: item.geocodes.main.latitude,
+                    longitude: item.geocodes.main.longitude,
                   }}
                   title={item.name}
                   description={item.vicinity}

@@ -42,6 +42,7 @@ export const NewTravel = () => {
               placeholder="Search"
               filterReverseGeocodingByTypes={['locality']}
               fetchDetails
+              minLength={3}
               onPress={(data, details = null) => {
                 onInputChange(
                   'location',

@@ -1,11 +1,7 @@
 import {NavigatorScreenParams, RouteProp} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 export interface SwipeItemDetailsProps {
-  location: {
-    lat: number;
-    lng: number;
-  };
-  placeId: string;
+  fsq_id: string;
 }
 
 export type RootStackParamList = {
@@ -23,6 +19,7 @@ export type RootStackParamList = {
   SearchCurrentTravel: undefined;
   SettingsCurrentTravel: undefined;
   CurrentTravelNavigator: undefined;
+  Bookmarks: undefined;
 };
 
 type AllNavigators = RootStackParamList;

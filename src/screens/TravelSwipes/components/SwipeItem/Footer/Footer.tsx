@@ -5,9 +5,13 @@ import {icons} from '@ui/index';
 import {styles} from './styles';
 
 export const Footer = ({
+  isAddedToBookmarks,
   onChangeState,
+  onAddToBookmarks,
 }: {
+  isAddedToBookmarks: boolean;
   onChangeState: (state: 'dislike' | 'like') => void;
+  onAddToBookmarks: () => void;
 }) => {
   return (
     <View style={styles.container}>
@@ -16,7 +20,9 @@ export const Footer = ({
         onPress={() => onChangeState('dislike')}>
         <Image source={icons.dislike} style={styles.icon} />
       </TouchableOpacity>
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity
+        style={[styles.button, isAddedToBookmarks && styles.disabledButton]}
+        onPress={onAddToBookmarks}>
         <Image source={icons.star} style={styles.icon} />
       </TouchableOpacity>
       <TouchableOpacity

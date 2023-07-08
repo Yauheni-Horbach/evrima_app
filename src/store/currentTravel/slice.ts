@@ -37,7 +37,7 @@ const currentTravelSlice = createSlice({
       state.data = {
         ...state.data,
         placesList: state.data.placesList.map(item => {
-          if (item.place_id === action.payload.place_id) {
+          if (item.fsq_id === action.payload.fsq_id) {
             return {
               ...item,
               ...action.payload,

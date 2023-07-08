@@ -2,14 +2,14 @@ import React from 'react';
 import * as Redux from 'react-redux';
 
 import {AppDispatch} from '../../index';
-import {changePlaceState} from '../slice';
+import {addBookmark} from '../slice';
 
-export const useChangePlaceState = () => {
+export const useAddBookmark = () => {
   const dispatch = Redux.useDispatch<AppDispatch>();
 
   return React.useCallback(
-    (payload: {fsq_id: string; placeState: 'like' | 'dislike'}) => {
-      dispatch(changePlaceState(payload));
+    (payload: any) => {
+      dispatch(addBookmark(payload));
     },
     [dispatch],
   );
