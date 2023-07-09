@@ -6,6 +6,7 @@ export interface DataUser {
     lng: number;
   };
   location: string;
+  radius: number;
   placesList: any[];
 }
 

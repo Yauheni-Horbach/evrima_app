@@ -20,10 +20,10 @@ export const useNewTravel = () => {
       lat: 0,
       lng: 0,
     },
+    radius: 2000,
+    startDate: '',
+    endDate: '',
   });
-
-  const [startDate, setStartDate] = React.useState('');
-  const [endDate, setEndDate] = React.useState('');
 
   const onStartPress = () => {
     clearCurrentTravelStore();
@@ -42,17 +42,9 @@ export const useNewTravel = () => {
 
   const onInputChange = (
     field: string,
-    value: string | {lat: number; lng: number},
+    value: string | {lat: number; lng: number} | number,
   ) => {
     setProfileData(prevTodos => ({...prevTodos, [field]: value}));
-  };
-
-  const changeStartDate = (date: string = '') => {
-    setStartDate(date);
-  };
-
-  const changeEndDate = (date: string = '') => {
-    setEndDate(date);
   };
 
   return {
@@ -61,9 +53,5 @@ export const useNewTravel = () => {
     profileData,
     isLoading: false,
     errorText: '',
-    startDate,
-    endDate,
-    changeStartDate,
-    changeEndDate,
   };
 };

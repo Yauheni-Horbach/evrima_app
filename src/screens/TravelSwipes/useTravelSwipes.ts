@@ -25,7 +25,7 @@ export const useTravelSwipes = () => {
   const fetchData = () => {
     const url = URL_PLACES_SEARCH_FOURSQUARE({
       coordinates: data.coordinates,
-      categories: [10000, 13000],
+      categories: [10027, 10056],
       fields: [
         'fsq_id',
         'name',
@@ -39,6 +39,7 @@ export const useTravelSwipes = () => {
         'price',
         'photos',
       ],
+      radius: data.radius,
     });
     const options = {
       method: 'GET',

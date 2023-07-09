@@ -17,7 +17,7 @@ export const URL_PLACE_TEXT_SEARCH = ({
 
 export const URL_PLACES_SEARCH_FOURSQUARE = ({
   coordinates,
-  radius = 4000,
+  radius = 2000,
   categories,
   fields,
   limit = 50,
@@ -35,4 +35,4 @@ export const URL_PLACES_SEARCH_FOURSQUARE = ({
     coordinates.lng
   }&radius=${radius}&categories=${categories.join(',')}&fields=${fields.join(
     ',',
-  )}&limit=${limit}`;
+  )}&limit=${limit}&sort=RATING`;

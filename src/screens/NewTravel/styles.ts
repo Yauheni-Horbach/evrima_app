@@ -7,6 +7,13 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     width: '100%',
   },
+  containerSlider: {
+    alignItems: 'stretch',
+    flex: 1,
+    justifyContent: 'center',
+    marginLeft: 10,
+    marginRight: 10,
+  },
   input: {
     borderColor: 'gray',
     borderRadius: 4,
