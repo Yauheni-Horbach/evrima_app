@@ -14,8 +14,15 @@ const CarouselItem = ({index, photoList}: {index: number; photoList: any}) => (
 );
 
 export const SwipeItemDetails = () => {
-  const {onGoBack, currentPlace, photoList, onPressChangeState} =
-    useSwipeItemDetails();
+  const {
+    currentPlace,
+    photoList,
+    onPressChangeState,
+    typeScreen,
+    isAddedToBookmarks,
+    onAddToBookmarks,
+    onGoBack,
+  } = useSwipeItemDetails();
 
   const width = Dimensions.get('window').width;
 
@@ -52,11 +59,19 @@ export const SwipeItemDetails = () => {
             />
           </MapView>
         </View>
-        <Button title="Close map" onPress={onGoBack} />
       </ScrollView>
-      <View style={styles.footer}>
-        <Footer onPressChangeState={onPressChangeState} />
-      </View>
+      {typeScreen === 'currentTravel' ||
+      typeScreen === 'searchCurrentTravel' ? (
+        <View style={styles.footer}>
+          <Footer
+            onPressChangeState={onPressChangeState}
+            isAddedToBookmarks={isAddedToBookmarks}
+            onAddToBookmarks={onAddToBookmarks}
+          />
+        </View>
+      ) : (
+        <Button title="Close map" onPress={onGoBack} />
+      )}
     </View>
   );
 };

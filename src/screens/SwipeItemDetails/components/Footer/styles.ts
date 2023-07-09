@@ -1,6 +1,9 @@
 import {StyleSheet} from 'react-native';
 
 export const styles = StyleSheet.create({
+  activeButton: {
+    backgroundColor: 'gray',
+  },
   button: {
     alignItems: 'center',
     borderColor: 'red',

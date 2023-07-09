@@ -3,6 +3,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {Auth} from '@screens/Auth';
+import {Bookmarks} from '@screens/Bookmarks';
 import {CurrentTravel} from '@screens/CurrentTravel';
 import {Home} from '@screens/Home';
 import {Login} from '@screens/Login';
@@ -18,7 +19,6 @@ import {Welcome} from '@screens/Welcome';
 
 import {CurrentTravelTabs} from '../components';
 import {RootStackParamList} from '../types';
-import {Bookmarks} from '@screens/Bookmarks';
 
 const linking = {
   prefixes: ['evrima://'],

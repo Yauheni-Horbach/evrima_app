@@ -1,13 +1,12 @@
 import React from 'react';
 import Swiper from 'react-native-deck-swiper';
-import {URL_PLACES_SEARCH_FOURSQUARE} from '@api/URLList';
-import {FOURSQUARE_KEY} from '@env';
+import {foursquare_options, URL_PLACES_SEARCH_FOURSQUARE} from '@api/URLList';
 import {NavigationProp} from '@navigation/types';
 import {useNavigation} from '@react-navigation/native';
 import {
   useChangePlaceState,
   useCurrentTravelStore,
-  useUpdateCurrentTravel,
+  useUpdatePlacesList,
 } from '@store/currentTravel';
 
 export const useTravelSwipes = () => {
@@ -17,7 +16,7 @@ export const useTravelSwipes = () => {
 
   const {data} = useCurrentTravelStore();
 
-  const updateCurrentTravel = useUpdateCurrentTravel();
+  const updatePlacesList = useUpdatePlacesList();
   const changePlaceState = useChangePlaceState();
 
   const navigation = useNavigation<NavigationProp<'TravelSwipes'>>();
@@ -41,21 +40,14 @@ export const useTravelSwipes = () => {
       ],
       radius: data.radius,
     });
-    const options = {
-      method: 'GET',
-      headers: {
-        accept: 'application/json',
-        Authorization: FOURSQUARE_KEY,
-      },
-    };
 
-    fetch(url, options)
+    fetch(url, foursquare_options)
       .then(res => res.json())
       .then(json => {
         const items = json.results
           .sort(() => 0.5 - Math.random())
           .filter(item => item.photos && item.photos.length);
-        updateCurrentTravel({placesList: items});
+        updatePlacesList({placesList: items});
       })
       .catch(err => console.error('error:' + err));
   };
@@ -94,6 +86,7 @@ export const useTravelSwipes = () => {
     return () => {
       navigation.navigate('SwipeItemDetails', {
         fsq_id,
+        type: 'currentTravel',
       });
     };
   };

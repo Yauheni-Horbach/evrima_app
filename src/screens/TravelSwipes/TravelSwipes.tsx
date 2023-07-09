@@ -34,7 +34,9 @@ export const TravelSwipes = () => {
                     address={card.location.formatted_address}
                     name={card.name}
                     id={card.fsq_id}
-                    urlPhoto={photoURLGenerator(card.photos[0])}
+                    urlPhoto={
+                      card.photos[0] ? photoURLGenerator(card.photos[0]) : ''
+                    }
                     rating={card.rating}
                     onChangeState={state => onPressChangeState(index, state)}
                     onOpenSwipeItemDetails={onOpenSwipeItemDetails(card.fsq_id)}

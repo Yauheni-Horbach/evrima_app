@@ -36,6 +36,22 @@ const currentTravelSlice = createSlice({
         ...action.payload,
       };
     },
+    updatePlacesList: (state, action) => {
+      const removeDuplicateElements = (
+        newArray: any[],
+        currentArray: any[],
+      ) => {
+        const idSet = new Set(currentArray.map(item => item.fsq_id));
+        return newArray.filter(item => !idSet.has(item.fsq_id));
+      };
+
+      const newElements = removeDuplicateElements(
+        action.payload.placesList,
+        state.data.placesList,
+      );
+
+      state.data.placesList = [...state.data.placesList, ...newElements];
+    },
     changePlaceState: (state, action) => {
       state.data = {
         ...state.data,
@@ -54,6 +70,10 @@ const currentTravelSlice = createSlice({
   },
 });
 
-export const {clearCurrentTravelStore, updateCurrentTravel, changePlaceState} =
-  currentTravelSlice.actions;
+export const {
+  clearCurrentTravelStore,
+  updateCurrentTravel,
+  changePlaceState,
+  updatePlacesList,
+} = currentTravelSlice.actions;
 export const currentTravelReducer = currentTravelSlice.reducer;

@@ -1,4 +1,12 @@
-import {GOOGLE_MAPS_KEY} from '@env';
+import {FOURSQUARE_KEY, GOOGLE_MAPS_KEY} from '@env';
+
+export const foursquare_options = {
+  method: 'GET',
+  headers: {
+    accept: 'application/json',
+    Authorization: FOURSQUARE_KEY,
+  },
+};
 
 export const URL_PLACE_DETAILS = (placeId: string) =>
   `https://maps.googleapis.com/maps/api/place/details/json?key=${GOOGLE_MAPS_KEY}&place_id=${placeId}`;
@@ -36,3 +44,28 @@ export const URL_PLACES_SEARCH_FOURSQUARE = ({
   }&radius=${radius}&categories=${categories.join(',')}&fields=${fields.join(
     ',',
   )}&limit=${limit}&sort=RATING`;
+
+export const URL_PLACES_DETAILS_FOURSQUARE = ({
+  fields,
+  fsq_id,
+}: {
+  fsq_id: string;
+  fields: string[];
+}) =>
+  `https://api.foursquare.com/v3/places/${fsq_id}?fields=${fields.join(',')}`;
+
+export const URL_AUTOCOMPLETE_FOURSQUARE = ({
+  query,
+  coordinates,
+  radius = 2000,
+  limit = 5,
+}: {
+  coordinates: {
+    lat: number;
+    lng: number;
+  };
+  radius?: number;
+  limit?: number;
+  query: string;
+}) =>
+  `https://api.foursquare.com/v3/autocomplete?query=${query}&ll=${coordinates.lat},${coordinates.lng}&radius=${radius}&limit=${limit}&types=place`;

@@ -1,11 +1,6 @@
 import React from 'react';
 import {Button, Image, Text, View} from 'react-native';
-import {
-  useAddBookmark,
-  useBookmarksStore,
-  useDeleteBookmark,
-} from '@store/bookmarks';
-import {useCurrentTravelStore} from '@store/currentTravel';
+import {useAddBookmarkButton} from '@hooks/AddBookmarkButton';
 
 import {Footer} from './Footer';
 import {styles} from './styles';
@@ -29,30 +24,7 @@ export const SwipeItem = ({
   onOpenSwipeItemDetails,
   onChangeState,
 }: SwipeItemProps) => {
-  const {data} = useCurrentTravelStore();
-  const {data: bookmarksData} = useBookmarksStore();
-  const addBookmark = useAddBookmark();
-  const deleteBookmark = useDeleteBookmark();
-
-  const onAddToBookmarks = () => {
-    const itemInBookmark = bookmarksData.bookmarksList.find(
-      item => item.fsq_id === id,
-    );
-
-    if (itemInBookmark) {
-      deleteBookmark({fsq_id: id});
-
-      return;
-    }
-
-    const currentItem = data.placesList.find(item => item.fsq_id === id);
-
-    addBookmark(currentItem);
-  };
-
-  const isAddedToBookmarks = React.useMemo(() => {
-    return !!bookmarksData.bookmarksList.find(item => item.fsq_id === id);
-  }, [bookmarksData.bookmarksList]);
+  const {isAddedToBookmarks, onAddToBookmarks} = useAddBookmarkButton({id});
 
   return (
     <View style={styles.container}>

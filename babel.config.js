@@ -31,6 +31,7 @@ module.exports = {
         alias: {
           '@managers': './src/managers',
           '@screens': './src/screens',
+          '@hooks': './src/hooks',
           '@ui': './src/ui',
           '@store': './src/store',
           '@components': './src/components',

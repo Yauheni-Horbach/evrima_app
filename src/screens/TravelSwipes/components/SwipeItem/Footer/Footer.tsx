@@ -21,7 +21,7 @@ export const Footer = ({
         <Image source={icons.dislike} style={styles.icon} />
       </TouchableOpacity>
       <TouchableOpacity
-        style={[styles.button, isAddedToBookmarks && styles.disabledButton]}
+        style={[styles.button, isAddedToBookmarks && styles.activedButton]}
         onPress={onAddToBookmarks}>
         <Image source={icons.star} style={styles.icon} />
       </TouchableOpacity>

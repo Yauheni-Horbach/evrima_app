@@ -1,6 +1,9 @@
 import {StyleSheet} from 'react-native';
 
 export const styles = StyleSheet.create({
+  activedButton: {
+    backgroundColor: 'gray',
+  },
   button: {
     alignItems: 'center',
     borderColor: 'red',
@@ -17,9 +20,6 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     height: 60,
     justifyContent: 'space-around',
-  },
-  disabledButton: {
-    backgroundColor: 'gray',
   },
   icon: {
     height: 24,

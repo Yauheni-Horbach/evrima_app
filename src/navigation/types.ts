@@ -2,6 +2,7 @@ import {NavigatorScreenParams, RouteProp} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 export interface SwipeItemDetailsProps {
   fsq_id: string;
+  type: 'bookmarks' | 'currentTravel' | 'searchCurrentTravel';
 }
 
 export type RootStackParamList = {
