@@ -4,7 +4,7 @@ import {foursquare_options, URL_PLACES_SEARCH_FOURSQUARE} from '@api/URLList';
 import {NavigationProp} from '@navigation/types';
 import {useNavigation} from '@react-navigation/native';
 import {
-  useChangePlaceState,
+  useAddPlaceToViewedListWithPlaceState,
   useCurrentTravelStore,
   useUpdatePlacesList,
 } from '@store/currentTravel';
@@ -17,14 +17,15 @@ export const useTravelSwipes = () => {
   const {data} = useCurrentTravelStore();
 
   const updatePlacesList = useUpdatePlacesList();
-  const changePlaceState = useChangePlaceState();
+  const addPlaceToViewedListWithPlaceState =
+    useAddPlaceToViewedListWithPlaceState();
 
   const navigation = useNavigation<NavigationProp<'TravelSwipes'>>();
 
   const fetchData = () => {
     const url = URL_PLACES_SEARCH_FOURSQUARE({
       coordinates: data.coordinates,
-      categories: [10027, 10056],
+      categories: [10000],
       fields: [
         'fsq_id',
         'name',
@@ -44,6 +45,7 @@ export const useTravelSwipes = () => {
     fetch(url, foursquare_options)
       .then(res => res.json())
       .then(json => {
+        console.log(123);
         const items = json.results
           .sort(() => 0.5 - Math.random())
           .filter(item => item.photos && item.photos.length);
@@ -57,24 +59,28 @@ export const useTravelSwipes = () => {
   }, []);
 
   React.useEffect(() => {
-    if (data.placesList[currentCardIndex]?.placeState) {
+    const likeAndDislikeList = [...data.dislikeList, ...data.likeList];
+
+    if (
+      likeAndDislikeList.find(
+        item => item.fsq_id === data.placesList[currentCardIndex]?.fsq_id,
+      )
+    ) {
       setCurrentCardIndex(currentCardIndex + 1);
       swiperRef.current?.swipeBottom();
     }
-  }, [data.placesList]);
+  }, [data.dislikeList, data.likeList]);
 
   const onSwiped = (index: number, event: 'like' | 'dislike') => {
     setCurrentCardIndex(index + 1);
 
-    changePlaceState({
-      fsq_id: data.placesList[index].fsq_id,
+    addPlaceToViewedListWithPlaceState({
+      place: data.placesList[index],
       placeState: event,
     });
   };
 
-  const onPressChangeState = (index: number, event: 'like' | 'dislike') => {
-    onSwiped(index, event);
-
+  const onPressChangeState = (event: 'like' | 'dislike') => {
     if (event === 'dislike') {
       swiperRef.current?.swipeLeft();
     } else {
@@ -91,6 +97,14 @@ export const useTravelSwipes = () => {
     };
   };
 
+  const updateList = (index: number) => {
+    console.log(index + 2, data.placesList.length);
+    if (index === data.placesList.length) {
+      console.log('----');
+      fetchData();
+    }
+  };
+
   return {
     isLoading: !data.placesList.length,
     errorText: '',
@@ -98,6 +112,7 @@ export const useTravelSwipes = () => {
     onSwiped,
     onPressChangeState,
     onOpenSwipeItemDetails,
+    updateList,
     swiperRef,
     currentCardIndex,
   };

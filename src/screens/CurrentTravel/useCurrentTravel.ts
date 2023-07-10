@@ -29,13 +29,11 @@ export const useCurrentTravel = () => {
     });
   };
 
-  const likeList = data.placesList.filter(place => place.placeState === 'like');
-
   return {
     isLoading: false,
     errorText: '',
     currentTravelData: data,
-    likeList,
+    likeList: data.likeList,
     startTravelLocation,
     onLongPress,
   };

@@ -1,7 +1,10 @@
 import {useAddBookmarkButton} from '@hooks/AddBookmarkButton';
 import {photoURLGenerator} from '@managers/PhotoURLGenerator';
 import {useNavigation, useRoute} from '@react-navigation/native';
-import {useChangePlaceState, useCurrentTravelStore} from '@store/currentTravel';
+import {
+  useAddPlaceToViewedListWithPlaceState,
+  useCurrentTravelStore,
+} from '@store/currentTravel';
 
 export const useSwipeItemDetails = () => {
   const {
@@ -9,7 +12,8 @@ export const useSwipeItemDetails = () => {
   } = useRoute<ReactNavigation.RouteFor<'SwipeItemDetails'>>();
   const navigation = useNavigation();
 
-  const changePlaceState = useChangePlaceState();
+  const addPlaceToViewedListWithPlaceState =
+    useAddPlaceToViewedListWithPlaceState();
   const {data} = useCurrentTravelStore();
 
   const {isAddedToBookmarks, onAddToBookmarks} = useAddBookmarkButton({
@@ -26,8 +30,8 @@ export const useSwipeItemDetails = () => {
   };
 
   const onPressChangeState = (event: 'like' | 'dislike') => {
-    changePlaceState({
-      fsq_id,
+    addPlaceToViewedListWithPlaceState({
+      place: data.placesList.find(item => item.fsq_id === fsq_id),
       placeState: event,
     });
 

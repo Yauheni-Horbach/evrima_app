@@ -17,6 +17,8 @@ const initialState = {
     placesList: [],
     startDate: '',
     endDate: '',
+    likeList: [],
+    dislikeList: [],
   },
   loading: false,
   error: null,
@@ -52,20 +54,24 @@ const currentTravelSlice = createSlice({
 
       state.data.placesList = [...state.data.placesList, ...newElements];
     },
-    changePlaceState: (state, action) => {
-      state.data = {
-        ...state.data,
-        placesList: state.data.placesList.map(item => {
-          if (item.fsq_id === action.payload.fsq_id) {
-            return {
-              ...item,
-              ...action.payload,
-              placeState: action.payload.placeState,
-            };
-          }
-          return item;
-        }),
-      };
+    addPlaceToViewedListWithPlaceState: (state, action) => {
+      if (action.payload.placeState === 'like') {
+        const isAlreadyAdded = state.data.likeList.find(item => {
+          return item.fsq_id === action.payload.place.fsq_id;
+        });
+
+        if (!isAlreadyAdded) {
+          state.data.likeList.push(action.payload.place);
+        }
+      } else {
+        const isAlreadyAdded = state.data.dislikeList.find(item => {
+          return item.fsq_id === action.payload.place.fsq_id;
+        });
+
+        if (!isAlreadyAdded) {
+          state.data.dislikeList.push(action.payload.place);
+        }
+      }
     },
   },
 });
@@ -73,7 +79,7 @@ const currentTravelSlice = createSlice({
 export const {
   clearCurrentTravelStore,
   updateCurrentTravel,
-  changePlaceState,
+  addPlaceToViewedListWithPlaceState,
   updatePlacesList,
 } = currentTravelSlice.actions;
 export const currentTravelReducer = currentTravelSlice.reducer;

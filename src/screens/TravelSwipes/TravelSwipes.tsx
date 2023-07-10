@@ -14,6 +14,7 @@ export const TravelSwipes = () => {
     listItems,
     swiperRef,
     onSwiped,
+    updateList,
     onPressChangeState,
     onOpenSwipeItemDetails,
   } = useTravelSwipes();
@@ -38,7 +39,7 @@ export const TravelSwipes = () => {
                       card.photos[0] ? photoURLGenerator(card.photos[0]) : ''
                     }
                     rating={card.rating}
-                    onChangeState={state => onPressChangeState(index, state)}
+                    onChangeState={state => onPressChangeState(state)}
                     onOpenSwipeItemDetails={onOpenSwipeItemDetails(card.fsq_id)}
                   />
                 );
@@ -49,6 +50,7 @@ export const TravelSwipes = () => {
               onSwipedRight={index => {
                 onSwiped(index, 'like');
               }}
+              onSwiped={updateList}
               containerStyle={styles.swiperContainer}
               cardStyle={styles.swiperCard}
               cardIndex={0}

@@ -8,6 +8,8 @@ export interface DataUser {
   location: string;
   radius: number;
   placesList: any[];
+  likeList: any[];
+  dislikeList: any[];
 }
 
 export type InitialState = {
