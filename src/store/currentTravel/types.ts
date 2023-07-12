@@ -10,6 +10,7 @@ export interface DataUser {
   placesList: any[];
   likeList: any[];
   dislikeList: any[];
+  nextPageLink: string;
 }
 
 export type InitialState = {

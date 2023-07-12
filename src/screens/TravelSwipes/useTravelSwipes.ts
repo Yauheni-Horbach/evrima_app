@@ -6,6 +6,7 @@ import {useNavigation} from '@react-navigation/native';
 import {
   useAddPlaceToViewedListWithPlaceState,
   useCurrentTravelStore,
+  useUpdateCurrentTravel,
   useUpdatePlacesList,
 } from '@store/currentTravel';
 
@@ -16,9 +17,12 @@ export const useTravelSwipes = () => {
 
   const {data} = useCurrentTravelStore();
 
+  const nextPageUrl = React.useRef(data.nextPageLink);
+
   const updatePlacesList = useUpdatePlacesList();
   const addPlaceToViewedListWithPlaceState =
     useAddPlaceToViewedListWithPlaceState();
+  const updateCurrentTravel = useUpdateCurrentTravel();
 
   const navigation = useNavigation<NavigationProp<'TravelSwipes'>>();
 
@@ -42,10 +46,24 @@ export const useTravelSwipes = () => {
       radius: data.radius,
     });
 
-    fetch(url, foursquare_options)
-      .then(res => res.json())
+    fetch(nextPageUrl.current || url, foursquare_options)
+      .then(res => {
+        const nextLinkString = res.headers.map.link;
+
+        const regex = /<([^>]+)>/;
+        const match = regex.exec(nextLinkString);
+        let link = '';
+
+        if (match && match.length > 1) {
+          link = match[1];
+        }
+
+        updateCurrentTravel({nextPageLink: link});
+        nextPageUrl.current = link;
+
+        return res.json();
+      })
       .then(json => {
-        console.log(123);
         const items = json.results
           .sort(() => 0.5 - Math.random())
           .filter(item => item.photos && item.photos.length);
@@ -98,9 +116,7 @@ export const useTravelSwipes = () => {
   };
 
   const updateList = (index: number) => {
-    console.log(index + 2, data.placesList.length);
-    if (index === data.placesList.length) {
-      console.log('----');
+    if (index + 4 === data.placesList.length && data.nextPageLink) {
       fetchData();
     }
   };

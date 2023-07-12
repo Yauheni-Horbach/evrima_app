@@ -5,6 +5,7 @@ export const foursquare_options = {
   headers: {
     accept: 'application/json',
     Authorization: FOURSQUARE_KEY,
+    'Accept-Language': 'en',
   },
 };
 

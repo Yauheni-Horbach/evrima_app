@@ -19,6 +19,7 @@ const initialState = {
     endDate: '',
     likeList: [],
     dislikeList: [],
+    nextPageLink: '',
   },
   loading: false,
   error: null,
