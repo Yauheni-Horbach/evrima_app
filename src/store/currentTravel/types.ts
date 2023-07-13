@@ -11,6 +11,8 @@ export interface DataUser {
   likeList: any[];
   dislikeList: any[];
   nextPageLink: string;
+  startDate: string;
+  endDate: string;
 }
 
 export type InitialState = {
