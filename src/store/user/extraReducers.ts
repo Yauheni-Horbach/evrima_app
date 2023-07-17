@@ -2,10 +2,15 @@ import {ActionReducerMapBuilder, createAsyncThunk} from '@reduxjs/toolkit';
 
 import {
   AuthResult,
+  AuthResultWithEmail,
   loginUserByPost,
   LoginUserByPostParams,
   signUpUserByPost,
   SignUpUserByPostParams,
+  updateEmailByPost,
+  UpdateEmailByPostParams,
+  updatePasswordByPost,
+  UpdatePasswordByPostParams,
 } from '../../api/Auth';
 import {
   getUserProfileByGet,
@@ -147,6 +152,69 @@ export const fetchUpdateUserProfileExtraReducer = (
       state.data = action.payload;
     })
     .addCase(fetchUpdateUserProfile.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.error.message as string;
+    });
+};
+
+export const fetchUpdatePassword = createAsyncThunk(
+  Events.UPDATE_PASSWORD,
+  async (params: UpdatePasswordByPostParams): Promise<AuthResult> => {
+    try {
+      const response = await updatePasswordByPost(params);
+
+      return response;
+    } catch (error) {
+      throw new Error(errorMessageHandler(error));
+    }
+  },
+);
+
+export const fetchUpdatePasswordExtraReducer = (
+  builder: ActionReducerMapBuilder<InitialState>,
+) => {
+  builder
+    .addCase(fetchUpdatePassword.pending, state => {
+      state.loading = true;
+      state.error = null;
+    })
+    .addCase(fetchUpdatePassword.fulfilled, state => {
+      state.loading = false;
+      state.eventName = Events.UPDATE_PASSWORD;
+    })
+    .addCase(fetchUpdatePassword.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.error.message as string;
+    });
+};
+
+export const fetchUpdateEmail = createAsyncThunk(
+  Events.UPDATE_EMAIL,
+  async (params: UpdateEmailByPostParams): Promise<AuthResultWithEmail> => {
+    try {
+      const response = await updateEmailByPost(params);
+
+      return response;
+    } catch (error) {
+      throw new Error(errorMessageHandler(error));
+    }
+  },
+);
+
+export const fetchUpdateEmailExtraReducer = (
+  builder: ActionReducerMapBuilder<InitialState>,
+) => {
+  builder
+    .addCase(fetchUpdateEmail.pending, state => {
+      state.loading = true;
+      state.error = null;
+    })
+    .addCase(fetchUpdateEmail.fulfilled, (state, action) => {
+      state.loading = false;
+      state.eventName = Events.UPDATE_EMAIL;
+      state.data.email = action.payload.email;
+    })
+    .addCase(fetchUpdateEmail.rejected, (state, action) => {
       state.loading = false;
       state.error = action.error.message as string;
     });

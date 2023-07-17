@@ -21,6 +21,7 @@ export type RootStackParamList = {
   SettingsCurrentTravel: undefined;
   CurrentTravelNavigator: undefined;
   Bookmarks: undefined;
+  Settings: undefined;
 };
 
 type AllNavigators = RootStackParamList;

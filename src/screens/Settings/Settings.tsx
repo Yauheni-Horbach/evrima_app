@@ -5,16 +5,16 @@ import {ScreenWrapper} from '@components/ScreenWrapper';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
 import {styles} from './styles';
-import {usePersonalization} from './usePersonalization';
+import {useSettings} from './useSettings';
 
 const sexData = [
   {key: '1', value: 'woman'},
   {key: '2', value: 'man'},
 ];
 
-export const Personalization = () => {
+export const Settings = () => {
   const {onSavePress, onInputChange, profileData, isLoading, data, errorText} =
-    usePersonalization();
+    useSettings();
 
   return (
     <ScreenWrapper>

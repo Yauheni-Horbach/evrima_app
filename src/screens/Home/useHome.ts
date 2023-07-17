@@ -33,7 +33,7 @@ export const useHome = () => {
         title: 'Location rating',
         onPress: () => {},
       },
-      {title: 'Settings', onPress: () => {}},
+      {title: 'Settings', onPress: () => navigation.navigate('Settings')},
       {title: 'Search', onPress: () => {}},
       {title: 'Bookmarks', onPress: () => navigation.navigate('Bookmarks')},
     ],

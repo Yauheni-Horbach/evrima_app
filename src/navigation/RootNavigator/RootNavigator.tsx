@@ -12,6 +12,7 @@ import {Onboarding} from '@screens/Onboarding';
 import {Personalization} from '@screens/Personalization';
 import {Registration} from '@screens/Registration';
 import {SearchCurrentTravel} from '@screens/SearchCurrentTravel';
+import {Settings} from '@screens/Settings';
 import {SettingsCurrentTravel} from '@screens/SettingsCurrentTravel';
 import {SwipeItemDetails} from '@screens/SwipeItemDetails';
 import {TravelSwipes} from '@screens/TravelSwipes';
@@ -38,6 +39,7 @@ const linking = {
       SearchCurrentTravel: 'searchCurrentTravel',
       SettingsCurrentTravel: 'settingsCurrentTravel',
       Bookmarks: 'Bookmarks',
+      Settings: 'Settings',
     },
   },
 };
@@ -101,6 +103,7 @@ export const RootNavigator = () => {
         <Stack.Screen name="Personalization" component={Personalization} />
         <Stack.Screen name="NewTravel" component={NewTravel} />
         <Stack.Screen name="Bookmarks" component={Bookmarks} />
+        <Stack.Screen name="Settings" component={Settings} />
         <Stack.Screen
           name="CurrentTravelNavigator"
           component={CurrentTravelNavigator}

@@ -4,6 +4,8 @@ import type {RequestResult} from '../types';
 
 export type AuthResult = {token: string; id: string};
 
+export type AuthResultWithEmail = {token: string; id: string; email: string};
+
 export type LoginUserByPostParams = {
   email: string;
   password: string;
@@ -16,13 +18,13 @@ export type SignUpUserByPostParams = {
 };
 
 export type UpdatePasswordByPostParams = {
-  email: string;
+  id: string;
   password: string;
   newPassword: string;
 };
 
 export type UpdateEmailByPostParams = {
-  email: string;
+  id: string;
   newEmail: string;
 };
 
@@ -56,14 +58,14 @@ export const signUpUserByPost = async ({
 };
 
 export const updatePasswordByPost = async ({
-  email,
+  id,
   password,
   newPassword,
 }: UpdatePasswordByPostParams): RequestResult<AuthResult> => {
   const response = await axios.post(
     'https://evrima.herokuapp.com/auth/update-password',
     {
-      email,
+      id,
       password,
       newPassword,
     },
@@ -73,13 +75,13 @@ export const updatePasswordByPost = async ({
 };
 
 export const updateEmailByPost = async ({
-  email,
+  id,
   newEmail,
-}: UpdateEmailByPostParams): RequestResult<AuthResult> => {
+}: UpdateEmailByPostParams): RequestResult<AuthResultWithEmail> => {
   const response = await axios.post(
     'https://evrima.herokuapp.com/auth/update-email',
     {
-      email,
+      id,
       newEmail,
     },
   );

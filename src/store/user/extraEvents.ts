@@ -3,4 +3,6 @@ export const Events = {
   SIGN_UP_USER: 'signUpUser',
   GET_USER_PROFILE: 'getUserProfile',
   UPDATE_USER_PROFILE: 'updateUserProfile',
+  UPDATE_PASSWORD: 'updatePassword',
+  UPDATE_EMAIL: 'updateEmail',
 };
