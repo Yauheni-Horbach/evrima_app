@@ -13,7 +13,7 @@ const sexData = [
 ];
 
 export const Settings = () => {
-  const {onSavePress, onInputChange, profileData, isLoading, data, errorText} =
+  const {onSavePress, onInputChange, profileData, isLoading, errorText} =
     useSettings();
 
   return (
@@ -23,11 +23,35 @@ export const Settings = () => {
         <>
           <View style={styles.row}>
             <Text style={styles.label}>Name:</Text>
-            <Text style={styles.textValue}>{data.name}</Text>
+            <TextInput
+              style={styles.input}
+              value={profileData.name}
+              onChangeText={value => onInputChange('name', value)}
+            />
           </View>
           <View style={styles.row}>
             <Text style={styles.label}>Email:</Text>
-            <Text style={styles.textValue}>{data.email}</Text>
+            <TextInput
+              style={styles.input}
+              value={profileData.email}
+              onChangeText={value => onInputChange('email', value)}
+            />
+          </View>
+          <View style={styles.row}>
+            <Text style={styles.label}>Current password:</Text>
+            <TextInput
+              style={styles.input}
+              value={profileData.password}
+              onChangeText={value => onInputChange('password', value)}
+            />
+          </View>
+          <View style={styles.row}>
+            <Text style={styles.label}>New password:</Text>
+            <TextInput
+              style={styles.input}
+              value={profileData.newPassword}
+              onChangeText={value => onInputChange('newPassword', value)}
+            />
           </View>
           <View style={styles.row}>
             <Text style={styles.label}>Surname:</Text>

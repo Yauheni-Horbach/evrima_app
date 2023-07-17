@@ -9,8 +9,8 @@ export const useUpdatePassword = () => {
   const dispatch = Redux.useDispatch<AppDispatch>();
 
   return React.useCallback(
-    (id: string, params: UpdatePasswordByPostParams) => {
-      dispatch(fetchUpdatePassword({id, ...params}));
+    (params: UpdatePasswordByPostParams) => {
+      dispatch(fetchUpdatePassword(params));
     },
     [dispatch],
   );

@@ -6,6 +6,8 @@ import {
   fetchGetUserProfileExtraReducer,
   fetchLoginUserExtraReducer,
   fetchSignUpUserExtraReducer,
+  fetchUpdateEmailExtraReducer,
+  fetchUpdatePasswordExtraReducer,
   fetchUpdateUserProfileExtraReducer,
 } from './extraReducers';
 import {InitialState} from './types';
@@ -43,6 +45,8 @@ const userSlice = createSlice({
     fetchLoginUserExtraReducer(builder);
     fetchSignUpUserExtraReducer(builder);
     fetchUpdateUserProfileExtraReducer(builder);
+    fetchUpdateEmailExtraReducer(builder);
+    fetchUpdatePasswordExtraReducer(builder);
   },
 });
 

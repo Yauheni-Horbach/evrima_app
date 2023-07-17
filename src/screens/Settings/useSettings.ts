@@ -3,6 +3,8 @@ import {
   Events,
   useClearEventName,
   useGetUserProfile,
+  useUpdateEmail,
+  useUpdatePassword,
   useUpdateUserProfile,
   useUserStore,
 } from '@store/user';
@@ -20,14 +22,18 @@ export const useSettings = () => {
   const getUserProfile = useGetUserProfile();
   const updateUserProfile = useUpdateUserProfile();
   const clearEventName = useClearEventName();
+  const updateEmail = useUpdateEmail();
+  const updatePassword = useUpdatePassword();
 
   const [profileData, setProfileData] = React.useState({
     password: '',
+    newPassword: '',
     email: '',
     surName: '',
     sex: '',
     birthDate: '',
     location: '',
+    name: '',
   });
 
   React.useEffect(() => {
@@ -35,14 +41,14 @@ export const useSettings = () => {
   }, []);
 
   const onSavePress = () => {
-    const {email, password, ...profileDataElements} = profileData;
+    const {email, password, newPassword, ...profileDataElements} = profileData;
 
     if (email) {
-      console.log(123);
+      updateEmail({newEmail: email, id: data.id});
     }
 
     if (password) {
-      console.log(123);
+      updatePassword({password, newPassword, id: data.id});
     }
 
     updateUserProfile(data.id, filterEmptyValues(profileDataElements));
