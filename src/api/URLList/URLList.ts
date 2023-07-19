@@ -61,12 +61,17 @@ export const URL_AUTOCOMPLETE_FOURSQUARE = ({
   radius = 2000,
   limit = 5,
 }: {
-  coordinates: {
+  coordinates?: {
     lat: number;
     lng: number;
   };
   radius?: number;
   limit?: number;
   query: string;
-}) =>
-  `https://api.foursquare.com/v3/autocomplete?query=${query}&ll=${coordinates.lat},${coordinates.lng}&radius=${radius}&limit=${limit}&types=place`;
+}) => {
+  const coordinatesLine =
+    coordinates?.lat && coordinates.lng
+      ? `&ll=${coordinates.lat},${coordinates.lng}`
+      : '';
+  return `https://api.foursquare.com/v3/autocomplete?query=${query}${coordinatesLine}&radius=${radius}&limit=${limit}&types=place`;
+};

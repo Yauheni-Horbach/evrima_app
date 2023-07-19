@@ -3,6 +3,7 @@ import {configureStore} from '@reduxjs/toolkit';
 import {bookmarksReducer} from './bookmarks';
 import {configReducer} from './config';
 import {currentTravelReducer} from './currentTravel';
+import {searchReducer} from './search';
 import {userReducer} from './user';
 
 const store = configureStore({
@@ -11,6 +12,7 @@ const store = configureStore({
     user: userReducer,
     currentTravel: currentTravelReducer,
     bookmarks: bookmarksReducer,
+    search: searchReducer,
   },
 });
 

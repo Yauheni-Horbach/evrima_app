@@ -6,11 +6,18 @@ import {useAutocompletePlace} from './useAutocompletePlace';
 
 export const AutocompletePlace = ({
   onPressSuggestion,
+  radius,
+  coordinates,
 }: {
   onPressSuggestion: (id: string) => void;
+  radius?: number;
+  coordinates?: {
+    lat: number;
+    lng: number;
+  };
 }) => {
   const {searchQuery, suggestions, handleSearch, handleSelectSuggestion} =
-    useAutocompletePlace({onPressSuggestion});
+    useAutocompletePlace({onPressSuggestion, radius, coordinates});
 
   const renderSuggestion = ({item}: {item: any}) => (
     <TouchableOpacity

@@ -1,8 +1,12 @@
 import {NavigatorScreenParams, RouteProp} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
-export interface SwipeItemDetailsProps {
+export interface ItemDetailsProps {
   fsq_id: string;
-  type: 'bookmarks' | 'currentTravel' | 'searchCurrentTravel';
+  type: 'search' | 'bookmarks' | 'currentTravel' | 'searchCurrentTravel';
+}
+
+export interface SearchProps {
+  type: 'search' | 'searchCurrentTravel';
 }
 
 export type RootStackParamList = {
@@ -16,7 +20,8 @@ export type RootStackParamList = {
   NewTravel: undefined;
   CurrentTravel: undefined;
   TravelSwipes: undefined;
-  SwipeItemDetails: SwipeItemDetailsProps;
+  ItemDetails: ItemDetailsProps;
+  Search: undefined;
   SearchCurrentTravel: undefined;
   SettingsCurrentTravel: undefined;
   CurrentTravelNavigator: undefined;

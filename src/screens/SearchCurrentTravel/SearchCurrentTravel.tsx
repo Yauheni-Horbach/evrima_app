@@ -6,11 +6,15 @@ import {ScreenWrapper} from '@components/ScreenWrapper';
 import {useSearchCurrentTravel} from './useSearchCurrentTravel';
 
 export const SearchCurrentTravel = () => {
-  const {onOpenSwipeItemDetails} = useSearchCurrentTravel();
+  const {onOpenSwipeItemDetails, coordinates} = useSearchCurrentTravel();
+
   return (
     <ScreenWrapper>
       <Text>Search</Text>
-      <AutocompletePlace onPressSuggestion={onOpenSwipeItemDetails} />
+      <AutocompletePlace
+        onPressSuggestion={onOpenSwipeItemDetails}
+        coordinates={coordinates}
+      />
     </ScreenWrapper>
   );
 };

@@ -1,22 +1,26 @@
 import React from 'react';
 import {foursquare_options, URL_AUTOCOMPLETE_FOURSQUARE} from '@api/URLList';
-import {useCurrentTravelStore} from '@store/currentTravel';
 
 export const useAutocompletePlace = ({
   onPressSuggestion,
+  radius,
+  coordinates,
 }: {
   onPressSuggestion: (id: string) => void;
+  radius?: number;
+  coordinates?: {
+    lat: number;
+    lng: number;
+  };
 }) => {
   const [searchQuery, setSearchQuery] = React.useState('');
   const [suggestions, setSuggestions] = React.useState([]);
 
-  const {data} = useCurrentTravelStore();
-
   const fetchSuggestions = async (query: string) => {
     const url = URL_AUTOCOMPLETE_FOURSQUARE({
-      coordinates: data.coordinates,
+      coordinates,
       query,
-      radius: data.radius,
+      radius,
     });
 
     fetch(url, foursquare_options)

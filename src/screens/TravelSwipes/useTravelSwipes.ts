@@ -108,7 +108,7 @@ export const useTravelSwipes = () => {
 
   const onOpenSwipeItemDetails = (fsq_id: string) => {
     return () => {
-      navigation.navigate('SwipeItemDetails', {
+      navigation.navigate('ItemDetails', {
         fsq_id,
         type: 'currentTravel',
       });

@@ -34,7 +34,12 @@ export const useHome = () => {
         onPress: () => {},
       },
       {title: 'Settings', onPress: () => navigation.navigate('Settings')},
-      {title: 'Search', onPress: () => {}},
+      {
+        title: 'Search',
+        onPress: () => {
+          navigation.navigate('Search');
+        },
+      },
       {title: 'Bookmarks', onPress: () => navigation.navigate('Bookmarks')},
     ],
   };

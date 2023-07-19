@@ -1,13 +1,11 @@
 import {foursquare_options, URL_PLACES_DETAILS_FOURSQUARE} from '@api/URLList';
-import {NavigationProp} from '@navigation/types';
 import {useNavigation} from '@react-navigation/native';
-import {useCurrentTravelStore, useUpdatePlacesList} from '@store/currentTravel';
+import {useSetSearchResultProduct} from '@store/search';
 
-export const useSearchCurrentTravel = () => {
-  const navigation = useNavigation<NavigationProp<'TravelSwipes'>>();
+export const useSearch = () => {
+  const navigation = useNavigation();
 
-  const updatePlacesList = useUpdatePlacesList();
-  const {data} = useCurrentTravelStore();
+  const setSearchResultProduct = useSetSearchResultProduct();
 
   const fetchData = async (fsq_id: string) => {
     const url = URL_PLACES_DETAILS_FOURSQUARE({
@@ -30,7 +28,7 @@ export const useSearchCurrentTravel = () => {
     await fetch(url, foursquare_options)
       .then(res => res.json())
       .then(json => {
-        updatePlacesList({placesList: [json]});
+        setSearchResultProduct(json);
       })
       .catch(err => console.error('error:' + err));
   };
@@ -39,13 +37,12 @@ export const useSearchCurrentTravel = () => {
     fetchData(fsq_id).then(() => {
       navigation.navigate('ItemDetails', {
         fsq_id,
-        type: 'searchCurrentTravel',
+        type: 'search',
       });
     });
   };
 
   return {
     onOpenSwipeItemDetails,
-    coordinates: data.coordinates,
   };
 };

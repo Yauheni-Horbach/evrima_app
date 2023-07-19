@@ -32,6 +32,7 @@ export const TravelSwipes = () => {
                 return (
                   <SwipeItem
                     key={index}
+                    listItems={listItems}
                     address={card.location.formatted_address}
                     name={card.name}
                     id={card.fsq_id}

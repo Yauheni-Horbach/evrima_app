@@ -4,10 +4,8 @@ import {
   useBookmarksStore,
   useDeleteBookmark,
 } from '@store/bookmarks';
-import {useCurrentTravelStore} from '@store/currentTravel';
 
-export const useAddBookmarkButton = ({id}: {id: string}) => {
-  const {data} = useCurrentTravelStore();
+export const useAddBookmarkButton = ({id, data}: {id: string; data: any[]}) => {
   const {data: bookmarksData} = useBookmarksStore();
   const addBookmark = useAddBookmark();
   const deleteBookmark = useDeleteBookmark();
@@ -23,7 +21,7 @@ export const useAddBookmarkButton = ({id}: {id: string}) => {
       return;
     }
 
-    const currentItem = data.placesList.find(item => item.fsq_id === id);
+    const currentItem = data.find(item => item.fsq_id === id);
 
     addBookmark(currentItem);
   };

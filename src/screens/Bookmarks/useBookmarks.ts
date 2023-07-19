@@ -9,7 +9,7 @@ export const useBookmarks = () => {
 
   const onOpenItemDetails = (fsq_id: string) => {
     return () => {
-      navigation.navigate('SwipeItemDetails', {
+      navigation.navigate('ItemDetails', {
         fsq_id,
         type: 'bookmarks',
       });

@@ -11,6 +11,7 @@ interface SwipeItemProps {
   rating: number;
   id: string;
   urlPhoto: string;
+  listItems: any[];
   onOpenSwipeItemDetails: () => void;
   onChangeState: (state: 'dislike' | 'like') => void;
 }
@@ -23,8 +24,12 @@ export const SwipeItem = ({
   urlPhoto,
   onOpenSwipeItemDetails,
   onChangeState,
+  listItems,
 }: SwipeItemProps) => {
-  const {isAddedToBookmarks, onAddToBookmarks} = useAddBookmarkButton({id});
+  const {isAddedToBookmarks, onAddToBookmarks} = useAddBookmarkButton({
+    id,
+    data: listItems,
+  });
 
   return (
     <View style={styles.container}>

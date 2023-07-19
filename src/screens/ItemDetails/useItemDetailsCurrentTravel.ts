@@ -1,15 +1,12 @@
 import {useAddBookmarkButton} from '@hooks/AddBookmarkButton';
 import {photoURLGenerator} from '@managers/PhotoURLGenerator';
-import {useNavigation, useRoute} from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import {
   useAddPlaceToViewedListWithPlaceState,
   useCurrentTravelStore,
 } from '@store/currentTravel';
 
-export const useSwipeItemDetails = () => {
-  const {
-    params: {fsq_id, type},
-  } = useRoute<ReactNavigation.RouteFor<'SwipeItemDetails'>>();
+export const useItemDetailsCurrentTravel = (id: string) => {
   const navigation = useNavigation();
 
   const addPlaceToViewedListWithPlaceState =
@@ -17,21 +14,16 @@ export const useSwipeItemDetails = () => {
   const {data} = useCurrentTravelStore();
 
   const {isAddedToBookmarks, onAddToBookmarks} = useAddBookmarkButton({
-    id: fsq_id,
+    id,
+    data: data.placesList,
   });
 
-  const currentPlace = data.placesList.find(item => item.fsq_id === fsq_id);
-  const photoList = (currentPlace?.photos || []).map(item =>
-    photoURLGenerator(item),
-  );
-
-  const onGoBack = () => {
-    navigation.goBack();
-  };
+  const placeInfo = data.placesList.find(item => item.fsq_id === id);
+  const photos = (placeInfo?.photos || []).map(item => photoURLGenerator(item));
 
   const onPressChangeState = (event: 'like' | 'dislike') => {
     addPlaceToViewedListWithPlaceState({
-      place: data.placesList.find(item => item.fsq_id === fsq_id),
+      place: data.placesList.find(item => item.fsq_id === id),
       placeState: event,
     });
 
@@ -42,11 +34,7 @@ export const useSwipeItemDetails = () => {
     onPressChangeState,
     isAddedToBookmarks,
     onAddToBookmarks,
-    currentPlace,
-    photoList: photoList.length
-      ? photoList
-      : ['https://cezim.pl/wp-content/uploads/2021/12/empty.jpg'],
-    typeScreen: type,
-    onGoBack,
+    placeInfo,
+    photos,
   };
 };

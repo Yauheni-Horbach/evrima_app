@@ -6,15 +6,16 @@ import {Auth} from '@screens/Auth';
 import {Bookmarks} from '@screens/Bookmarks';
 import {CurrentTravel} from '@screens/CurrentTravel';
 import {Home} from '@screens/Home';
+import {ItemDetails} from '@screens/ItemDetails';
 import {Login} from '@screens/Login';
 import {NewTravel} from '@screens/NewTravel';
 import {Onboarding} from '@screens/Onboarding';
 import {Personalization} from '@screens/Personalization';
 import {Registration} from '@screens/Registration';
+import {Search} from '@screens/Search';
 import {SearchCurrentTravel} from '@screens/SearchCurrentTravel';
 import {Settings} from '@screens/Settings';
 import {SettingsCurrentTravel} from '@screens/SettingsCurrentTravel';
-import {SwipeItemDetails} from '@screens/SwipeItemDetails';
 import {TravelSwipes} from '@screens/TravelSwipes';
 import {Welcome} from '@screens/Welcome';
 
@@ -35,7 +36,8 @@ const linking = {
       NewTravel: 'newTravel',
       CurrentTravel: 'currentTravel',
       TravelSwipes: 'travelSwipes',
-      SwipeItemDetails: 'swipeItemDetails',
+      ItemDetails: 'itemDetails',
+      Search: 'search',
       SearchCurrentTravel: 'searchCurrentTravel',
       SettingsCurrentTravel: 'settingsCurrentTravel',
       Bookmarks: 'Bookmarks',
@@ -91,6 +93,7 @@ export const RootNavigator = () => {
         <Stack.Screen name="Welcome" component={Welcome} />
         <Stack.Screen name="Auth" component={Auth} />
         <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Search" component={Search} />
         <Stack.Screen
           name="Home"
           component={Home}
@@ -110,8 +113,8 @@ export const RootNavigator = () => {
         />
         <ModalStack.Group>
           <Stack.Screen
-            name="SwipeItemDetails"
-            component={SwipeItemDetails}
+            name="ItemDetails"
+            component={ItemDetails}
             options={{
               presentation: 'modal',
             }}
