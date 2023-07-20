@@ -19,7 +19,9 @@ export const useItemDetailsCurrentTravel = (id: string) => {
   });
 
   const placeInfo = data.placesList.find(item => item.fsq_id === id);
-  const photos = (placeInfo?.photos || []).map(item => photoURLGenerator(item));
+  const photos = (placeInfo?.photos || []).map((item: any) =>
+    photoURLGenerator(item),
+  );
 
   const onPressChangeState = (event: 'like' | 'dislike') => {
     addPlaceToViewedListWithPlaceState({

@@ -1,8 +1,10 @@
 import React from 'react';
-import {Text} from 'react-native';
+import {Pressable, Text} from 'react-native';
 import MapView, {Marker} from 'react-native-maps';
+import MapViewDirections from 'react-native-maps-directions';
 import Animated from 'react-native-reanimated';
 import {ScreenWrapper} from '@components/ScreenWrapper';
+import {GOOGLE_MAPS_KEY} from '@env';
 
 import {styles} from './styles';
 import {useCurrentTravel} from './useCurrentTravel';
@@ -14,6 +16,8 @@ export const CurrentTravel = () => {
     likeList,
     onLongPress,
     startTravelLocation,
+    directions,
+    onPressInPlace,
   } = useCurrentTravel();
 
   return (
@@ -60,12 +64,28 @@ export const CurrentTravel = () => {
                   description={item.vicinity}
                 />
               ))}
+              {directions.destination && directions.origin && (
+                <MapViewDirections
+                  origin={directions.origin}
+                  destination={directions.destination}
+                  apikey={GOOGLE_MAPS_KEY}
+                  onReady={event => {
+                    console.log(event);
+                  }}
+                  mode="WALKING"
+                />
+              )}
             </MapView>
           </Animated.View>
           {likeList.map((item, index) => (
-            <Text key={index}>
-              {item.name} - {currentTravelData.location}
-            </Text>
+            <Pressable
+              key={index}
+              onPress={() => onPressInPlace(item)}
+              style={styles.placeItem}>
+              <Text>
+                {item.name} - {currentTravelData.location}
+              </Text>
+            </Pressable>
           ))}
         </>
       )}

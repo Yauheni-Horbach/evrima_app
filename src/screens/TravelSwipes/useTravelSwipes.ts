@@ -2,10 +2,11 @@ import React from 'react';
 import Swiper from 'react-native-deck-swiper';
 import {foursquare_options, URL_PLACES_SEARCH_FOURSQUARE} from '@api/URLList';
 import {NavigationProp} from '@navigation/types';
-import {useNavigation} from '@react-navigation/native';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {
   useAddPlaceToViewedListWithPlaceState,
   useCurrentTravelStore,
+  useFilterPlacesList,
   useUpdateCurrentTravel,
   useUpdatePlacesList,
 } from '@store/currentTravel';
@@ -13,6 +14,7 @@ import {
 export const useTravelSwipes = () => {
   const [currentCardIndex, setCurrentCardIndex] = React.useState(0);
 
+  const isSkipFilterPlacesList = React.useRef(false);
   const swiperRef = React.useRef<Swiper<null>>(null);
 
   const {data} = useCurrentTravelStore();
@@ -23,6 +25,7 @@ export const useTravelSwipes = () => {
   const addPlaceToViewedListWithPlaceState =
     useAddPlaceToViewedListWithPlaceState();
   const updateCurrentTravel = useUpdateCurrentTravel();
+  const filterPlacesList = useFilterPlacesList();
 
   const navigation = useNavigation<NavigationProp<'TravelSwipes'>>();
 
@@ -47,7 +50,7 @@ export const useTravelSwipes = () => {
     });
 
     fetch(nextPageUrl.current || url, foursquare_options)
-      .then(res => {
+      .then((res: any) => {
         const nextLinkString = res.headers.map.link;
 
         const regex = /<([^>]+)>/;
@@ -63,10 +66,11 @@ export const useTravelSwipes = () => {
 
         return res.json();
       })
-      .then(json => {
+      .then((json: any) => {
         const items = json.results
           .sort(() => 0.5 - Math.random())
-          .filter(item => item.photos && item.photos.length);
+          .filter((item: any) => item.photos && item.photos.length);
+
         updatePlacesList({placesList: items});
       })
       .catch(err => console.error('error:' + err));
@@ -75,6 +79,19 @@ export const useTravelSwipes = () => {
   React.useEffect(() => {
     fetchData();
   }, []);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      return () => {
+        if (isSkipFilterPlacesList.current) {
+          filterPlacesList();
+          setCurrentCardIndex(0);
+          swiperRef.current?.jumpToCardIndex(0);
+        }
+        isSkipFilterPlacesList.current = false;
+      };
+    }, [isSkipFilterPlacesList.current]),
+  );
 
   React.useEffect(() => {
     const likeAndDislikeList = [...data.dislikeList, ...data.likeList];
@@ -108,6 +125,7 @@ export const useTravelSwipes = () => {
 
   const onOpenSwipeItemDetails = (fsq_id: string) => {
     return () => {
+      isSkipFilterPlacesList.current = true;
       navigation.navigate('ItemDetails', {
         fsq_id,
         type: 'currentTravel',

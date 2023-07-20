@@ -13,6 +13,11 @@ export const useCurrentTravel = () => {
     title: 'Start Travel',
   });
 
+  const [directions, setDirections] = React.useState({
+    origin: null,
+    destination: null,
+  });
+
   const onLongPress = ({
     latitude,
     longitude,
@@ -27,14 +32,34 @@ export const useCurrentTravel = () => {
         lng: longitude,
       },
     });
+
+    setDirections({
+      ...directions,
+      origin: {
+        latitude,
+        longitude,
+      },
+    });
+  };
+
+  const onPressInPlace = place => {
+    setDirections({
+      ...directions,
+      destination: {
+        latitude: place.geocodes.main.latitude,
+        longitude: place.geocodes.main.longitude,
+      },
+    });
   };
 
   return {
     isLoading: false,
     errorText: '',
+    directions,
     currentTravelData: data,
     likeList: data.likeList,
     startTravelLocation,
     onLongPress,
+    onPressInPlace,
   };
 };

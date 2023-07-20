@@ -55,6 +55,22 @@ const currentTravelSlice = createSlice({
 
       state.data.placesList = [...state.data.placesList, ...newElements];
     },
+    filterPlacesList: state => {
+      const removeDuplicateElements = (
+        newArray: any[],
+        currentArray: any[],
+      ) => {
+        const idSet = new Set(currentArray.map(item => item.fsq_id));
+        return newArray.filter(item => !idSet.has(item.fsq_id));
+      };
+
+      const newElements = removeDuplicateElements(state.data.placesList, [
+        ...state.data.dislikeList,
+        ...state.data.likeList,
+      ]);
+
+      state.data.placesList = newElements;
+    },
     addPlaceToViewedListWithPlaceState: (state, action) => {
       if (action.payload.placeState === 'like') {
         const isAlreadyAdded = state.data.likeList.find(item => {
@@ -82,5 +98,6 @@ export const {
   updateCurrentTravel,
   addPlaceToViewedListWithPlaceState,
   updatePlacesList,
+  filterPlacesList,
 } = currentTravelSlice.actions;
 export const currentTravelReducer = currentTravelSlice.reducer;

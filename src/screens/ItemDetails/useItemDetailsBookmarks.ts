@@ -14,7 +14,9 @@ export const useItemDetailsBookmarks = (id: string) => {
   });
 
   const placeInfo = data.bookmarksList.find(item => item.fsq_id === id);
-  const photos = (placeInfo?.photos || []).map(item => photoURLGenerator(item));
+  const photos = (placeInfo?.photos || []).map((item: any) =>
+    photoURLGenerator(item),
+  );
 
   const onGoBack = () => {
     navigation.goBack();
