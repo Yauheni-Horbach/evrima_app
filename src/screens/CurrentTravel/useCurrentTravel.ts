@@ -6,6 +6,19 @@ import {
   useDeleteItemFromLikeList,
 } from '@store/currentTravel';
 
+interface DirectionsState {
+  origin: {
+    latitude: number;
+    longitude: number;
+    id: string;
+  } | null;
+  destination: {
+    latitude: number;
+    longitude: number;
+    id: string;
+  } | null;
+}
+
 export const useCurrentTravel = () => {
   const {data} = useCurrentTravelStore();
 
@@ -22,7 +35,7 @@ export const useCurrentTravel = () => {
     title: 'Start Travel',
   });
 
-  const [directions, setDirections] = React.useState({
+  const [directions, setDirections] = React.useState<DirectionsState>({
     origin: null,
     destination: null,
   });
@@ -52,7 +65,7 @@ export const useCurrentTravel = () => {
     });
   };
 
-  const onPressInPlace = place => {
+  const onPressInPlace = (place: any) => {
     setDirections({
       ...directions,
       destination: {

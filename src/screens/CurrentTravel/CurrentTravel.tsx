@@ -23,7 +23,13 @@ export const CurrentTravel = () => {
     onDeleteItem,
   } = useCurrentTravel();
 
-  const renderRightActions = ({onOpenSwipeItemDetails, onDeleteItem}) => {
+  const renderRightActions = ({
+    onOpenSwipeItemDetails,
+    onDeleteItem,
+  }: {
+    onOpenSwipeItemDetails: () => void;
+    onDeleteItem: () => void;
+  }) => {
     return (
       <View style={styles.swipeableContainer}>
         <Pressable
@@ -77,9 +83,9 @@ export const CurrentTravel = () => {
                   title={startTravelLocation.title}
                 />
               ) : null}
-              {likeList.map((item, index) => (
+              {likeList.map(item => (
                 <Marker
-                  key={index}
+                  key={item.fsq_id}
                   coordinate={{
                     latitude: item.geocodes.main.latitude,
                     longitude: item.geocodes.main.longitude,
@@ -99,9 +105,9 @@ export const CurrentTravel = () => {
             </MapView>
           </Animated.View>
           <ScrollView>
-            {likeList.map((item, index) => (
+            {likeList.map(item => (
               <Swipeable
-                key={index}
+                key={item.fsq_id}
                 renderRightActions={() =>
                   renderRightActions({
                     onOpenSwipeItemDetails: onOpenSwipeItemDetails(item.fsq_id),
