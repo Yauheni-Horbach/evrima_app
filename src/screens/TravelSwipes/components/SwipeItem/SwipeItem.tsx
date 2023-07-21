@@ -1,5 +1,6 @@
 import React from 'react';
 import {Button, Image, Text, View} from 'react-native';
+import type {PlaceItem} from '@api/types';
 import {useAddBookmarkButton} from '@hooks/AddBookmarkButton';
 
 import {Footer} from './Footer';
@@ -11,7 +12,7 @@ interface SwipeItemProps {
   rating: number;
   id: string;
   urlPhoto: string;
-  listItems: any[];
+  listItems: PlaceItem[];
   onOpenSwipeItemDetails: () => void;
   onChangeState: (state: 'dislike' | 'like') => void;
 }

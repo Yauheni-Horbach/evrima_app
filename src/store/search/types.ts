@@ -1,5 +1,7 @@
+import type {PlaceItem} from '@api/types';
+
 export interface DataUser {
-  currentSearchResultProduct: any;
+  currentSearchResultProduct: PlaceItem;
 }
 
 export type InitialState = {

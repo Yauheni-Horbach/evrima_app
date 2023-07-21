@@ -1,6 +1,8 @@
 import React from 'react';
 import {foursquare_options, URL_AUTOCOMPLETE_FOURSQUARE} from '@api/URLList';
 
+import {AutocompletePlaceItem} from './types';
+
 export const useAutocompletePlace = ({
   onPressSuggestion,
   radius,
@@ -14,7 +16,9 @@ export const useAutocompletePlace = ({
   };
 }) => {
   const [searchQuery, setSearchQuery] = React.useState('');
-  const [suggestions, setSuggestions] = React.useState([]);
+  const [suggestions, setSuggestions] = React.useState<AutocompletePlaceItem[]>(
+    [],
+  );
 
   const fetchSuggestions = async (query: string) => {
     const url = URL_AUTOCOMPLETE_FOURSQUARE({
@@ -26,7 +30,7 @@ export const useAutocompletePlace = ({
     fetch(url, foursquare_options)
       .then(res => res.json())
       .then(json => {
-        setSuggestions(json.results);
+        setSuggestions(json.results as AutocompletePlaceItem[]);
       })
       .catch(err => console.error('error:' + err));
   };
@@ -38,7 +42,7 @@ export const useAutocompletePlace = ({
     }
   };
 
-  const handleSelectSuggestion = (suggestion: any) => {
+  const handleSelectSuggestion = (suggestion: AutocompletePlaceItem) => {
     onPressSuggestion(suggestion.place.fsq_id);
     setSearchQuery('');
     setSuggestions([]);

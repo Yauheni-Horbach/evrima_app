@@ -1,4 +1,7 @@
-export type RequestResult<T> = Promise<T>;
+interface Highlight {
+  start: number;
+  length: number;
+}
 
 interface Icon {
   prefix: string;
@@ -18,37 +21,34 @@ interface Geocode {
   };
 }
 
-interface Hours {
-  is_local_holiday: boolean;
-  open_now: boolean;
-}
-
 interface Location {
   address: string;
   country: string;
+  cross_street: string;
   formatted_address: string;
   locality: string;
   postcode: string;
   region: string;
 }
 
-interface Photo {
-  id: string;
-  created_at: string;
-  prefix: string;
-  suffix: string;
-  width: number;
-  height: number;
-}
-
-export interface PlaceItem {
+interface Place {
   fsq_id: string;
   categories: Category[];
+  distance: number;
   geocodes: Geocode;
-  hours: Hours;
   location: Location;
   name: string;
-  photos: Photo[];
-  rating: number;
-  website: string;
+}
+
+interface Text {
+  primary: string;
+  secondary: string;
+  highlight: Highlight[];
+}
+
+export interface AutocompletePlaceItem {
+  type: string;
+  text: Text;
+  link: string;
+  place: Place;
 }

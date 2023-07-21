@@ -5,10 +5,34 @@ import {CommonActions} from '@react-navigation/native';
 import {Tab} from './components';
 import {styles} from './styles';
 
+type State = {
+  key: string;
+  index: number;
+  routes: Array<{
+    key: string;
+    name: string;
+    params?: object;
+  }>;
+};
+
+type Descriptor = {
+  key: string;
+  name: string;
+  options: {
+    title?: string;
+  };
+};
+
+type Navigation = {
+  dispatch: (action: any) => void;
+  navigate: (routeName: string) => void;
+  emit: (event: any) => {defaultPrevented: boolean};
+};
+
 type TabMenuProps = {
-  state: any;
-  descriptors: any;
-  navigation: any;
+  state: State;
+  descriptors: {[key: string]: Descriptor};
+  navigation: Navigation;
 };
 
 export const CurrentTravelTabs: React.FC<TabMenuProps> = ({
@@ -25,7 +49,10 @@ export const CurrentTravelTabs: React.FC<TabMenuProps> = ({
     );
   };
 
-  const onTabPress = (route: any, isFocused: boolean) => {
+  const onTabPress = (
+    route: {key: string; name: string},
+    isFocused: boolean,
+  ) => {
     const event = navigation.emit({
       type: 'tabPress',
       target: route.key,
@@ -40,9 +67,9 @@ export const CurrentTravelTabs: React.FC<TabMenuProps> = ({
   return (
     <View style={styles.container}>
       <Tab key="back" onPress={onBackPress} label="Back" />
-      {state.routes.map((route: any, index: number) => {
+      {state.routes.map((route: {key: string; name: string}, index: number) => {
         const {options} = descriptors[route.key];
-        const label = options.title || route.name;
+        const label = options.title ?? route.name;
         const isCurrentTravel = route.name === 'CurrentTravel';
         const isFocused = state.index === index;
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import Swiper from 'react-native-deck-swiper';
+import type {PlaceItem} from '@api/types';
 import {foursquare_options, URL_PLACES_SEARCH_FOURSQUARE} from '@api/URLList';
 import {NavigationProp} from '@navigation/types';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
@@ -66,10 +67,10 @@ export const useTravelSwipes = () => {
 
         return res.json();
       })
-      .then((json: any) => {
-        const items = json.results
+      .then(json => {
+        const items: PlaceItem[] = json.results
           .sort(() => 0.5 - Math.random())
-          .filter((item: any) => item.photos && item.photos.length);
+          .filter((item: PlaceItem) => item?.photos?.length);
 
         updatePlacesList({placesList: items});
       })

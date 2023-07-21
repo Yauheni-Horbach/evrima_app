@@ -1,5 +1,6 @@
 import React from 'react';
 import {Text, TouchableOpacity} from 'react-native';
+import type {PlaceItem} from '@api/types';
 import {ScreenWrapper} from '@components/ScreenWrapper';
 
 import {styles} from './styles';
@@ -9,7 +10,7 @@ const BookmarkItem = ({
   item,
   onOpenItemDetails,
 }: {
-  item: any;
+  item: PlaceItem;
   onOpenItemDetails: () => void;
 }) => {
   return (
@@ -25,9 +26,9 @@ export const Bookmarks = () => {
   return (
     <ScreenWrapper style={styles.container}>
       <Text style={styles.title}>Bookmarks</Text>
-      {bookmarksStore.data.bookmarksList.map((item, index) => (
+      {bookmarksStore.data.bookmarksList.map(item => (
         <BookmarkItem
-          key={index}
+          key={item.fsq_id}
           item={item}
           onOpenItemDetails={onOpenItemDetails(item.fsq_id)}
         />

@@ -21,13 +21,11 @@ export const useItemDetailsCurrentTravel = (id: string) => {
   });
 
   const placeInfo = currentListData.find(item => item.fsq_id === id);
-  const photos = (placeInfo?.photos || []).map((item: any) =>
-    photoURLGenerator(item),
-  );
+  const photos = (placeInfo?.photos ?? []).map(item => photoURLGenerator(item));
 
   const onPressChangeState = (event: 'like' | 'dislike') => {
     addPlaceToViewedListWithPlaceState({
-      place: data.placesList.find(item => item.fsq_id === id),
+      place: data.placesList.find(item => item.fsq_id === id)!,
       placeState: event,
     });
 

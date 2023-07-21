@@ -9,7 +9,7 @@ import {
   useUserStore,
 } from '@store/user';
 
-const filterEmptyValues = (obj: Record<string, any>) => {
+const filterEmptyValues = (obj: Record<string, string>) => {
   const filteredEntries = Object.entries(obj).filter(
     ([_, value]) => value !== '',
   );

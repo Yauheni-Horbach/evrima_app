@@ -1,10 +1,14 @@
+import type {PlaceItem} from '@api/types';
 import {createSlice} from '@reduxjs/toolkit';
 
 import {User} from '../storeNames';
 
 import {InitialState} from './types';
 
-const removeDuplicateElements = (newArray: any[], currentArray: any[]) => {
+const removeDuplicateElements = (
+  newArray: PlaceItem[],
+  currentArray: PlaceItem[],
+) => {
   const idSet = new Set(currentArray.map(item => item.fsq_id));
   return newArray.filter(item => !idSet.has(item.fsq_id));
 };

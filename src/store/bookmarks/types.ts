@@ -1,5 +1,7 @@
+import type {PlaceItem} from '@api/types';
+
 export interface DataUser {
-  bookmarksList: any[];
+  bookmarksList: PlaceItem[];
 }
 
 export type InitialState = {

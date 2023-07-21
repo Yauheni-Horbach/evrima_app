@@ -1,11 +1,18 @@
 import React from 'react';
+import type {PlaceItem} from '@api/types';
 import {
   useAddBookmark,
   useBookmarksStore,
   useDeleteBookmark,
 } from '@store/bookmarks';
 
-export const useAddBookmarkButton = ({id, data}: {id: string; data: any[]}) => {
+export const useAddBookmarkButton = ({
+  id,
+  data,
+}: {
+  id: string;
+  data: PlaceItem[];
+}) => {
   const {data: bookmarksData} = useBookmarksStore();
   const addBookmark = useAddBookmark();
   const deleteBookmark = useDeleteBookmark();
@@ -21,7 +28,7 @@ export const useAddBookmarkButton = ({id, data}: {id: string; data: any[]}) => {
       return;
     }
 
-    const currentItem = data.find(item => item.fsq_id === id);
+    const currentItem = data.find(item => item.fsq_id === id)!;
 
     addBookmark(currentItem);
   };

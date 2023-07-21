@@ -1,4 +1,5 @@
 import React from 'react';
+import type {PlaceItem} from '@api/types';
 import {NavigationProp} from '@navigation/types';
 import {useNavigation} from '@react-navigation/native';
 import {
@@ -65,7 +66,7 @@ export const useCurrentTravel = () => {
     });
   };
 
-  const onPressInPlace = (place: any) => {
+  const onPressInPlace = (place: PlaceItem) => {
     setDirections({
       ...directions,
       destination: {

@@ -2,6 +2,7 @@ import React from 'react';
 import {FlatList, Text, TextInput, TouchableOpacity, View} from 'react-native';
 
 import {styles} from './styles';
+import {AutocompletePlaceItem} from './types';
 import {useAutocompletePlace} from './useAutocompletePlace';
 
 export const AutocompletePlace = ({
@@ -19,7 +20,7 @@ export const AutocompletePlace = ({
   const {searchQuery, suggestions, handleSearch, handleSelectSuggestion} =
     useAutocompletePlace({onPressSuggestion, radius, coordinates});
 
-  const renderSuggestion = ({item}: {item: any}) => (
+  const renderSuggestion = ({item}: {item: AutocompletePlaceItem}) => (
     <TouchableOpacity
       style={styles.suggestionItem}
       onPress={() => handleSelectSuggestion(item)}>

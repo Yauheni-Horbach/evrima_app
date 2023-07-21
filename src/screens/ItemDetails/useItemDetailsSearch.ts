@@ -14,9 +14,7 @@ export const useItemDetailsSearch = (id: string) => {
   });
 
   const placeInfo = data.currentSearchResultProduct;
-  const photos = (placeInfo?.photos || []).map((item: any) =>
-    photoURLGenerator(item),
-  );
+  const photos = (placeInfo?.photos ?? []).map(item => photoURLGenerator(item));
 
   const onGoBack = () => {
     navigation.goBack();

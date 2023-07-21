@@ -1,3 +1,5 @@
+import type {PlaceItem} from '@api/types';
+
 export interface DataUser {
   id: string;
   name: string;
@@ -7,9 +9,9 @@ export interface DataUser {
   };
   location: string;
   radius: number;
-  placesList: any[];
-  likeList: any[];
-  dislikeList: any[];
+  placesList: PlaceItem[];
+  likeList: PlaceItem[];
+  dislikeList: PlaceItem[];
   nextPageLink: string;
   startDate: string;
   endDate: string;

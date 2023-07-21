@@ -2,6 +2,7 @@ import React from 'react';
 import {Button, Dimensions, Image, ScrollView, Text, View} from 'react-native';
 import MapView, {Marker} from 'react-native-maps';
 import Carousel from 'react-native-reanimated-carousel';
+import type {PlaceItem} from '@api/types';
 
 import {Footer, SearchFooter} from './components';
 import {styles} from './styles';
@@ -10,7 +11,7 @@ import {useItemDetailsBookmarks} from './useItemDetailsBookmarks';
 import {useItemDetailsCurrentTravel} from './useItemDetailsCurrentTravel';
 import {useItemDetailsSearch} from './useItemDetailsSearch';
 
-const CarouselItem = ({index, photos}: {index: number; photos: any}) => (
+const CarouselItem = ({index, photos}: {index: number; photos: string[]}) => (
   <View style={styles.carouselItemBody}>
     <Image source={{uri: photos[index]}} style={styles.carouselItemImage} />
   </View>
@@ -22,8 +23,8 @@ export const ItemDetailsBody = ({
   photos,
 }: {
   children: React.ReactNode;
-  placeInfo: any;
-  photos: any[];
+  placeInfo?: PlaceItem;
+  photos: string[];
 }) => {
   const width = Dimensions.get('window').width;
 

@@ -91,7 +91,6 @@ export const CurrentTravel = () => {
                     longitude: item.geocodes.main.longitude,
                   }}
                   title={item.name}
-                  description={item.vicinity}
                 />
               ))}
               {directions.destination && directions.origin && (
