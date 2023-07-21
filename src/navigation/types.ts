@@ -5,10 +5,6 @@ export interface ItemDetailsProps {
   type: 'search' | 'bookmarks' | 'currentTravel' | 'searchCurrentTravel';
 }
 
-export interface SearchProps {
-  type: 'search' | 'searchCurrentTravel';
-}
-
 export type RootStackParamList = {
   Welcome: undefined;
   Auth: undefined;
@@ -29,8 +25,6 @@ export type RootStackParamList = {
   Settings: undefined;
 };
 
-type AllNavigators = RootStackParamList;
-
 export type NavigationProp<Screen extends keyof RootStackParamList> =
   StackNavigationProp<RootStackParamList, Screen>;
 
@@ -49,19 +43,17 @@ type GetWithNoParams<T> = {
 
 declare global {
   namespace ReactNavigation {
-    interface RootParamList extends AllNavigators {}
+    interface RootParamList extends RootStackParamList {}
 
-    type RouteFor<T extends keyof AllNavigators> = RouteProp<AllNavigators, T>;
+    type RouteFor<T extends keyof RootStackParamList> = RouteProp<
+      RootStackParamList,
+      T
+    >;
 
-    type RouteNames = keyof AllNavigators;
+    type RouteNames = keyof RootStackParamList;
 
-    type ScreenNames = GetNonStacks<AllNavigators>;
+    type ScreenNames = GetNonStacks<RootStackParamList>;
 
-    /*
-     * Routes without params only.
-     * Exclude sprint navigators due to TS performance limitations
-     * https://github.com/microsoft/TypeScript/issues/32749
-     */
-    type SimpleRoutesOnly = keyof GetWithNoParams<AllNavigators>;
+    type SimpleRoutesOnly = keyof GetWithNoParams<RootStackParamList>;
   }
 }
