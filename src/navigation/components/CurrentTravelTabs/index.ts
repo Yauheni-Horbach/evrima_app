@@ -1,1 +1,1 @@
-export {CurrentTravelTabs} from './CurrentTravelTabs';
+export * from './CurrentTravelTabs';
