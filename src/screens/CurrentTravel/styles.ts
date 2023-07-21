@@ -1,5 +1,7 @@
 import {StyleSheet} from 'react-native';
 
+const buttonWidth = 80;
+
 export const styles = StyleSheet.create({
   containerMap: {
     alignItems: 'center',
@@ -12,10 +14,32 @@ export const styles = StyleSheet.create({
     width: 400,
   },
   placeItem: {
-    borderColor: 'red',
+    alignItems: 'center',
+    borderRadius: 10,
     borderWidth: 1,
+    height: 40,
+    justifyContent: 'center',
 
-    height: 30,
+    marginBottom: 5,
     width: '100%',
+  },
+  swipeableButton: {
+    alignItems: 'center',
+    borderRadius: 10,
+    justifyContent: 'center',
+    width: buttonWidth,
+  },
+  swipeableButtonText: {
+    color: 'white',
+    fontSize: 20,
+  },
+  swipeableContainer: {
+    flexDirection: 'row',
+  },
+  swipeableDelete: {
+    backgroundColor: 'red',
+  },
+  swipeableDetails: {
+    backgroundColor: 'blue',
   },
 });

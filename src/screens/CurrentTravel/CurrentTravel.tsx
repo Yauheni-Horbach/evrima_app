@@ -1,5 +1,6 @@
 import React from 'react';
-import {Pressable, Text} from 'react-native';
+import {Pressable, ScrollView, Text, View} from 'react-native';
+import {Swipeable} from 'react-native-gesture-handler';
 import MapView, {Marker} from 'react-native-maps';
 import MapViewDirections from 'react-native-maps-directions';
 import Animated from 'react-native-reanimated';
@@ -18,7 +19,30 @@ export const CurrentTravel = () => {
     startTravelLocation,
     directions,
     onPressInPlace,
+    onOpenSwipeItemDetails,
+    onDeleteItem,
   } = useCurrentTravel();
+
+  const renderRightActions = ({onOpenSwipeItemDetails, onDeleteItem}) => {
+    return (
+      <View style={styles.swipeableContainer}>
+        <Pressable
+          onPress={() => {
+            onOpenSwipeItemDetails();
+          }}
+          style={[styles.swipeableButton, styles.swipeableDetails]}>
+          <Text style={styles.swipeableButtonText}>Details</Text>
+        </Pressable>
+        <Pressable
+          onPress={() => {
+            onDeleteItem();
+          }}
+          style={[styles.swipeableButton, styles.swipeableDelete]}>
+          <Text style={styles.swipeableButtonText}>Delete</Text>
+        </Pressable>
+      </View>
+    );
+  };
 
   return (
     <ScreenWrapper>
@@ -69,24 +93,31 @@ export const CurrentTravel = () => {
                   origin={directions.origin}
                   destination={directions.destination}
                   apikey={GOOGLE_MAPS_KEY}
-                  onReady={event => {
-                    console.log(event);
-                  }}
                   mode="WALKING"
                 />
               )}
             </MapView>
           </Animated.View>
-          {likeList.map((item, index) => (
-            <Pressable
-              key={index}
-              onPress={() => onPressInPlace(item)}
-              style={styles.placeItem}>
-              <Text>
-                {item.name} - {currentTravelData.location}
-              </Text>
-            </Pressable>
-          ))}
+          <ScrollView>
+            {likeList.map((item, index) => (
+              <Swipeable
+                key={index}
+                renderRightActions={() =>
+                  renderRightActions({
+                    onOpenSwipeItemDetails: onOpenSwipeItemDetails(item.fsq_id),
+                    onDeleteItem: onDeleteItem(item.fsq_id),
+                  })
+                }>
+                <Pressable
+                  onPress={() => onPressInPlace(item)}
+                  style={styles.placeItem}>
+                  <Text>
+                    {item.name} - {currentTravelData.location}
+                  </Text>
+                </Pressable>
+              </Swipeable>
+            ))}
+          </ScrollView>
         </>
       )}
     </ScreenWrapper>

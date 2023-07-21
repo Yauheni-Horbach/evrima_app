@@ -13,12 +13,14 @@ export const useItemDetailsCurrentTravel = (id: string) => {
     useAddPlaceToViewedListWithPlaceState();
   const {data} = useCurrentTravelStore();
 
+  const currentListData = [...data.placesList, ...data.likeList];
+
   const {isAddedToBookmarks, onAddToBookmarks} = useAddBookmarkButton({
     id,
-    data: data.placesList,
+    data: currentListData,
   });
 
-  const placeInfo = data.placesList.find(item => item.fsq_id === id);
+  const placeInfo = currentListData.find(item => item.fsq_id === id);
   const photos = (placeInfo?.photos || []).map((item: any) =>
     photoURLGenerator(item),
   );
@@ -32,11 +34,16 @@ export const useItemDetailsCurrentTravel = (id: string) => {
     navigation.goBack();
   };
 
+  const onGoBack = () => {
+    navigation.goBack();
+  };
+
   return {
     onPressChangeState,
     isAddedToBookmarks,
     onAddToBookmarks,
     placeInfo,
     photos,
+    onGoBack,
   };
 };

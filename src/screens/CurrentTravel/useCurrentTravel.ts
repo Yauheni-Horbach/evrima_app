@@ -1,8 +1,17 @@
 import React from 'react';
-import {useCurrentTravelStore} from '@store/currentTravel';
+import {NavigationProp} from '@navigation/types';
+import {useNavigation} from '@react-navigation/native';
+import {
+  useCurrentTravelStore,
+  useDeleteItemFromLikeList,
+} from '@store/currentTravel';
 
 export const useCurrentTravel = () => {
   const {data} = useCurrentTravelStore();
+
+  const deleteItemFromLikeList = useDeleteItemFromLikeList();
+
+  const navigation = useNavigation<NavigationProp<'CurrentTravel'>>();
 
   const [startTravelLocation, setStartTravelLocation] = React.useState({
     id: 'startTravel',
@@ -38,6 +47,7 @@ export const useCurrentTravel = () => {
       origin: {
         latitude,
         longitude,
+        id: 'origin',
       },
     });
   };
@@ -48,8 +58,36 @@ export const useCurrentTravel = () => {
       destination: {
         latitude: place.geocodes.main.latitude,
         longitude: place.geocodes.main.longitude,
+        id: place.fsq_id,
       },
     });
+  };
+
+  const onOpenSwipeItemDetails = (fsq_id: string) => {
+    return () => {
+      navigation.navigate('ItemDetails', {
+        fsq_id,
+        type: 'currentTravel',
+      });
+    };
+  };
+
+  const onDeleteItem = (fsq_id: string) => {
+    return () => {
+      if (directions.destination?.id === fsq_id) {
+        setDirections({
+          ...directions,
+          destination: null,
+        });
+      }
+      if (directions.origin?.id === fsq_id) {
+        setDirections({
+          ...directions,
+          origin: null,
+        });
+      }
+      deleteItemFromLikeList({fsq_id});
+    };
   };
 
   return {
@@ -61,5 +99,7 @@ export const useCurrentTravel = () => {
     startTravelLocation,
     onLongPress,
     onPressInPlace,
+    onOpenSwipeItemDetails,
+    onDeleteItem,
   };
 };

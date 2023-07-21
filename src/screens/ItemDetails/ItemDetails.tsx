@@ -98,6 +98,7 @@ const ItemDetailsCurrentTravel = ({id}: {id: string}) => {
     onAddToBookmarks,
     placeInfo,
     photos,
+    onGoBack,
   } = useItemDetailsCurrentTravel(id);
 
   return (
@@ -108,6 +109,7 @@ const ItemDetailsCurrentTravel = ({id}: {id: string}) => {
           isAddedToBookmarks={isAddedToBookmarks}
           onAddToBookmarks={onAddToBookmarks}
         />
+        <Button title="Close map" onPress={onGoBack} />
       </View>
     </ItemDetailsBody>
   );

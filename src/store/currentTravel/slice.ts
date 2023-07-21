@@ -4,6 +4,11 @@ import {User} from '../storeNames';
 
 import {InitialState} from './types';
 
+const removeDuplicateElements = (newArray: any[], currentArray: any[]) => {
+  const idSet = new Set(currentArray.map(item => item.fsq_id));
+  return newArray.filter(item => !idSet.has(item.fsq_id));
+};
+
 const initialState = {
   data: {
     id: '',
@@ -40,14 +45,6 @@ const currentTravelSlice = createSlice({
       };
     },
     updatePlacesList: (state, action) => {
-      const removeDuplicateElements = (
-        newArray: any[],
-        currentArray: any[],
-      ) => {
-        const idSet = new Set(currentArray.map(item => item.fsq_id));
-        return newArray.filter(item => !idSet.has(item.fsq_id));
-      };
-
       const newElements = removeDuplicateElements(
         action.payload.placesList,
         state.data.placesList,
@@ -56,20 +53,18 @@ const currentTravelSlice = createSlice({
       state.data.placesList = [...state.data.placesList, ...newElements];
     },
     filterPlacesList: state => {
-      const removeDuplicateElements = (
-        newArray: any[],
-        currentArray: any[],
-      ) => {
-        const idSet = new Set(currentArray.map(item => item.fsq_id));
-        return newArray.filter(item => !idSet.has(item.fsq_id));
-      };
-
       const newElements = removeDuplicateElements(state.data.placesList, [
         ...state.data.dislikeList,
         ...state.data.likeList,
       ]);
 
       state.data.placesList = newElements;
+    },
+    deleteItemFromLikeList: (state, action) => {
+      const newArray = state.data.likeList.filter(
+        item => item.fsq_id !== action.payload.fsq_id,
+      );
+      state.data.likeList = newArray;
     },
     addPlaceToViewedListWithPlaceState: (state, action) => {
       if (action.payload.placeState === 'like') {
@@ -99,5 +94,6 @@ export const {
   addPlaceToViewedListWithPlaceState,
   updatePlacesList,
   filterPlacesList,
+  deleteItemFromLikeList,
 } = currentTravelSlice.actions;
 export const currentTravelReducer = currentTravelSlice.reducer;

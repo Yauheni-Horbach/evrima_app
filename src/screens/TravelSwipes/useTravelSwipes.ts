@@ -83,7 +83,7 @@ export const useTravelSwipes = () => {
   useFocusEffect(
     React.useCallback(() => {
       return () => {
-        if (isSkipFilterPlacesList.current) {
+        if (!isSkipFilterPlacesList.current) {
           filterPlacesList();
           setCurrentCardIndex(0);
           swiperRef.current?.jumpToCardIndex(0);
