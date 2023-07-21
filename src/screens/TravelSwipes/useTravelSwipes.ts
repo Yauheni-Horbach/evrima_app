@@ -16,7 +16,7 @@ export const useTravelSwipes = () => {
   const [currentCardIndex, setCurrentCardIndex] = React.useState(0);
 
   const isSkipFilterPlacesList = React.useRef(false);
-  const swiperRef = React.useRef<Swiper<null>>(null);
+  const swiperRef = React.useRef<Swiper<PlaceItem>>(null);
 
   const {data} = useCurrentTravelStore();
 
