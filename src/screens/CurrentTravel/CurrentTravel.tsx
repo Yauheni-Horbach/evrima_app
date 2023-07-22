@@ -16,11 +16,12 @@ export const CurrentTravel = () => {
     currentTravelData,
     likeList,
     onLongPress,
-    startTravelLocation,
     directions,
+    directionsInfo,
     onPressInPlace,
     onOpenSwipeItemDetails,
     onDeleteItem,
+    onChangeDirectionInfo,
   } = useCurrentTravel();
 
   const renderRightActions = ({
@@ -70,17 +71,16 @@ export const CurrentTravel = () => {
                 onLongPress(event.nativeEvent.coordinate);
               }}
               mapType="mutedStandard"
-              minZoomLevel={12}>
-              {startTravelLocation.location.lat &&
-              startTravelLocation.location.lng ? (
+              minZoomLevel={10}>
+              {directions.origin?.latitude && directions.origin?.longitude ? (
                 <Marker
                   pinColor="black"
-                  key={startTravelLocation.id}
+                  key={directions.origin.id}
                   coordinate={{
-                    latitude: startTravelLocation.location.lat,
-                    longitude: startTravelLocation.location.lng,
+                    latitude: directions.origin?.latitude,
+                    longitude: directions.origin?.longitude,
                   }}
-                  title={startTravelLocation.title}
+                  title="Current location"
                 />
               ) : null}
               {likeList.map(item => (
@@ -91,6 +91,7 @@ export const CurrentTravel = () => {
                     longitude: item.geocodes.main.longitude,
                   }}
                   title={item.name}
+                  onCalloutPress={() => onPressInPlace(item)}
                 />
               ))}
               {directions.destination && directions.origin && (
@@ -99,11 +100,33 @@ export const CurrentTravel = () => {
                   destination={directions.destination}
                   apikey={GOOGLE_MAPS_KEY}
                   mode="WALKING"
+                  onReady={value => {
+                    onChangeDirectionInfo({
+                      distance: value.distance,
+                      duration: Math.round(value.duration),
+                      startAddress: value.legs[0].start_address.split(',')[0],
+                      endAddress: value.legs[0].end_address.split(',')[0],
+                    });
+                  }}
                 />
               )}
             </MapView>
           </Animated.View>
-          <ScrollView>
+          <View style={styles.directionsContainer}>
+            <Text style={styles.directionsInfoItem} numberOfLines={1}>
+              Duration - {directionsInfo.duration} min
+            </Text>
+            <Text style={styles.directionsInfoItem} numberOfLines={1}>
+              Start - {directionsInfo.startAddress}
+            </Text>
+            <Text style={styles.directionsInfoItem} numberOfLines={1}>
+              Distance - {directionsInfo.distance} km
+            </Text>
+            <Text style={styles.directionsInfoItem} numberOfLines={1}>
+              End - {directionsInfo.endAddress}
+            </Text>
+          </View>
+          <ScrollView style={styles.placeList}>
             {likeList.map(item => (
               <Swipeable
                 key={item.fsq_id}
@@ -115,7 +138,12 @@ export const CurrentTravel = () => {
                 }>
                 <Pressable
                   onPress={() => onPressInPlace(item)}
-                  style={styles.placeItem}>
+                  style={[
+                    styles.placeItem,
+                    (directions.destination?.id === item.fsq_id ||
+                      directions.origin?.id === item.fsq_id) &&
+                      styles.activePlace,
+                  ]}>
                   <Text>
                     {item.name} - {currentTravelData.location}
                   </Text>

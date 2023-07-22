@@ -3,11 +3,22 @@ import {StyleSheet} from 'react-native';
 const buttonWidth = 80;
 
 export const styles = StyleSheet.create({
+  activePlace: {
+    backgroundColor: 'yellow',
+  },
   containerMap: {
     alignItems: 'center',
-    height: 500,
-    justifyContent: 'center',
+    height: 450,
     width: '100%',
+  },
+  directionsContainer: {
+    backgroundColor: 'white',
+    flexWrap: 'wrap',
+    height: 50,
+    marginTop: -50,
+  },
+  directionsInfoItem: {
+    width: '50%',
   },
   map: {
     height: 400,
@@ -22,6 +33,9 @@ export const styles = StyleSheet.create({
 
     marginBottom: 5,
     width: '100%',
+  },
+  placeList: {
+    backgroundColor: 'white',
   },
   swipeableButton: {
     alignItems: 'center',

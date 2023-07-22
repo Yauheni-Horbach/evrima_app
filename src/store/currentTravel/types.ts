@@ -15,6 +15,10 @@ export interface DataUser {
   nextPageLink: string;
   startDate: string;
   endDate: string;
+  currentCoordinates: null | {
+    lat: number;
+    lng: number;
+  };
 }
 
 export type InitialState = {

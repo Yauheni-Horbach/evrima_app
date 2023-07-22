@@ -29,6 +29,7 @@ const initialState = {
     likeList: [],
     dislikeList: [],
     nextPageLink: '',
+    currentCoordinates: null,
   },
   loading: false,
   error: null,

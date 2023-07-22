@@ -5,6 +5,7 @@ import {useNavigation} from '@react-navigation/native';
 import {
   useCurrentTravelStore,
   useDeleteItemFromLikeList,
+  useUpdateCurrentTravel,
 } from '@store/currentTravel';
 
 interface DirectionsState {
@@ -20,26 +21,39 @@ interface DirectionsState {
   } | null;
 }
 
+interface DirectionsInfoState {
+  distance: number | null;
+  duration: number | null;
+  startAddress: string | null;
+  endAddress: string | null;
+}
+
 export const useCurrentTravel = () => {
   const {data} = useCurrentTravelStore();
 
   const deleteItemFromLikeList = useDeleteItemFromLikeList();
+  const updateCurrentTravel = useUpdateCurrentTravel();
 
   const navigation = useNavigation<NavigationProp<'CurrentTravel'>>();
 
-  const [startTravelLocation, setStartTravelLocation] = React.useState({
-    id: 'startTravel',
-    location: {
-      lat: 0,
-      lng: 0,
-    },
-    title: 'Start Travel',
-  });
-
   const [directions, setDirections] = React.useState<DirectionsState>({
-    origin: null,
+    origin: data.currentCoordinates?.lat
+      ? {
+          latitude: data.currentCoordinates?.lat,
+          longitude: data.currentCoordinates?.lng,
+          id: 'origin',
+        }
+      : null,
     destination: null,
   });
+
+  const [directionsInfo, setDirectionsInfo] =
+    React.useState<DirectionsInfoState>({
+      distance: null,
+      duration: null,
+      startAddress: null,
+      endAddress: null,
+    });
 
   const onLongPress = ({
     latitude,
@@ -48,9 +62,8 @@ export const useCurrentTravel = () => {
     latitude: number;
     longitude: number;
   }) => {
-    setStartTravelLocation({
-      ...startTravelLocation,
-      location: {
+    updateCurrentTravel({
+      currentCoordinates: {
         lat: latitude,
         lng: longitude,
       },
@@ -86,6 +99,10 @@ export const useCurrentTravel = () => {
     };
   };
 
+  const onChangeDirectionInfo = (info: DirectionsInfoState) => {
+    setDirectionsInfo(info);
+  };
+
   const onDeleteItem = (fsq_id: string) => {
     return () => {
       if (directions.destination?.id === fsq_id) {
@@ -101,6 +118,13 @@ export const useCurrentTravel = () => {
         });
       }
       deleteItemFromLikeList({fsq_id});
+
+      setDirectionsInfo({
+        distance: null,
+        duration: null,
+        startAddress: null,
+        endAddress: null,
+      });
     };
   };
 
@@ -110,10 +134,11 @@ export const useCurrentTravel = () => {
     directions,
     currentTravelData: data,
     likeList: data.likeList,
-    startTravelLocation,
+    directionsInfo,
     onLongPress,
     onPressInPlace,
     onOpenSwipeItemDetails,
     onDeleteItem,
+    onChangeDirectionInfo,
   };
 };
