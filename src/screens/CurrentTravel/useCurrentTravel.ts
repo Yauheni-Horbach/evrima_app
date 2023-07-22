@@ -95,6 +95,7 @@ export const useCurrentTravel = () => {
       navigation.navigate('ItemDetails', {
         fsq_id,
         type: 'currentTravel',
+        subType: 'bookmarks',
       });
     };
   };

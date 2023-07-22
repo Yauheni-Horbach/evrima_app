@@ -5,37 +5,7 @@ import {CommonActions} from '@react-navigation/native';
 import {Tab} from './components';
 import {styles} from './styles';
 
-type State = {
-  key: string;
-  index: number;
-  routes: Array<{
-    key: string;
-    name: string;
-    params?: object;
-  }>;
-};
-
-type Descriptor = {
-  key: string;
-  name: string;
-  options: {
-    title?: string;
-  };
-};
-
-type Navigation = {
-  dispatch: (action: any) => void;
-  navigate: (routeName: string) => void;
-  emit: (event: any) => {defaultPrevented: boolean};
-};
-
-type TabMenuProps = {
-  state: State;
-  descriptors: {[key: string]: Descriptor};
-  navigation: Navigation;
-};
-
-export const CurrentTravelTabs: React.FC<TabMenuProps> = ({
+export const CurrentTravelTabs: React.FC<any> = ({
   state,
   descriptors,
   navigation,

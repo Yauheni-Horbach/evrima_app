@@ -2,7 +2,8 @@ import {NavigatorScreenParams, RouteProp} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 export interface ItemDetailsProps {
   fsq_id: string;
-  type: 'search' | 'bookmarks' | 'currentTravel' | 'searchCurrentTravel';
+  type: 'search' | 'bookmarks' | 'currentTravel';
+  subType?: 'bookmarks';
 }
 
 export type RootStackParamList = {

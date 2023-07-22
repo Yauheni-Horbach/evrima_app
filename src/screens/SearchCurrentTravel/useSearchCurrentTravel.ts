@@ -39,7 +39,7 @@ export const useSearchCurrentTravel = () => {
     fetchData(fsq_id).then(() => {
       navigation.navigate('ItemDetails', {
         fsq_id,
-        type: 'searchCurrentTravel',
+        type: 'currentTravel',
       });
     });
   };

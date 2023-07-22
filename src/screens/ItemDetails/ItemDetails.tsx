@@ -92,7 +92,13 @@ const ItemDetailsSearch = ({id}: {id: string}) => {
   );
 };
 
-const ItemDetailsCurrentTravel = ({id}: {id: string}) => {
+const ItemDetailsCurrentTravel = ({
+  id,
+  subType,
+}: {
+  id: string;
+  subType?: string;
+}) => {
   const {
     onPressChangeState,
     isAddedToBookmarks,
@@ -106,7 +112,9 @@ const ItemDetailsCurrentTravel = ({id}: {id: string}) => {
     <ItemDetailsBody placeInfo={placeInfo} photos={photos}>
       <View style={styles.footer}>
         <Footer
-          onPressChangeState={onPressChangeState}
+          onPressChangeState={
+            subType === 'bookmarks' ? undefined : onPressChangeState
+          }
           isAddedToBookmarks={isAddedToBookmarks}
           onAddToBookmarks={onAddToBookmarks}
         />
@@ -134,7 +142,7 @@ const ItemDetailsCurrentBookmarks = ({id}: {id: string}) => {
 };
 
 export const ItemDetails = () => {
-  const {typeScreen, id} = useItemDetails();
+  const {typeScreen, id, subType} = useItemDetails();
 
   if (typeScreen === 'bookmarks') {
     return <ItemDetailsCurrentBookmarks id={id} />;
@@ -144,7 +152,7 @@ export const ItemDetails = () => {
     return <ItemDetailsSearch id={id} />;
   }
 
-  if (typeScreen === 'currentTravel' || typeScreen === 'searchCurrentTravel') {
-    return <ItemDetailsCurrentTravel id={id} />;
+  if (typeScreen === 'currentTravel') {
+    return <ItemDetailsCurrentTravel id={id} subType={subType} />;
   }
 };
