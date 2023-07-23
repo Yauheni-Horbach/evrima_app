@@ -56,4 +56,7 @@ export const styles = StyleSheet.create({
   swipeableDetails: {
     backgroundColor: 'blue',
   },
+  swipeableDone: {
+    backgroundColor: 'green',
+  },
 });

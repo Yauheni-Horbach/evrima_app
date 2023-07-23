@@ -1,6 +1,7 @@
 import React from 'react';
 import {Button, Dimensions, Image, ScrollView, Text, View} from 'react-native';
 import MapView, {Marker} from 'react-native-maps';
+import {AirbnbRating} from 'react-native-ratings';
 import Carousel from 'react-native-reanimated-carousel';
 import type {PlaceItem} from '@api/types';
 
@@ -69,6 +70,13 @@ export const ItemDetailsBody = ({
             />
           </MapView>
         </View>
+        <AirbnbRating
+          count={10}
+          showRating={false}
+          size={20}
+          onFinishRating={() => {}}
+          defaultRating={placeInfo?.rating || 0}
+        />
       </ScrollView>
       {children}
     </View>

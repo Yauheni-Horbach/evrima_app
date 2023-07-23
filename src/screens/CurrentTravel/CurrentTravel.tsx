@@ -10,6 +10,40 @@ import {GOOGLE_MAPS_KEY} from '@env';
 import {styles} from './styles';
 import {useCurrentTravel} from './useCurrentTravel';
 
+const renderRightActions = ({
+  onOpenSwipeItemDetails,
+  onDeleteItem,
+}: {
+  onOpenSwipeItemDetails: () => void;
+  onDeleteItem: () => void;
+}) => {
+  return (
+    <View style={styles.swipeableContainer}>
+      <Pressable
+        onPress={() => {
+          onOpenSwipeItemDetails();
+        }}
+        style={[styles.swipeableButton, styles.swipeableDone]}>
+        <Text style={styles.swipeableButtonText}>Done</Text>
+      </Pressable>
+      <Pressable
+        onPress={() => {
+          onOpenSwipeItemDetails();
+        }}
+        style={[styles.swipeableButton, styles.swipeableDetails]}>
+        <Text style={styles.swipeableButtonText}>Details</Text>
+      </Pressable>
+      <Pressable
+        onPress={() => {
+          onDeleteItem();
+        }}
+        style={[styles.swipeableButton, styles.swipeableDelete]}>
+        <Text style={styles.swipeableButtonText}>Delete</Text>
+      </Pressable>
+    </View>
+  );
+};
+
 export const CurrentTravel = () => {
   const {
     isLoading,
@@ -23,33 +57,6 @@ export const CurrentTravel = () => {
     onDeleteItem,
     onChangeDirectionInfo,
   } = useCurrentTravel();
-
-  const renderRightActions = ({
-    onOpenSwipeItemDetails,
-    onDeleteItem,
-  }: {
-    onOpenSwipeItemDetails: () => void;
-    onDeleteItem: () => void;
-  }) => {
-    return (
-      <View style={styles.swipeableContainer}>
-        <Pressable
-          onPress={() => {
-            onOpenSwipeItemDetails();
-          }}
-          style={[styles.swipeableButton, styles.swipeableDetails]}>
-          <Text style={styles.swipeableButtonText}>Details</Text>
-        </Pressable>
-        <Pressable
-          onPress={() => {
-            onDeleteItem();
-          }}
-          style={[styles.swipeableButton, styles.swipeableDelete]}>
-          <Text style={styles.swipeableButtonText}>Delete</Text>
-        </Pressable>
-      </View>
-    );
-  };
 
   return (
     <ScreenWrapper>
