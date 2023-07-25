@@ -42,4 +42,9 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
   },
+  separator: {
+    backgroundColor: '#E8E8E8',
+    height: 1,
+    width: '100%',
+  },
 });

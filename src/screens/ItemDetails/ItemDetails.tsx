@@ -11,6 +11,8 @@ import {useItemDetails} from './useItemDetails';
 import {useItemDetailsBookmarks} from './useItemDetailsBookmarks';
 import {useItemDetailsCurrentTravel} from './useItemDetailsCurrentTravel';
 import {useItemDetailsSearch} from './useItemDetailsSearch';
+import {useRating} from './useRating';
+import {useTips} from './useTips';
 
 const CarouselItem = ({index, photos}: {index: number; photos: string[]}) => (
   <View style={styles.carouselItemBody}>
@@ -28,6 +30,9 @@ export const ItemDetailsBody = ({
   photos: string[];
 }) => {
   const width = Dimensions.get('window').width;
+
+  const {tips, onChangeStateTips, isTipsReceived, isTipsOpen} = useTips();
+  const {rating, onSetRating} = useRating();
 
   const photosList = photos?.length
     ? photos
@@ -73,10 +78,29 @@ export const ItemDetailsBody = ({
         <AirbnbRating
           count={10}
           showRating={false}
-          size={20}
-          onFinishRating={() => {}}
-          defaultRating={placeInfo?.rating || 0}
+          size={rating ? 25 : 20}
+          selectedColor={rating ? 'red' : 'orange'}
+          onFinishRating={value => {
+            onSetRating(value);
+          }}
+          defaultRating={rating || placeInfo?.rating || 0}
         />
+        <Button
+          onPress={onChangeStateTips}
+          title={isTipsOpen ? 'Hide tips' : 'Show tips'}
+        />
+        {isTipsReceived && !tips.length && <Text>No tips</Text>}
+        {isTipsReceived &&
+          !!tips.length &&
+          isTipsOpen &&
+          tips.map(item => (
+            <View key={item.id}>
+              <View style={styles.separator} />
+              <Text>{item.created_at}</Text>
+              <Text>{item.text}</Text>
+              <View style={styles.separator} />
+            </View>
+          ))}
       </ScrollView>
       {children}
     </View>

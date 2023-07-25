@@ -75,3 +75,7 @@ export const URL_AUTOCOMPLETE_FOURSQUARE = ({
       : '';
   return `https://api.foursquare.com/v3/autocomplete?query=${query}${coordinatesLine}&radius=${radius}&limit=${limit}&types=place`;
 };
+
+export const URL_PLACE_TIPS_FOURSQUARE = ({fsq_id}: {fsq_id: string}) => {
+  return `https://api.foursquare.com/v3/places/${fsq_id}/tips`;
+};
