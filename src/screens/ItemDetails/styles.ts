@@ -21,10 +21,10 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     height: '100%',
+    justifyContent: 'space-between',
   },
   footer: {
-    bottom: 20,
-    position: 'absolute',
+    paddingBottom: 20,
     width: '100%',
   },
   map: {
@@ -41,6 +41,10 @@ export const styles = StyleSheet.create({
     fontStyle: 'italic',
     fontWeight: 'bold',
     textAlign: 'center',
+  },
+  ratingContainer: {
+    height: 50,
+    width: '100%',
   },
   separator: {
     backgroundColor: '#E8E8E8',

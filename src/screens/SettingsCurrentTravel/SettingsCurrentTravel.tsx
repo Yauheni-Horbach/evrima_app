@@ -7,7 +7,7 @@ import {styles} from './styles';
 import {useSettingsCurrentTravel} from './useSettingsCurrentTravel';
 
 export const SettingsCurrentTravel = () => {
-  const {onStartPress, onInputChange, profileData, isLoading} =
+  const {onChangePress, onInputChange, profileData, isLoading} =
     useSettingsCurrentTravel();
 
   return (
@@ -59,7 +59,7 @@ export const SettingsCurrentTravel = () => {
               }}
             />
           </View>
-          <Button title="Change" onPress={onStartPress} />
+          <Button title="Change" onPress={onChangePress} />
         </>
       )}
     </ScreenWrapper>

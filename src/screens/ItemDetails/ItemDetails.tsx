@@ -6,13 +6,15 @@ import Carousel from 'react-native-reanimated-carousel';
 import type {PlaceItem} from '@api/types';
 
 import {Footer, SearchFooter} from './components';
+import {
+  useItemDetailsBookmarks,
+  useItemDetailsCurrentTravel,
+  useItemDetailsSearch,
+  useRating,
+  useTips,
+} from './hooks';
 import {styles} from './styles';
 import {useItemDetails} from './useItemDetails';
-import {useItemDetailsBookmarks} from './useItemDetailsBookmarks';
-import {useItemDetailsCurrentTravel} from './useItemDetailsCurrentTravel';
-import {useItemDetailsSearch} from './useItemDetailsSearch';
-import {useRating} from './useRating';
-import {useTips} from './useTips';
 
 const CarouselItem = ({index, photos}: {index: number; photos: string[]}) => (
   <View style={styles.carouselItemBody}>
@@ -78,6 +80,7 @@ export const ItemDetailsBody = ({
         <AirbnbRating
           count={10}
           showRating={false}
+          ratingContainerStyle={styles.ratingContainer}
           size={rating ? 25 : 20}
           selectedColor={rating ? 'red' : 'orange'}
           onFinishRating={value => {

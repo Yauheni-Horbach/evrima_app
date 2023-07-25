@@ -1,13 +1,11 @@
 import React from 'react';
 import {
-  useClearCurrentTravelStore,
   useCurrentTravelStore,
   useUpdateCurrentTravel,
 } from '@store/currentTravel';
 
 export const useSettingsCurrentTravel = () => {
   const updateCurrentTravel = useUpdateCurrentTravel();
-  const clearCurrentTravelStore = useClearCurrentTravelStore();
   const {data} = useCurrentTravelStore();
 
   const [profileData, setProfileData] = React.useState({
@@ -16,11 +14,8 @@ export const useSettingsCurrentTravel = () => {
     endDate: data.endDate,
   });
 
-  const onStartPress = () => {
-    clearCurrentTravelStore();
-    updateCurrentTravel({
-      ...profileData,
-    });
+  const onChangePress = () => {
+    updateCurrentTravel(profileData);
   };
 
   const onInputChange = (
@@ -31,7 +26,7 @@ export const useSettingsCurrentTravel = () => {
   };
 
   return {
-    onStartPress,
+    onChangePress,
     onInputChange,
     profileData,
     isLoading: false,
