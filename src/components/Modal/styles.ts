@@ -13,14 +13,11 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
   },
   modalContainer: {
-    alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
     flex: 1,
-    justifyContent: 'center',
-    zIndex: 9999,
+    justifyContent: 'flex-end',
   },
   modalContent: {
-    alignItems: 'center',
     backgroundColor: '#fff',
     borderRadius: 5,
     padding: 20,

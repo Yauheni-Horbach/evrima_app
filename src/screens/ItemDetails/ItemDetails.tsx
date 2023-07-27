@@ -1,16 +1,17 @@
 import React from 'react';
 import {Button, Dimensions, Image, ScrollView, Text, View} from 'react-native';
 import MapView, {Marker} from 'react-native-maps';
-import {AirbnbRating} from 'react-native-ratings';
 import Carousel from 'react-native-reanimated-carousel';
 import type {PlaceItem} from '@api/types';
+import {NewReview} from '@components/NewReview';
+import {Rating} from '@components/Rating';
+import {useRating} from '@hooks/useRating';
 
 import {Footer, SearchFooter} from './components';
 import {
   useItemDetailsBookmarks,
   useItemDetailsCurrentTravel,
   useItemDetailsSearch,
-  useRating,
   useTips,
 } from './hooks';
 import {styles} from './styles';
@@ -59,6 +60,7 @@ export const ItemDetailsBody = ({
           )}
         />
         <View style={styles.mapContainer}>
+          <Text>{placeInfo?.description}</Text>
           <MapView
             style={styles.map}
             region={{
@@ -77,33 +79,29 @@ export const ItemDetailsBody = ({
             />
           </MapView>
         </View>
-        <AirbnbRating
-          count={10}
-          showRating={false}
-          ratingContainerStyle={styles.ratingContainer}
-          size={rating ? 25 : 20}
-          selectedColor={rating ? 'red' : 'orange'}
-          onFinishRating={value => {
-            onSetRating(value);
-          }}
+        <Rating
+          rating={rating || 0}
           defaultRating={rating || placeInfo?.rating || 0}
+          onSetRating={onSetRating}
         />
         <Button
           onPress={onChangeStateTips}
           title={isTipsOpen ? 'Hide tips' : 'Show tips'}
         />
         {isTipsReceived && !tips.length && <Text>No tips</Text>}
-        {isTipsReceived &&
-          !!tips.length &&
-          isTipsOpen &&
-          tips.map(item => (
-            <View key={item.id}>
-              <View style={styles.separator} />
-              <Text>{item.created_at}</Text>
-              <Text>{item.text}</Text>
-              <View style={styles.separator} />
-            </View>
-          ))}
+        {isTipsReceived && !!tips.length && isTipsOpen && (
+          <View>
+            <NewReview />
+            {tips.map(item => (
+              <View key={item.id}>
+                <View style={styles.separator} />
+                <Text>{item.created_at}</Text>
+                <Text>{item.text}</Text>
+                <View style={styles.separator} />
+              </View>
+            ))}
+          </View>
+        )}
       </ScrollView>
       {children}
     </View>

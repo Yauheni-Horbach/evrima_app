@@ -19,6 +19,7 @@ export interface DataUser {
     lat: number;
     lng: number;
   };
+  visitedPlaces: string[];
 }
 
 export type InitialState = {

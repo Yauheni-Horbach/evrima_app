@@ -1,3 +1,4 @@
+export * from './useAddIdToVisitedPlaces';
 export * from './useAddPlaceToViewedListWithPlaceState';
 export * from './useClearCurrentTravelStore';
 export * from './useCurrentTravelStore';

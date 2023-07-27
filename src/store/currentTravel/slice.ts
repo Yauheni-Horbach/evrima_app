@@ -29,6 +29,7 @@ const initialState = {
     likeList: [],
     dislikeList: [],
     nextPageLink: '',
+    visitedPlaces: [],
     currentCoordinates: null,
   },
   loading: false,
@@ -90,6 +91,9 @@ const currentTravelSlice = createSlice({
         }
       }
     },
+    addIdToVisitedPlaces: (state, action) => {
+      state.data.visitedPlaces.push(action.payload.fsq_id);
+    },
   },
 });
 
@@ -100,5 +104,6 @@ export const {
   updatePlacesList,
   filterPlacesList,
   deleteItemFromLikeList,
+  addIdToVisitedPlaces,
 } = currentTravelSlice.actions;
 export const currentTravelReducer = currentTravelSlice.reducer;

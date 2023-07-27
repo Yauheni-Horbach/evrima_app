@@ -51,4 +51,5 @@ export interface PlaceItem {
   photos: Photo[];
   rating: number;
   website: string;
+  description?: string;
 }

@@ -1,48 +1,19 @@
 import React from 'react';
-import {Pressable, ScrollView, Text, View} from 'react-native';
-import {Swipeable} from 'react-native-gesture-handler';
+import {ScrollView, Text, View} from 'react-native';
 import MapView, {Marker} from 'react-native-maps';
 import MapViewDirections from 'react-native-maps-directions';
 import Animated from 'react-native-reanimated';
 import {ScreenWrapper} from '@components/ScreenWrapper';
 import {GOOGLE_MAPS_KEY} from '@env';
 
+import {
+  DirectionsInfoItem,
+  DoneModal,
+  MarkerItem,
+  PlaceCardItem,
+} from './components';
 import {styles} from './styles';
 import {useCurrentTravel} from './useCurrentTravel';
-
-const renderRightActions = ({
-  onOpenSwipeItemDetails,
-  onDeleteItem,
-}: {
-  onOpenSwipeItemDetails: () => void;
-  onDeleteItem: () => void;
-}) => {
-  return (
-    <View style={styles.swipeableContainer}>
-      <Pressable
-        onPress={() => {
-          onOpenSwipeItemDetails();
-        }}
-        style={[styles.swipeableButton, styles.swipeableDone]}>
-        <Text style={styles.swipeableButtonText}>Done</Text>
-      </Pressable>
-      <Pressable
-        onPress={() => {
-          onOpenSwipeItemDetails();
-        }}
-        style={[styles.swipeableButton, styles.swipeableDetails]}>
-        <Text style={styles.swipeableButtonText}>Details</Text>
-      </Pressable>
-      <Pressable
-        onPress={() => {
-          onDeleteItem();
-        }}
-        style={[styles.swipeableButton, styles.swipeableDelete]}>
-        <Text style={styles.swipeableButtonText}>Delete</Text>
-      </Pressable>
-    </View>
-  );
-};
 
 export const CurrentTravel = () => {
   const {
@@ -51,11 +22,14 @@ export const CurrentTravel = () => {
     likeList,
     onLongPress,
     directions,
-    directionsInfo,
+    visitedList,
     onPressInPlace,
     onOpenSwipeItemDetails,
     onDeleteItem,
     onChangeDirectionInfo,
+    doneModal,
+    changeStateDoneModalOpen,
+    directionsInfoData,
   } = useCurrentTravel();
 
   return (
@@ -91,14 +65,19 @@ export const CurrentTravel = () => {
                 />
               ) : null}
               {likeList.map(item => (
-                <Marker
+                <MarkerItem
                   key={item.fsq_id}
-                  coordinate={{
-                    latitude: item.geocodes.main.latitude,
-                    longitude: item.geocodes.main.longitude,
-                  }}
-                  title={item.name}
+                  item={item}
+                  pinColor="red"
                   onCalloutPress={() => onPressInPlace(item)}
+                />
+              ))}
+              {visitedList.map(item => (
+                <MarkerItem
+                  key={item.fsq_id}
+                  item={item}
+                  pinColor="green"
+                  onCalloutPress={() => {}}
                 />
               ))}
               {directions.destination && directions.origin && (
@@ -120,44 +99,44 @@ export const CurrentTravel = () => {
             </MapView>
           </Animated.View>
           <View style={styles.directionsContainer}>
-            <Text style={styles.directionsInfoItem} numberOfLines={1}>
-              Duration - {directionsInfo.duration} min
-            </Text>
-            <Text style={styles.directionsInfoItem} numberOfLines={1}>
-              Start - {directionsInfo.startAddress}
-            </Text>
-            <Text style={styles.directionsInfoItem} numberOfLines={1}>
-              Distance - {directionsInfo.distance} km
-            </Text>
-            <Text style={styles.directionsInfoItem} numberOfLines={1}>
-              End - {directionsInfo.endAddress}
-            </Text>
+            {directionsInfoData.map(item => (
+              <DirectionsInfoItem
+                key={item.key}
+                title={item.title}
+                value={item.value}
+              />
+            ))}
           </View>
           <ScrollView style={styles.placeList}>
             {likeList.map(item => (
-              <Swipeable
+              <PlaceCardItem
                 key={item.fsq_id}
-                renderRightActions={() =>
-                  renderRightActions({
-                    onOpenSwipeItemDetails: onOpenSwipeItemDetails(item.fsq_id),
-                    onDeleteItem: onDeleteItem(item.fsq_id),
-                  })
-                }>
-                <Pressable
-                  onPress={() => onPressInPlace(item)}
-                  style={[
-                    styles.placeItem,
-                    (directions.destination?.id === item.fsq_id ||
-                      directions.origin?.id === item.fsq_id) &&
-                      styles.activePlace,
-                  ]}>
-                  <Text>
-                    {item.name} - {currentTravelData.location}
-                  </Text>
-                </Pressable>
-              </Swipeable>
+                item={item}
+                directions={directions}
+                currentTravelData={currentTravelData}
+                onPressInPlace={() => onPressInPlace(item)}
+                onOpenSwipeItemDetails={onOpenSwipeItemDetails(item.fsq_id)}
+                onDeleteItem={onDeleteItem(item.fsq_id)}
+                onOpenDoneModal={changeStateDoneModalOpen(item.fsq_id)}
+              />
+            ))}
+            {visitedList.map(item => (
+              <PlaceCardItem
+                key={item.fsq_id}
+                item={item}
+                directions={directions}
+                currentTravelData={currentTravelData}
+                onOpenSwipeItemDetails={onOpenSwipeItemDetails(item.fsq_id)}
+                onDeleteItem={onDeleteItem(item.fsq_id)}
+                isVisited
+              />
             ))}
           </ScrollView>
+          <DoneModal
+            fsq_id={doneModal.fsq_id}
+            isModalOpen={doneModal.isModalOpen}
+            changeStateModal={changeStateDoneModalOpen(doneModal.fsq_id)}
+          />
         </>
       )}
     </ScreenWrapper>

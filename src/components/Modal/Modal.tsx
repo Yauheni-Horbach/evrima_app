@@ -7,13 +7,15 @@ interface CustomModalProps {
   visible: boolean;
   onClose: () => void;
   children: React.ReactNode;
+  ref?: React.LegacyRef<NativeModal>;
 }
 
 export const Modal = ({visible, onClose, children}: CustomModalProps) => {
+  if (!visible) return null;
   return (
     <NativeModal
       visible={visible}
-      animationType="fade"
+      animationType="slide"
       transparent
       style={styles.modalContainer}>
       <View style={styles.modalContainer}>

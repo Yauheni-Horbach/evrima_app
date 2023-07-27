@@ -8,7 +8,7 @@ import {
   useUpdateCurrentTravel,
 } from '@store/currentTravel';
 
-interface DirectionsState {
+export interface DirectionsState {
   origin: {
     latitude: number;
     longitude: number;
@@ -21,7 +21,7 @@ interface DirectionsState {
   } | null;
 }
 
-interface DirectionsInfoState {
+export interface DirectionsInfoState {
   distance: number | null;
   duration: number | null;
   startAddress: string | null;
@@ -35,6 +35,20 @@ export const useCurrentTravel = () => {
   const updateCurrentTravel = useUpdateCurrentTravel();
 
   const navigation = useNavigation<NavigationProp<'CurrentTravel'>>();
+
+  const [doneModal, setDoneModal] = React.useState({
+    isModalOpen: false,
+    fsq_id: '',
+  });
+
+  const changeStateDoneModalOpen = (fsq_id: string) => {
+    return () => {
+      setDoneModal({
+        isModalOpen: !doneModal.isModalOpen,
+        fsq_id,
+      });
+    };
+  };
 
   const [directions, setDirections] = React.useState<DirectionsState>({
     origin: data.currentCoordinates?.lat
@@ -129,13 +143,42 @@ export const useCurrentTravel = () => {
     };
   };
 
+  const likeListCategory = React.useMemo(() => {
+    return {
+      visited: data.likeList.filter(item =>
+        data.visitedPlaces.includes(item.fsq_id),
+      ),
+      notVisited: data.likeList.filter(
+        item => !data.visitedPlaces.includes(item.fsq_id),
+      ),
+    };
+  }, [data.likeList, data.visitedPlaces]);
+
+  const directionsInfoData = [
+    {
+      key: 'duration',
+      title: 'Duration',
+      value: `${directionsInfo.duration} min`,
+    },
+    {key: 'startAddress', title: 'Start', value: directionsInfo.startAddress},
+    {
+      key: 'distance',
+      title: 'Distance',
+      value: `${directionsInfo.distance} km`,
+    },
+    {key: 'endAddress', title: 'End', value: directionsInfo.endAddress},
+  ];
+
   return {
     isLoading: false,
     errorText: '',
     directions,
     currentTravelData: data,
-    likeList: data.likeList,
-    directionsInfo,
+    likeList: likeListCategory.notVisited,
+    visitedList: likeListCategory.visited,
+    doneModal,
+    directionsInfoData,
+    changeStateDoneModalOpen,
     onLongPress,
     onPressInPlace,
     onOpenSwipeItemDetails,

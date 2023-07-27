@@ -42,10 +42,6 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
   },
-  ratingContainer: {
-    height: 50,
-    width: '100%',
-  },
   separator: {
     backgroundColor: '#E8E8E8',
     height: 1,
