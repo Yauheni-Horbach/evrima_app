@@ -25,6 +25,17 @@ export const useSettings = () => {
   const updateEmail = useUpdateEmail();
   const updatePassword = useUpdatePassword();
 
+  const [isModalOpen, setOpenModal] = React.useState(false);
+  const [image, setImage] = React.useState('');
+
+  const changeStateModal = () => {
+    setOpenModal(!isModalOpen);
+  };
+
+  const changeImage = (uri: string) => {
+    setImage(uri);
+  };
+
   const [profileData, setProfileData] = React.useState({
     password: '',
     newPassword: '',
@@ -71,5 +82,9 @@ export const useSettings = () => {
     isLoading: loading,
     errorText: error,
     data,
+    changeStateModal,
+    changeImage,
+    image,
+    isModalOpen,
   };
 };

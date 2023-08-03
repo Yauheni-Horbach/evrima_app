@@ -1,9 +1,11 @@
 import React from 'react';
-import {Button, Text, TextInput, View} from 'react-native';
+import {Button, Image, Pressable, Text, TextInput, View} from 'react-native';
 import {SelectList} from 'react-native-dropdown-select-list';
 import {ScreenWrapper} from '@components/ScreenWrapper';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import {icons} from '@ui/index';
 
+import {ImageModal} from './components';
 import {styles} from './styles';
 import {useSettings} from './useSettings';
 
@@ -13,14 +15,29 @@ const sexData = [
 ];
 
 export const Settings = () => {
-  const {onSavePress, onInputChange, profileData, isLoading, errorText} =
-    useSettings();
+  const {
+    onSavePress,
+    onInputChange,
+    profileData,
+    isLoading,
+    errorText,
+    changeStateModal,
+    isModalOpen,
+    changeImage,
+    image,
+  } = useSettings();
 
   return (
     <ScreenWrapper>
       {isLoading && <Text>Loading...</Text>}
       {!isLoading && (
         <>
+          <View style={styles.row}>
+            <Pressable style={styles.circle} onPress={changeStateModal}>
+              {image && <Image source={{uri: image}} style={styles.image} />}
+              {!image && <Image source={icons.plus} style={styles.icon} />}
+            </Pressable>
+          </View>
           <View style={styles.row}>
             <Text style={styles.label}>Name:</Text>
             <TextInput
@@ -88,6 +105,11 @@ export const Settings = () => {
           </View>
           <Button title="Save Changes" onPress={onSavePress} />
           <Text>{errorText}</Text>
+          <ImageModal
+            isModalOpen={isModalOpen}
+            changeStateModal={changeStateModal}
+            changeImage={changeImage}
+          />
         </>
       )}
     </ScreenWrapper>
