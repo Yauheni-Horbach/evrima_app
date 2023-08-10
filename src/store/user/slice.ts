@@ -26,6 +26,8 @@ const initialState = {
     dislikes: [],
     location: '',
     avatar: '',
+    currentTravelId: '',
+    travelList: {},
   },
   loading: false,
   error: null,

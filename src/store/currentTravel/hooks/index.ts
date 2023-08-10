@@ -1,6 +1,7 @@
 export * from './useAddIdToVisitedPlaces';
 export * from './useAddPlaceToViewedListWithPlaceState';
 export * from './useClearCurrentTravelStore';
+export * from './useCreateTravel';
 export * from './useCurrentTravelStore';
 export * from './useDeleteItemFromLikeList';
 export * from './useFilterPlacesList';

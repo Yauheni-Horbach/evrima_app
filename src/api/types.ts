@@ -53,3 +53,24 @@ export interface PlaceItem {
   website: string;
   description?: string;
 }
+
+export interface TravelItem {
+  id: string;
+  name: string;
+  coordinates: {
+    lat: number;
+    lng: number;
+  };
+  location: string;
+  radius: number;
+  likeList: PlaceItem[];
+  dislikeList: PlaceItem[];
+  nextPageLink: string;
+  startDate: string;
+  endDate: string;
+  currentCoordinates: null | {
+    lat: number;
+    lng: number;
+  };
+  visitedPlaces: string[];
+}

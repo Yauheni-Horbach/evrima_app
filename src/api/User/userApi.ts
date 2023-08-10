@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import type {RequestResult} from '../types';
+import type {RequestResult, TravelItem} from '../types';
 
 export interface UpdateUserParams {
   name?: string;
@@ -19,6 +19,27 @@ export interface UserRequestResult extends UpdateUserParams {
   id: string;
   createdAt: string;
   updatedAt: string;
+  currentTravelId: string;
+  travelList: {
+    [id: string]: TravelItem;
+  };
+}
+
+export interface CreateTravelParams {
+  name: string;
+  coordinates: {
+    lat: number;
+    lng: number;
+  };
+  location: string;
+  radius: number;
+  startDate: string;
+  endDate: string;
+}
+
+export interface CreateTravelResult {
+  currentTravelId: string;
+  travelItem: TravelItem;
 }
 
 export const getUserProfileByGet = async (
@@ -33,9 +54,22 @@ export const updateUserProfileByPut = async (
   id: string,
   params: UpdateUserParams,
 ): RequestResult<UserRequestResult> => {
-  const response = await axios.put(`https://evrima.herokuapp.com/user/${id}`, {
-    ...params,
-  });
+  const response = await axios.put(
+    `https://evrima.herokuapp.com/user/${id}`,
+    params,
+  );
+
+  return response.data;
+};
+
+export const createTravelByPut = async (
+  id: string,
+  params: CreateTravelParams,
+): RequestResult<CreateTravelResult> => {
+  const response = await axios.put(
+    `https://evrima.herokuapp.com/user/createTravel/${id}`,
+    params,
+  );
 
   return response.data;
 };

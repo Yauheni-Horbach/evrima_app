@@ -25,18 +25,23 @@ const SquareButton = ({
 };
 
 export const Home = () => {
-  const {buttons} = useHome();
+  const {buttons, isLoading} = useHome();
 
   return (
-    <ScreenWrapper style={styles.container}>
-      {buttons.map((button, index) => (
-        <SquareButton
-          key={index}
-          disabled={button.disabled}
-          title={button.title}
-          onPress={button.onPress}
-        />
-      ))}
-    </ScreenWrapper>
+    <>
+      {isLoading && <Text>Loading...</Text>}
+      {!isLoading && (
+        <ScreenWrapper style={styles.container}>
+          {buttons.map(button => (
+            <SquareButton
+              key={button.title}
+              disabled={button.disabled}
+              title={button.title}
+              onPress={button.onPress}
+            />
+          ))}
+        </ScreenWrapper>
+      )}
+    </>
   );
 };

@@ -1,13 +1,22 @@
+import React from 'react';
 import {NavigationProp} from '@navigation/types';
 import {CommonActions, useNavigation} from '@react-navigation/native';
-import {useCurrentTravelStore} from '@store/currentTravel';
+import {useUpdateCurrentTravel} from '@store/currentTravel';
+import {useGetUserProfile, useUserStore} from '@store/user';
 
 export const useHome = () => {
   const navigation = useNavigation<NavigationProp<'Home'>>();
 
-  const {data} = useCurrentTravelStore();
+  const {loading, data: userData} = useUserStore();
+  const getUserProfile = useGetUserProfile();
+  const updateCurrentTravel = useUpdateCurrentTravel();
+
+  React.useEffect(() => {
+    getUserProfile(userData.id);
+  }, []);
 
   return {
+    isLoading: loading,
     buttons: [
       {
         title: 'Creating Journey',
@@ -16,6 +25,8 @@ export const useHome = () => {
       {
         title: 'Current Journey',
         onPress: () => {
+          updateCurrentTravel(userData.travelList[userData.currentTravelId]);
+
           navigation.dispatch(
             CommonActions.reset({
               index: 1,
@@ -23,7 +34,7 @@ export const useHome = () => {
             }),
           );
         },
-        disabled: !data.id,
+        disabled: !userData.currentTravelId,
       },
       {
         title: 'Journey history',

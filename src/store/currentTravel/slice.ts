@@ -3,6 +3,7 @@ import {createSlice} from '@reduxjs/toolkit';
 
 import {User} from '../storeNames';
 
+import {createTravelExtraReducer} from './extraReducers';
 import {InitialState} from './types';
 
 const removeDuplicateElements = (
@@ -94,6 +95,9 @@ const currentTravelSlice = createSlice({
     addIdToVisitedPlaces: (state, action) => {
       state.data.visitedPlaces.push(action.payload.fsq_id);
     },
+  },
+  extraReducers: builder => {
+    createTravelExtraReducer(builder);
   },
 });
 

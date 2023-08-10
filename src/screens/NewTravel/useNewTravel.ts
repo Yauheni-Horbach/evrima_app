@@ -1,17 +1,19 @@
 import React from 'react';
-import uuid from 'react-native-uuid';
 import {NavigationProp} from '@navigation/types';
 import {CommonActions, useNavigation} from '@react-navigation/native';
 import {
   useClearCurrentTravelStore,
-  useUpdateCurrentTravel,
+  useCreateTravel,
 } from '@store/currentTravel';
+import {useUserStore} from '@store/user';
 
 export const useNewTravel = () => {
   const navigation = useNavigation<NavigationProp<'NewTravel'>>();
 
-  const updateCurrentTravel = useUpdateCurrentTravel();
   const clearCurrentTravelStore = useClearCurrentTravelStore();
+  const createTravel = useCreateTravel();
+
+  const {data} = useUserStore();
 
   const [profileData, setProfileData] = React.useState({
     name: '',
@@ -27,17 +29,15 @@ export const useNewTravel = () => {
 
   const onStartPress = () => {
     clearCurrentTravelStore();
-    updateCurrentTravel({
-      id: `${uuid.v4()}`,
-      ...profileData,
-    });
 
-    navigation.dispatch(
-      CommonActions.reset({
-        index: 1,
-        routes: [{name: 'CurrentTravelNavigator'}],
-      }),
-    );
+    createTravel(data.id, profileData).then(() => {
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 1,
+          routes: [{name: 'CurrentTravelNavigator'}],
+        }),
+      );
+    });
   };
 
   const onInputChange = (

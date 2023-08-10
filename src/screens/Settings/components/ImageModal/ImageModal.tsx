@@ -21,11 +21,9 @@ export const ImageModal = ({
   };
 
   const onCreateImage = async () => {
-    const result = await launchCamera({
+    await launchCamera({
       mediaType: 'photo',
     });
-
-    console.log(result);
   };
 
   const onLaunchImage = async () => {
