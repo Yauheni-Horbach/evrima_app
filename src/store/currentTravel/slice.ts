@@ -3,7 +3,10 @@ import {createSlice} from '@reduxjs/toolkit';
 
 import {User} from '../storeNames';
 
-import {createTravelExtraReducer} from './extraReducers';
+import {
+  createTravelExtraReducer,
+  estimatePlaceExtraReducer,
+} from './extraReducers';
 import {InitialState} from './types';
 
 const removeDuplicateElements = (
@@ -74,21 +77,21 @@ const currentTravelSlice = createSlice({
       state.data.likeList = newArray;
     },
     addPlaceToViewedListWithPlaceState: (state, action) => {
-      if (action.payload.placeState === 'like') {
+      if (action.payload.event === 'like') {
         const isAlreadyAdded = state.data.likeList.find(item => {
-          return item.fsq_id === action.payload.place.fsq_id;
+          return item.fsq_id === action.payload.placeItem.fsq_id;
         });
 
         if (!isAlreadyAdded) {
-          state.data.likeList.push(action.payload.place);
+          state.data.likeList.push(action.payload.placeItem);
         }
       } else {
         const isAlreadyAdded = state.data.dislikeList.find(item => {
-          return item.fsq_id === action.payload.place.fsq_id;
+          return item.fsq_id === action.payload.placeItem.fsq_id;
         });
 
         if (!isAlreadyAdded) {
-          state.data.dislikeList.push(action.payload.place);
+          state.data.dislikeList.push(action.payload.placeItem);
         }
       }
     },
@@ -98,6 +101,7 @@ const currentTravelSlice = createSlice({
   },
   extraReducers: builder => {
     createTravelExtraReducer(builder);
+    estimatePlaceExtraReducer(builder);
   },
 });
 

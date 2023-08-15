@@ -41,6 +41,9 @@ const userSlice = createSlice({
     clearEventName: state => {
       state.eventName = null;
     },
+    updateUserLocal: (state, action) => {
+      state.data = {...state.data, ...action.payload};
+    },
   },
   extraReducers: builder => {
     fetchGetUserProfileExtraReducer(builder);
@@ -52,5 +55,5 @@ const userSlice = createSlice({
   },
 });
 
-export const {clearEventName} = userSlice.actions;
+export const {clearEventName, updateUserLocal} = userSlice.actions;
 export const userReducer = userSlice.reducer;

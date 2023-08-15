@@ -29,7 +29,7 @@ export interface DirectionsInfoState {
 }
 
 export const useCurrentTravel = () => {
-  const {data} = useCurrentTravelStore();
+  const {data: currentTravelData} = useCurrentTravelStore();
 
   const deleteItemFromLikeList = useDeleteItemFromLikeList();
   const updateCurrentTravel = useUpdateCurrentTravel();
@@ -51,10 +51,10 @@ export const useCurrentTravel = () => {
   };
 
   const [directions, setDirections] = React.useState<DirectionsState>({
-    origin: data.currentCoordinates?.lat
+    origin: currentTravelData.currentCoordinates?.lat
       ? {
-          latitude: data.currentCoordinates?.lat,
-          longitude: data.currentCoordinates?.lng,
+          latitude: currentTravelData.currentCoordinates?.lat,
+          longitude: currentTravelData.currentCoordinates?.lng,
           id: 'origin',
         }
       : null,
@@ -145,14 +145,14 @@ export const useCurrentTravel = () => {
 
   const likeListCategory = React.useMemo(() => {
     return {
-      visited: data.likeList.filter(item =>
-        data.visitedPlaces.includes(item.fsq_id),
+      visited: currentTravelData.likeList.filter(item =>
+        currentTravelData.visitedPlaces.includes(item.fsq_id),
       ),
-      notVisited: data.likeList.filter(
-        item => !data.visitedPlaces.includes(item.fsq_id),
+      notVisited: currentTravelData.likeList.filter(
+        item => !currentTravelData.visitedPlaces.includes(item.fsq_id),
       ),
     };
-  }, [data.likeList, data.visitedPlaces]);
+  }, [currentTravelData.likeList, currentTravelData.visitedPlaces]);
 
   const directionsInfoData = [
     {
@@ -173,7 +173,7 @@ export const useCurrentTravel = () => {
     isLoading: false,
     errorText: '',
     directions,
-    currentTravelData: data,
+    currentTravelData,
     likeList: likeListCategory.notVisited,
     visitedList: likeListCategory.visited,
     doneModal,

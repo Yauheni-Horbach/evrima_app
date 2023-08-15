@@ -22,12 +22,14 @@ export const DoneModal = ({
   isModalOpen,
   changeStateModal,
 }: ModalProps) => {
-  const {data} = useCurrentTravelStore();
+  const {data: currentTravelData} = useCurrentTravelStore();
   const addIdToVisitedPlaces = useAddIdToVisitedPlaces();
 
   const {rating, onSetRating} = useRating();
 
-  const currentPlace = data.likeList?.find(item => item.fsq_id === fsq_id);
+  const currentPlace = currentTravelData.likeList?.find(
+    item => item.fsq_id === fsq_id,
+  );
 
   const onClose = () => {
     changeStateModal();

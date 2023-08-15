@@ -7,7 +7,7 @@ export const useSearchCurrentTravel = () => {
   const navigation = useNavigation<NavigationProp<'TravelSwipes'>>();
 
   const updatePlacesList = useUpdatePlacesList();
-  const {data} = useCurrentTravelStore();
+  const {data: currentTravelData} = useCurrentTravelStore();
 
   const fetchData = async (fsq_id: string) => {
     const url = URL_PLACES_DETAILS_FOURSQUARE({
@@ -46,6 +46,6 @@ export const useSearchCurrentTravel = () => {
 
   return {
     onOpenSwipeItemDetails,
-    coordinates: data.coordinates,
+    coordinates: currentTravelData.coordinates,
   };
 };

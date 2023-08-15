@@ -4,6 +4,8 @@ import {
   createTravelByPut,
   CreateTravelParams,
   CreateTravelResult,
+  EstimatePlace,
+  estimatePlaceByPut,
 } from '../../api/User';
 import {errorMessageHandler} from '../../managers/ErrorHandler';
 
@@ -47,6 +49,43 @@ export const createTravelExtraReducer = (
       };
     })
     .addCase(createTravel.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.error.message as string;
+    });
+};
+
+export const estimatePlace = createAsyncThunk(
+  Events.ESTIMATE_PLACE,
+  async ({
+    id,
+    params,
+  }: {
+    id: string;
+    params: EstimatePlace;
+  }): Promise<EstimatePlace> => {
+    try {
+      const response = await estimatePlaceByPut(id, params);
+
+      return response;
+    } catch (error) {
+      throw new Error(errorMessageHandler(error));
+    }
+  },
+);
+
+export const estimatePlaceExtraReducer = (
+  builder: ActionReducerMapBuilder<InitialState>,
+) => {
+  builder
+    .addCase(estimatePlace.pending, state => {
+      state.loading = true;
+      state.error = null;
+    })
+    .addCase(estimatePlace.fulfilled, state => {
+      state.loading = false;
+      state.eventName = Events.ESTIMATE_PLACE;
+    })
+    .addCase(estimatePlace.rejected, (state, action) => {
       state.loading = false;
       state.error = action.error.message as string;
     });

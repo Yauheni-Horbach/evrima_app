@@ -11,6 +11,7 @@ import {
   useUpdateCurrentTravel,
   useUpdatePlacesList,
 } from '@store/currentTravel';
+import {useUserStore} from '@store/user';
 
 export const useTravelSwipes = () => {
   const [currentCardIndex, setCurrentCardIndex] = React.useState(0);
@@ -18,9 +19,10 @@ export const useTravelSwipes = () => {
   const isSkipFilterPlacesList = React.useRef(false);
   const swiperRef = React.useRef<Swiper<PlaceItem>>(null);
 
-  const {data} = useCurrentTravelStore();
+  const {data: currentTravelData} = useCurrentTravelStore();
+  const {data: userData} = useUserStore();
 
-  const nextPageUrl = React.useRef(data.nextPageLink);
+  const nextPageUrl = React.useRef(currentTravelData.nextPageLink);
 
   const updatePlacesList = useUpdatePlacesList();
   const addPlaceToViewedListWithPlaceState =
@@ -32,7 +34,7 @@ export const useTravelSwipes = () => {
 
   const fetchData = () => {
     const url = URL_PLACES_SEARCH_FOURSQUARE({
-      coordinates: data.coordinates,
+      coordinates: currentTravelData.coordinates,
       categories: [10000],
       fields: [
         'fsq_id',
@@ -47,7 +49,7 @@ export const useTravelSwipes = () => {
         'price',
         'photos',
       ],
-      radius: data.radius,
+      radius: currentTravelData.radius,
     });
 
     fetch(nextPageUrl.current || url, foursquare_options)
@@ -95,24 +97,30 @@ export const useTravelSwipes = () => {
   );
 
   React.useEffect(() => {
-    const likeAndDislikeList = [...data.dislikeList, ...data.likeList];
+    const likeAndDislikeList = [
+      ...currentTravelData.dislikeList,
+      ...currentTravelData.likeList,
+    ];
 
     if (
       likeAndDislikeList.find(
-        item => item.fsq_id === data.placesList[currentCardIndex]?.fsq_id,
+        item =>
+          item.fsq_id ===
+          currentTravelData.placesList[currentCardIndex]?.fsq_id,
       )
     ) {
       setCurrentCardIndex(currentCardIndex + 1);
       swiperRef.current?.swipeBottom();
     }
-  }, [data.dislikeList, data.likeList]);
+  }, [currentTravelData.dislikeList, currentTravelData.likeList]);
 
   const onSwiped = (index: number, event: 'like' | 'dislike') => {
     setCurrentCardIndex(index + 1);
 
-    addPlaceToViewedListWithPlaceState({
-      place: data.placesList[index],
-      placeState: event,
+    addPlaceToViewedListWithPlaceState(userData.id, {
+      placeItem: currentTravelData.placesList[index],
+      event,
+      currentTravelId: currentTravelData.id,
     });
   };
 
@@ -135,15 +143,18 @@ export const useTravelSwipes = () => {
   };
 
   const updateList = (index: number) => {
-    if (index + 4 === data.placesList.length && data.nextPageLink) {
+    if (
+      index + 4 === currentTravelData.placesList.length &&
+      currentTravelData.nextPageLink
+    ) {
       fetchData();
     }
   };
 
   return {
-    isLoading: !data.placesList.length,
+    isLoading: !currentTravelData.placesList.length,
     errorText: '',
-    listItems: data.placesList,
+    listItems: currentTravelData.placesList,
     onSwiped,
     onPressChangeState,
     onOpenSwipeItemDetails,

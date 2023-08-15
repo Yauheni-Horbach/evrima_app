@@ -5,15 +5,20 @@ import {
   useAddPlaceToViewedListWithPlaceState,
   useCurrentTravelStore,
 } from '@store/currentTravel';
+import {useUserStore} from '@store/user';
 
 export const useItemDetailsCurrentTravel = (id: string) => {
   const navigation = useNavigation();
 
   const addPlaceToViewedListWithPlaceState =
     useAddPlaceToViewedListWithPlaceState();
-  const {data} = useCurrentTravelStore();
+  const {data: currentTravelData} = useCurrentTravelStore();
+  const {data: userData} = useUserStore();
 
-  const currentListData = [...data.placesList, ...data.likeList];
+  const currentListData = [
+    ...currentTravelData.placesList,
+    ...currentTravelData.likeList,
+  ];
 
   const {isAddedToBookmarks, onAddToBookmarks} = useAddBookmarkButton({
     id,
@@ -24,9 +29,10 @@ export const useItemDetailsCurrentTravel = (id: string) => {
   const photos = (placeInfo?.photos ?? []).map(item => photoURLGenerator(item));
 
   const onPressChangeState = (event: 'like' | 'dislike') => {
-    addPlaceToViewedListWithPlaceState({
-      place: data.placesList.find(item => item.fsq_id === id)!,
-      placeState: event,
+    addPlaceToViewedListWithPlaceState(userData.id, {
+      placeItem: currentTravelData.placesList.find(item => item.fsq_id === id)!,
+      event,
+      currentTravelId: currentTravelData.id,
     });
 
     navigation.goBack();

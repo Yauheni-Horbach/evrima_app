@@ -6,14 +6,14 @@ import {useSearchStore} from '@store/search';
 export const useItemDetailsSearch = (id: string) => {
   const navigation = useNavigation();
 
-  const {data} = useSearchStore();
+  const {data: searchData} = useSearchStore();
 
   const {isAddedToBookmarks, onAddToBookmarks} = useAddBookmarkButton({
     id,
-    data: [data.currentSearchResultProduct],
+    data: [searchData.currentSearchResultProduct],
   });
 
-  const placeInfo = data.currentSearchResultProduct;
+  const placeInfo = searchData.currentSearchResultProduct;
   const photos = (placeInfo?.photos ?? []).map(item => photoURLGenerator(item));
 
   const onGoBack = () => {

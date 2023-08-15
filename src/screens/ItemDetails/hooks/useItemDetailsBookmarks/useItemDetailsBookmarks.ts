@@ -6,14 +6,16 @@ import {useBookmarksStore} from '@store/bookmarks';
 export const useItemDetailsBookmarks = (id: string) => {
   const navigation = useNavigation();
 
-  const {data} = useBookmarksStore();
+  const {data: bookmarksData} = useBookmarksStore();
 
   const {isAddedToBookmarks, onAddToBookmarks} = useAddBookmarkButton({
     id,
-    data: data.bookmarksList,
+    data: bookmarksData.bookmarksList,
   });
 
-  const placeInfo = data.bookmarksList.find(item => item.fsq_id === id);
+  const placeInfo = bookmarksData.bookmarksList.find(
+    item => item.fsq_id === id,
+  );
   const photos = (placeInfo?.photos ?? []).map(item => photoURLGenerator(item));
 
   const onGoBack = () => {

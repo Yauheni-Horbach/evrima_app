@@ -6,12 +6,12 @@ import {
 
 export const useSettingsCurrentTravel = () => {
   const updateCurrentTravel = useUpdateCurrentTravel();
-  const {data} = useCurrentTravelStore();
+  const {data: currentTravelData} = useCurrentTravelStore();
 
   const [profileData, setProfileData] = React.useState({
-    name: data.name,
-    startDate: data.startDate,
-    endDate: data.endDate,
+    name: currentTravelData.name,
+    startDate: currentTravelData.startDate,
+    endDate: currentTravelData.endDate,
   });
 
   const onChangePress = () => {

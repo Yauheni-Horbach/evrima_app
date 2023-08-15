@@ -4,8 +4,9 @@ import {CommonActions, useNavigation} from '@react-navigation/native';
 import {
   useClearCurrentTravelStore,
   useCreateTravel,
+  useCurrentTravelStore,
 } from '@store/currentTravel';
-import {useUserStore} from '@store/user';
+import {useUpdateUserLocal, useUserStore} from '@store/user';
 
 export const useNewTravel = () => {
   const navigation = useNavigation<NavigationProp<'NewTravel'>>();
@@ -13,7 +14,9 @@ export const useNewTravel = () => {
   const clearCurrentTravelStore = useClearCurrentTravelStore();
   const createTravel = useCreateTravel();
 
-  const {data} = useUserStore();
+  const {data: userData} = useUserStore();
+  const {data: currentTravelData} = useCurrentTravelStore();
+  const updateUserLocal = useUpdateUserLocal();
 
   const [profileData, setProfileData] = React.useState({
     name: '',
@@ -30,13 +33,14 @@ export const useNewTravel = () => {
   const onStartPress = () => {
     clearCurrentTravelStore();
 
-    createTravel(data.id, profileData).then(() => {
+    createTravel(userData.id, profileData).then(() => {
       navigation.dispatch(
         CommonActions.reset({
           index: 1,
           routes: [{name: 'CurrentTravelNavigator'}],
         }),
       );
+      updateUserLocal({currentTravelId: currentTravelData.id});
     });
   };
 
