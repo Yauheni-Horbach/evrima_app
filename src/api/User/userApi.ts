@@ -48,6 +48,21 @@ export interface CreateTravelResult {
   travelItem: TravelItem;
 }
 
+export interface AddIdToVisitedPlaces {
+  currentTravelId: string;
+  id: string;
+}
+
+export interface AddIdToVisitedPlacesResult {
+  currentTravelId: string;
+  visitedPlaces: string[];
+}
+
+export interface DeletePlaceFromTravelItemResult {
+  currentTravelId: string;
+  travelItem: TravelItem;
+}
+
 export const getUserProfileByGet = async (
   id: string,
 ): RequestResult<UserRequestResult> => {
@@ -87,6 +102,30 @@ export const estimatePlaceByPut = async (
   const response = await axios.put(
     `https://evrima.herokuapp.com/user/estimatePlace/${id}`,
     params,
+  );
+
+  return response.data;
+};
+
+export const addIdToVisitedPlacesByPut = async (
+  id: string,
+  params: AddIdToVisitedPlaces,
+): RequestResult<AddIdToVisitedPlacesResult> => {
+  const response = await axios.put(
+    `https://evrima.herokuapp.com/user/addIdToVisitedPlaces/${id}`,
+    params,
+  );
+
+  return response.data;
+};
+
+export const deletePlaceFromTravelItemByDelete = async (
+  id: string,
+  travelId: string,
+  placeId: string,
+): RequestResult<DeletePlaceFromTravelItemResult> => {
+  const response = await axios.delete(
+    `https://evrima.herokuapp.com/user/deletePlaceFromTravelItem/${id}/${travelId}/${placeId}`,
   );
 
   return response.data;

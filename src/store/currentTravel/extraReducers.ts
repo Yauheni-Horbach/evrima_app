@@ -1,6 +1,9 @@
 import {ActionReducerMapBuilder, createAsyncThunk} from '@reduxjs/toolkit';
 
 import {
+  AddIdToVisitedPlaces,
+  addIdToVisitedPlacesByPut,
+  AddIdToVisitedPlacesResult,
   createTravelByPut,
   CreateTravelParams,
   CreateTravelResult,
@@ -86,6 +89,47 @@ export const estimatePlaceExtraReducer = (
       state.eventName = Events.ESTIMATE_PLACE;
     })
     .addCase(estimatePlace.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.error.message as string;
+    });
+};
+
+export const addIdToVisitedPlaces = createAsyncThunk(
+  Events.ADD_ID_TO_VISITED_PLACES,
+  async ({
+    id,
+    params,
+  }: {
+    id: string;
+    params: AddIdToVisitedPlaces;
+  }): Promise<AddIdToVisitedPlacesResult> => {
+    try {
+      const response = await addIdToVisitedPlacesByPut(id, params);
+
+      return response;
+    } catch (error) {
+      throw new Error(errorMessageHandler(error));
+    }
+  },
+);
+
+export const addIdToVisitedPlacesExtraReducer = (
+  builder: ActionReducerMapBuilder<InitialState>,
+) => {
+  builder
+    .addCase(addIdToVisitedPlaces.pending, state => {
+      state.loading = true;
+      state.error = null;
+    })
+    .addCase(addIdToVisitedPlaces.fulfilled, (state, action) => {
+      state.loading = false;
+      state.eventName = Events.ADD_ID_TO_VISITED_PLACES;
+      state.data = {
+        ...state.data,
+        visitedPlaces: action.payload.visitedPlaces,
+      };
+    })
+    .addCase(addIdToVisitedPlaces.rejected, (state, action) => {
       state.loading = false;
       state.error = action.error.message as string;
     });

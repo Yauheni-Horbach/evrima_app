@@ -8,6 +8,7 @@ import {
   useAddIdToVisitedPlaces,
   useCurrentTravelStore,
 } from '@store/currentTravel';
+import {useUserStore} from '@store/user';
 
 import {styles} from './styles';
 
@@ -23,6 +24,7 @@ export const DoneModal = ({
   changeStateModal,
 }: ModalProps) => {
   const {data: currentTravelData} = useCurrentTravelStore();
+  const {data: userData} = useUserStore();
   const addIdToVisitedPlaces = useAddIdToVisitedPlaces();
 
   const {rating, onSetRating} = useRating();
@@ -37,7 +39,10 @@ export const DoneModal = ({
   };
 
   const onPressDone = () => {
-    addIdToVisitedPlaces({fsq_id});
+    addIdToVisitedPlaces(userData.id, {
+      currentTravelId: currentTravelData.id,
+      id: fsq_id,
+    });
     onClose();
   };
 

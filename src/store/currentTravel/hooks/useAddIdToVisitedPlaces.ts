@@ -2,14 +2,14 @@ import React from 'react';
 import * as Redux from 'react-redux';
 
 import {AppDispatch} from '../../index';
-import {addIdToVisitedPlaces} from '../slice';
+import {addIdToVisitedPlaces} from '../extraReducers';
 
 export const useAddIdToVisitedPlaces = () => {
   const dispatch = Redux.useDispatch<AppDispatch>();
 
   return React.useCallback(
-    (payload: {fsq_id: string}) => {
-      dispatch(addIdToVisitedPlaces(payload));
+    (id: string, params: {currentTravelId: string; id: string}) => {
+      dispatch(addIdToVisitedPlaces({id, params}));
     },
     [dispatch],
   );

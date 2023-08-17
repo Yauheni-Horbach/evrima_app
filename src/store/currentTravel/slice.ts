@@ -4,6 +4,7 @@ import {createSlice} from '@reduxjs/toolkit';
 import {User} from '../storeNames';
 
 import {
+  addIdToVisitedPlacesExtraReducer,
   createTravelExtraReducer,
   estimatePlaceExtraReducer,
 } from './extraReducers';
@@ -71,10 +72,12 @@ const currentTravelSlice = createSlice({
       state.data.placesList = newElements;
     },
     deleteItemFromLikeList: (state, action) => {
-      const newArray = state.data.likeList.filter(
+      state.data.likeList = state.data.likeList.filter(
         item => item.fsq_id !== action.payload.fsq_id,
       );
-      state.data.likeList = newArray;
+      state.data.visitedPlaces = state.data.visitedPlaces.filter(
+        item => item !== action.payload.fsq_id,
+      );
     },
     addPlaceToViewedListWithPlaceState: (state, action) => {
       if (action.payload.event === 'like') {
@@ -95,13 +98,11 @@ const currentTravelSlice = createSlice({
         }
       }
     },
-    addIdToVisitedPlaces: (state, action) => {
-      state.data.visitedPlaces.push(action.payload.fsq_id);
-    },
   },
   extraReducers: builder => {
     createTravelExtraReducer(builder);
     estimatePlaceExtraReducer(builder);
+    addIdToVisitedPlacesExtraReducer(builder);
   },
 });
 
@@ -112,6 +113,5 @@ export const {
   updatePlacesList,
   filterPlacesList,
   deleteItemFromLikeList,
-  addIdToVisitedPlaces,
 } = currentTravelSlice.actions;
 export const currentTravelReducer = currentTravelSlice.reducer;
