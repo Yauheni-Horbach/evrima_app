@@ -7,6 +7,7 @@ import {Bookmarks} from '@screens/Bookmarks';
 import {CurrentTravel} from '@screens/CurrentTravel';
 import {Home} from '@screens/Home';
 import {ItemDetails} from '@screens/ItemDetails';
+import {JourneyHistory} from '@screens/JourneyHistory';
 import {Login} from '@screens/Login';
 import {NewTravel} from '@screens/NewTravel';
 import {Onboarding} from '@screens/Onboarding';
@@ -42,6 +43,7 @@ const linking = {
       SettingsCurrentTravel: 'settingsCurrentTravel',
       Bookmarks: 'Bookmarks',
       Settings: 'Settings',
+      JourneyHistory: 'JourneyHistory',
     },
   },
 };
@@ -107,6 +109,7 @@ export const RootNavigator = () => {
         <Stack.Screen name="NewTravel" component={NewTravel} />
         <Stack.Screen name="Bookmarks" component={Bookmarks} />
         <Stack.Screen name="Settings" component={Settings} />
+        <Stack.Screen name="JourneyHistory" component={JourneyHistory} />
         <Stack.Screen
           name="CurrentTravelNavigator"
           component={CurrentTravelNavigator}

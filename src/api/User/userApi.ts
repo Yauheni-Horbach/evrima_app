@@ -11,6 +11,7 @@ export interface UpdateUserParams {
   dislikes?: string[];
   location?: string;
   avatar?: string;
+  currentTravelId?: string;
 }
 
 export interface UserRequestResult extends UpdateUserParams {

@@ -38,11 +38,7 @@ export const useHome = () => {
       },
       {
         title: 'Journey history',
-        onPress: () => {},
-      },
-      {
-        title: 'Location rating',
-        onPress: () => {},
+        onPress: () => navigation.navigate('JourneyHistory'),
       },
       {title: 'Settings', onPress: () => navigation.navigate('Settings')},
       {
@@ -50,8 +46,13 @@ export const useHome = () => {
         onPress: () => {
           navigation.navigate('Search');
         },
+        disabled: true,
       },
-      {title: 'Bookmarks', onPress: () => navigation.navigate('Bookmarks')},
+      {
+        title: 'Bookmarks',
+        onPress: () => navigation.navigate('Bookmarks'),
+        disabled: true,
+      },
     ],
   };
 };

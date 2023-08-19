@@ -24,6 +24,7 @@ export type RootStackParamList = {
   CurrentTravelNavigator: undefined;
   Bookmarks: undefined;
   Settings: undefined;
+  JourneyHistory: undefined;
 };
 
 export type NavigationProp<Screen extends keyof RootStackParamList> =
