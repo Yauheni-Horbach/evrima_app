@@ -7,6 +7,7 @@ import {
   useDeleteItemFromLikeList,
   useUpdateCurrentTravel,
 } from '@store/currentTravel';
+import {useUserStore} from '@store/user';
 
 export interface DirectionsState {
   origin: {
@@ -30,6 +31,7 @@ export interface DirectionsInfoState {
 
 export const useCurrentTravel = () => {
   const {data: currentTravelData} = useCurrentTravelStore();
+  const {data: userData} = useUserStore();
 
   const deleteItemFromLikeList = useDeleteItemFromLikeList();
   const updateCurrentTravel = useUpdateCurrentTravel();
@@ -132,7 +134,11 @@ export const useCurrentTravel = () => {
           origin: null,
         });
       }
-      deleteItemFromLikeList({fsq_id});
+      deleteItemFromLikeList({
+        id: userData.id,
+        travelId: currentTravelData.id,
+        placeId: fsq_id,
+      });
 
       setDirectionsInfo({
         distance: null,

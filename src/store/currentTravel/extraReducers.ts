@@ -7,6 +7,8 @@ import {
   createTravelByPut,
   CreateTravelParams,
   CreateTravelResult,
+  deletePlaceFromTravelItemByDelete,
+  DeletePlaceFromTravelItemResult,
   EstimatePlace,
   estimatePlaceByPut,
 } from '../../api/User';
@@ -130,6 +132,56 @@ export const addIdToVisitedPlacesExtraReducer = (
       };
     })
     .addCase(addIdToVisitedPlaces.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.error.message as string;
+    });
+};
+
+export const deletePlaceFromTravelItem = createAsyncThunk(
+  Events.DELETE_PLACE,
+  async ({
+    id,
+    travelId,
+    placeId,
+  }: {
+    id: string;
+    travelId: string;
+    placeId: string;
+  }): Promise<DeletePlaceFromTravelItemResult> => {
+    try {
+      const response = await deletePlaceFromTravelItemByDelete(
+        id,
+        travelId,
+        placeId,
+      );
+
+      return response;
+    } catch (error) {
+      console.log(error);
+      throw new Error(errorMessageHandler(error));
+    }
+  },
+);
+
+export const deletePlaceFromTravelItemExtraReducer = (
+  builder: ActionReducerMapBuilder<InitialState>,
+) => {
+  builder
+    .addCase(deletePlaceFromTravelItem.pending, state => {
+      state.loading = true;
+      state.error = null;
+    })
+    .addCase(deletePlaceFromTravelItem.fulfilled, (state, action) => {
+      state.loading = false;
+      state.eventName = Events.ADD_ID_TO_VISITED_PLACES;
+      state.data.likeList = state.data.likeList.filter(
+        item => item.fsq_id !== action.payload.placeId,
+      );
+      state.data.visitedPlaces = state.data.visitedPlaces.filter(
+        item => item !== action.payload.placeId,
+      );
+    })
+    .addCase(deletePlaceFromTravelItem.rejected, (state, action) => {
       state.loading = false;
       state.error = action.error.message as string;
     });

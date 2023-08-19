@@ -2,14 +2,14 @@ import React from 'react';
 import * as Redux from 'react-redux';
 
 import {AppDispatch} from '../../index';
-import {deleteItemFromLikeList} from '../slice';
+import {deletePlaceFromTravelItem} from '../extraReducers';
 
 export const useDeleteItemFromLikeList = () => {
   const dispatch = Redux.useDispatch<AppDispatch>();
 
   return React.useCallback(
-    (payload: {fsq_id: string}) => {
-      dispatch(deleteItemFromLikeList(payload));
+    (payload: {id: string; travelId: string; placeId: string}) => {
+      dispatch(deletePlaceFromTravelItem(payload));
     },
     [dispatch],
   );

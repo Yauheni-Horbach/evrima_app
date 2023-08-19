@@ -6,6 +6,7 @@ import {User} from '../storeNames';
 import {
   addIdToVisitedPlacesExtraReducer,
   createTravelExtraReducer,
+  deletePlaceFromTravelItemExtraReducer,
   estimatePlaceExtraReducer,
 } from './extraReducers';
 import {InitialState} from './types';
@@ -71,14 +72,6 @@ const currentTravelSlice = createSlice({
 
       state.data.placesList = newElements;
     },
-    deleteItemFromLikeList: (state, action) => {
-      state.data.likeList = state.data.likeList.filter(
-        item => item.fsq_id !== action.payload.fsq_id,
-      );
-      state.data.visitedPlaces = state.data.visitedPlaces.filter(
-        item => item !== action.payload.fsq_id,
-      );
-    },
     addPlaceToViewedListWithPlaceState: (state, action) => {
       if (action.payload.event === 'like') {
         const isAlreadyAdded = state.data.likeList.find(item => {
@@ -103,6 +96,7 @@ const currentTravelSlice = createSlice({
     createTravelExtraReducer(builder);
     estimatePlaceExtraReducer(builder);
     addIdToVisitedPlacesExtraReducer(builder);
+    deletePlaceFromTravelItemExtraReducer(builder);
   },
 });
 
@@ -112,6 +106,5 @@ export const {
   addPlaceToViewedListWithPlaceState,
   updatePlacesList,
   filterPlacesList,
-  deleteItemFromLikeList,
 } = currentTravelSlice.actions;
 export const currentTravelReducer = currentTravelSlice.reducer;

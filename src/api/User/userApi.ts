@@ -60,7 +60,7 @@ export interface AddIdToVisitedPlacesResult {
 
 export interface DeletePlaceFromTravelItemResult {
   currentTravelId: string;
-  travelItem: TravelItem;
+  placeId: string;
 }
 
 export const getUserProfileByGet = async (
