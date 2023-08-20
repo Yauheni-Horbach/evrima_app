@@ -1,7 +1,7 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
+import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
 import {Auth} from '@screens/Auth';
 import {Bookmarks} from '@screens/Bookmarks';
 import {CurrentTravel} from '@screens/CurrentTravel';
@@ -93,7 +93,13 @@ export const RootNavigator = () => {
           headerShown: false,
         }}>
         <Stack.Screen name="Welcome" component={Welcome} />
-        <Stack.Screen name="Auth" component={Auth} />
+        <Stack.Screen
+          name="Auth"
+          component={Auth}
+          options={{
+            ...TransitionPresets.ModalFadeTransition,
+          }}
+        />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Search" component={Search} />
         <Stack.Screen

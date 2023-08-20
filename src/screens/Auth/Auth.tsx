@@ -1,17 +1,28 @@
 import React from 'react';
-import {Button, View} from 'react-native';
+import {ImageBackground, View} from 'react-native';
+import {Button} from '@components/Button';
+import {images} from '@ui/index';
 
 import {styles} from './styles';
 import {useAuth} from './useAuth';
 
 export const Auth = () => {
-  const {onAuthPress, onRegisterPress, onContinueAsGuestPress} = useAuth();
+  const {onAuthPress, onRegisterPress} = useAuth();
 
   return (
-    <View style={styles.container}>
-      <Button title="Login" onPress={onAuthPress} />
-      <Button title="Register" onPress={onRegisterPress} />
-      <Button title="Continue as guest" onPress={onContinueAsGuestPress} />
-    </View>
+    <ImageBackground style={styles.container} source={images.ocean}>
+      <View style={styles.content}>
+        <Button
+          title="Login"
+          onPress={onAuthPress}
+          style={[styles.topButton, styles.button]}
+        />
+        <Button
+          title="Register"
+          onPress={onRegisterPress}
+          style={styles.button}
+        />
+      </View>
+    </ImageBackground>
   );
 };

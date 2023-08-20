@@ -12,13 +12,8 @@ export const useAuth = () => {
     navigation.navigate('Registration');
   };
 
-  const onContinueAsGuestPress = () => {
-    navigation.navigate('Home');
-  };
-
   return {
     onAuthPress,
     onRegisterPress,
-    onContinueAsGuestPress,
   };
 };

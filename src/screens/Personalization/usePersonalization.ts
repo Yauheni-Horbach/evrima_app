@@ -43,7 +43,7 @@ export const usePersonalization = () => {
   React.useEffect(() => {
     if (eventName === Events.UPDATE_USER_PROFILE) {
       navigation.reset({
-        routes: [{name: 'Onboarding'}],
+        routes: [{name: 'Home'}],
       });
       clearEventName();
     }
